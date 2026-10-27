@@ -1,0 +1,22 @@
+{
+  "name": "dotnet-org-cn",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "面向中国开发者的 .NET 与 AI 开源社区官网",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "node --test tests/site.test.mjs",
+    "data": "node scripts/sync-projects.mjs",
+    "deploy": "npm run build && npx wrangler@4 pages deploy dist --project-name=dotnet-org-cn --branch=main",
+    "cloudflare:setup": "node scripts/cloudflare-setup.mjs",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1"
+  }
+}

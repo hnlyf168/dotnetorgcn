@@ -1,0 +1,207 @@
+{
+  "owner": "hnlyf168",
+  "syncedAt": "2026-10-27",
+  "projects": [
+    {
+      "name": "FunAsrNet",
+      "title": "FunASR.NET",
+      "category": "ai",
+      "icon": "wave",
+      "eyebrow": "让应用听懂世界",
+      "description": "用纯 C# 探索中文语音 AI。从普通话识别、语音合成，到浏览器实时转写与电话音频处理。",
+      "tags": [
+        "语音识别",
+        "中文 TTS",
+        "SIMD",
+        "Vulkan"
+      ],
+      "stars": 49,
+      "fork": false,
+      "features": [
+        "普通话 ASR、VAD 切句与 WebSocket 转写",
+        "中文语音合成及浏览器演示",
+        "CPU SIMD 与显式启用的 Vulkan 混合后端"
+      ],
+      "note": "独立社区实现，非 FunASR 官方 SDK。需要另行准备兼容模型权重；尚未发布 NuGet 包。",
+      "command": "git clone https://github.com/hnlyf168/FunAsrNet.git"
+    },
+    {
+      "name": "SimdYolo",
+      "title": "SimdYolo",
+      "category": "ai",
+      "icon": "scan",
+      "eyebrow": "让代码看见更多",
+      "description": "纯 C# YOLO 推理与检测头微调。支持目标检测、实例分割和姿态估计，探索 CPU 与 GPU 的更多可能。",
+      "tags": [
+        "计算机视觉",
+        "YOLO",
+        "Vulkan",
+        "Metal"
+      ],
+      "stars": 30,
+      "fork": false,
+      "features": [
+        "支持范围内的 PT / ONNX 模型直接加载",
+        "目标检测、实例分割与姿态估计",
+        "CPU SIMD、Vulkan / Metal 后端及检测头微调"
+      ],
+      "note": "模型和算子支持以仓库清单为准。Metal 后端尚未实机验证；训练为冻结骨干的检测头微调。",
+      "command": "dotnet add package SimdYolo"
+    },
+    {
+      "name": "PureDb",
+      "title": "PureDb",
+      "category": "infra",
+      "icon": "database",
+      "eyebrow": "数据，回归纯粹",
+      "description": "纯 .NET 嵌入式文件数据库。把 SQL、JOIN、JSON、事务与 ADO.NET 带入轻量应用。",
+      "tags": [
+        "数据库",
+        "SQL",
+        "ADO.NET"
+      ],
+      "stars": 13,
+      "fork": false,
+      "features": [
+        "独立 KV 与 SQL API、参数化查询及 JOIN",
+        "JSON、事务、保存点与 ADO.NET",
+        "可选纯托管 SQLite 文件兼容库"
+      ],
+      "note": "当前为预览版。SQL 与 SQLite 文件兼容均有明确边界，不支持完整 SQLite SQL 或 WAL 文件协议。",
+      "command": "dotnet add package PureDb --prerelease"
+    },
+    {
+      "name": "SimdSkia",
+      "title": "SimdSkia",
+      "category": "infra",
+      "icon": "layers",
+      "eyebrow": "描绘下一帧",
+      "description": "独立 C# 2D 渲染引擎。连接 CPU SIMD、Vulkan、Direct2D 与 Avalonia 桌面应用。",
+      "tags": [
+        "2D 渲染",
+        "Avalonia",
+        "SIMD"
+      ],
+      "stars": 10,
+      "fork": false,
+      "features": [
+        "C# 绘图、字体、基础排版及图像编解码",
+        "CPU 渲染及可选 Vulkan / Direct2D 后端",
+        "Avalonia 桌面适配与部分 SkiaSharp 源码 API 兼容"
+      ],
+      "note": "当前为预览版，完整 API 和整页画质验收尚未全部通过；macOS GPU 尚未实现。",
+      "command": "dotnet add package SimdSkia.Avalonia.Desktop --prerelease"
+    },
+    {
+      "name": "Serein",
+      "title": "Serein",
+      "category": "connect",
+      "icon": "play",
+      "eyebrow": "连接每一帧",
+      "description": "纯 .NET 流媒体引擎，专注 RTSP/RTP 接入、媒体转封装、实时分发与录制。",
+      "tags": [
+        "流媒体",
+        "RTSP / RTP",
+        "WebSocket"
+      ],
+      "stars": 1,
+      "fork": false,
+      "features": [
+        "RTSP / RTP / MPEG-PS 媒体接入",
+        "RTSP、HTTP-FLV 与 WebSocket-FLV 输出",
+        "媒体录制、托管音频处理及 ASP.NET Core 集成"
+      ],
+      "note": "预览版。视频链路主要负责解包和转发，不含通用视频转码；尚未实现 HLS、WebRTC 等输出。",
+      "command": "dotnet add package Serein.AspNetCore --prerelease"
+    },
+    {
+      "name": "yunsevo",
+      "title": "Yunsevo · 沄序",
+      "category": "apps",
+      "icon": "cloud",
+      "eyebrow": "文件，自在流动",
+      "description": ".NET 云文件管理与跨平台同步。覆盖权限、版本历史、断点续传，以及桌面和 Android 客户端。",
+      "tags": [
+        "私有云",
+        "文件同步",
+        "跨平台"
+      ],
+      "stars": 2,
+      "fork": false,
+      "features": [
+        "用户和用户组授权、配额、版本历史与回收站",
+        "大文件分块续传、多目录同步及审计",
+        "Windows / Linux / macOS 与 Android 客户端"
+      ],
+      "note": "具体平台和架构请按 Releases 选择。当前不包含 iPhone 安装包。",
+      "command": "git clone https://github.com/hnlyf168/yunsevo.git"
+    },
+    {
+      "name": "p2pvpn",
+      "title": "P2P VPN",
+      "category": "connect",
+      "icon": "network",
+      "eyebrow": "让设备彼此相连",
+      "description": "独立虚拟组网项目。提供网络与设备管理、P2P 打洞、客户端及独立中继节点。",
+      "tags": [
+        "虚拟组网",
+        "P2P",
+        "Native AOT"
+      ],
+      "stars": 1,
+      "fork": false,
+      "features": [
+        "网络、分组与设备管理",
+        "优先 P2P 直连及可选 WSS 中继",
+        "Windows、Linux 客户端及 Android 源码"
+      ],
+      "note": "实际直连效果受 NAT、防火墙和网络环境影响。中继依赖已部署且在线的节点；各平台版本以发布页为准。",
+      "command": "git clone https://github.com/hnlyf168/p2pvpn.git"
+    },
+    {
+      "name": "ProtoBus",
+      "title": "ProtoBus",
+      "category": "connect",
+      "icon": "terminal",
+      "eyebrow": "跨越协议的边界",
+      "description": "面向 .NET 的统一多传输、多协议通信框架，探索工业、物联网与车载设备互联。",
+      "tags": [
+        "工业物联",
+        "MQTT",
+        "Modbus"
+      ],
+      "stars": 0,
+      "fork": false,
+      "features": [
+        "TCP / UDP / 串口 / Unix Socket / CAN",
+        "MQTT、SIP、GB28181 与 JT/T 808",
+        "Modbus、FINS、S7 等工业协议方向"
+      ],
+      "note": "当前公开 README 较精简。以上为仓库声明的项目方向，具体实现、示例与可用性请检查源码。",
+      "command": "git clone https://github.com/hnlyf168/ProtoBus.git"
+    },
+    {
+      "name": "SimdPaddleOCR",
+      "title": "SimdPaddleOCR",
+      "category": "ai",
+      "icon": "text",
+      "eyebrow": "把图像变成文字",
+      "description": "关注纯 C# PP-OCRv6 文字识别。以托管 ONNX 解释器连接文字检测、方向分类与识别。",
+      "tags": [
+        "OCR",
+        "PP-OCRv6",
+        "Fork"
+      ],
+      "stars": 0,
+      "fork": true,
+      "upstream": "https://github.com/sdcb/SimdPaddleOCR",
+      "features": [
+        "文字检测、方向分类与文字识别",
+        "托管 ONNX 解释器及 SIMD 内核",
+        "核心 API 接收像素内存，不强制图片解码库"
+      ],
+      "note": "此仓库为 sdcb/SimdPaddleOCR 的 Fork，原项目归属与许可证请参见上游。本站不将其作为原创项目展示。",
+      "command": "git clone https://github.com/hnlyf168/SimdPaddleOCR.git"
+    }
+  ]
+}

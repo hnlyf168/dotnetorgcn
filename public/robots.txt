@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dotnet.org.cn/sitemap.xml
