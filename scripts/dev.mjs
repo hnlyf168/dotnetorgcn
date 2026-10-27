@@ -9,6 +9,17 @@ const port = Number(process.env.PORT || 4321);
 http.createServer(async (req,res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+    if(pathname.startsWith('/api/')){
+      const request=new Request(`http://127.0.0.1:${port}${req.url}`);
+      let module,params={};
+      const project=pathname.match(/^\/api\/projects\/([^/]+)$/),avatar=pathname.match(/^\/api\/avatar\/(\d+)$/);
+      if(project){module=await import('../functions/api/projects/[slug].js');params.slug=project[1];}
+      else if(avatar){module=await import('../functions/api/avatar/[id].js');params.id=avatar[1];}
+      else if(pathname==='/api/community')module=await import('../functions/api/community.js');
+      if(!module){res.writeHead(404).end();return;}
+      const response=await module.onRequestGet({request,params,env:{GITHUB_READ_TOKEN:process.env.GITHUB_READ_TOKEN||''},waitUntil:()=>{}});
+      res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));return;
+    }
     let file = resolve(root, '.' + pathname);
     if (file !== root && !file.startsWith(root + sep)) { res.writeHead(403).end(); return; }
     if ((await stat(file)).isDirectory()) file = resolve(file, 'index.html');

@@ -1,14 +1,14 @@
 # .NET 中国 · dotnet.org.cn
 
-面向中国开发者的 .NET 与 AI 开源社区官网。纯静态、无运行时第三方依赖，部署到 Cloudflare Pages。
+面向中国开发者的 .NET 与 AI 开源社区官网。页面预渲染，动态数据使用 Cloudflare Pages Functions，无生产环境 npm 依赖。
 
-采用白色、浅灰与靛紫色的阅读友好设计。包含可交互粒子主视觉、9 个真实开源仓库、分类与搜索、独立项目介绍页、技术生态代码切换、代码复制和移动端导航。首页、项目介绍及关于我们提供完整中英双语，共 22 个静态页面。
+采用深蓝轨道主视觉与浅色阅读区域。包含项目下拉菜单、15 个真实仓库、分类与搜索、独立项目介绍页、成员目录、Star 支持者分页、NuGet 版本/下载量/包依赖、代码复制与移动端导航。首页、项目、关于我们和成员页面提供完整中英双语，共 36 个页面。
 
 社区组织为 [donet-org-cn](https://github.com/donet-org-cn)，交流入口为 [Community Discussions](https://github.com/donet-org-cn/community/discussions)，贡献说明见 [组织贡献指南](https://github.com/donet-org-cn/.github/blob/main/CONTRIBUTING.md)。[关于我们](https://dotnet.org.cn/about/)明确说明社区方向、参与方式和项目归属。
 
 首次访问默认网址时按浏览器首选语言选择：中文系统显示中文，其余显示英文。导航栏可手动切换并记住选择，项目切换语言后仍停留在同一项目。显式的 `/en/` 链接保留英文，便于跨语言分享。浏览器禁用存储时仍可切换语言。
 
-支持键盘操作、减少动态效果偏好、SEO、双语站点地图、`hreflang`、404 和基础安全响应头。无需外部字体、图片 CDN 或浏览器端 GitHub 请求。项目页静态路径例如 `/projects/funasrnet/` 与 `/en/projects/funasrnet/`，支持直接打开和刷新。
+支持键盘操作、减少动态效果偏好、SEO、双语站点地图、`hreflang`、404 和基础安全响应头。浏览器只请求同源数据与头像接口，无外部字体或浏览器端 GitHub 请求。动态接口不可用时保留预渲染介绍和最近成功同步的数据。项目路径例如 `/projects/funasrnet/` 与 `/en/projects/funasrnet/`，支持直接打开和刷新。
 
 ## 本地运行
 
@@ -22,7 +22,7 @@ npm run dev
 打开 http://127.0.0.1:4321 。修改源文件后重新运行开发命令更新输出。
 
 ```sh
-npm run build       # 输出 dist，可直接上传到 Pages
+npm run build       # 输出 dist；动态功能需一并部署根目录 functions
 npm run check       # 检查静态内容与部署产物
 npx playwright install chromium
 npm run test:e2e    # 桌面与移动端浏览器验证
@@ -36,6 +36,8 @@ npm run data        # 同步 GitHub Star / Fork 状态，保留人工介绍
 | `content/projects.json` | 项目中文介绍、功能、限制、分类、安装命令 |
 | `content/project-details.json` | 中文项目概况、适用场景、准备条件与步骤 |
 | `content/projects.en.json` | 完整英文项目介绍与入门内容 |
+| `content/members.json` | 明确收录的成员、双语简介与技术方向 |
+| `content/live-snapshot.json` | 接口失败时使用的公开数据快照 |
 | `src/i18n.mjs` | 中英文页面文案 |
 | `src/home.mjs`、`src/project.mjs` | 首页和独立项目页结构 |
 | `src/layout.mjs` | 共用导航、语言切换、SEO 与页脚 |
@@ -43,11 +45,24 @@ npm run data        # 同步 GitHub Star / Fork 状态，保留人工介绍
 | `public/style.css` | 配色与响应式布局 |
 | `public/app.js`、`public/shared.js` | 首页交互、粒子、代码示例与共用行为 |
 | `public/locale.js` | 首选语言检测和手动语言偏好 |
+| `public/live.js`、`functions/api/`、`src/data-service.mjs` | 同源动态接口、支持者与 NuGet 数据 |
 | `.github/workflows/deploy.yml` | 构建、校验、浏览器测试、自动发布 |
 
 提交到 GitHub 的 `main` 分支即自动发布；PR 在相同仓库内生成预览部署，Fork PR 只运行检查。每次正式发布自动按固定 GitHub 仓库 ID 查询当前归属、Star 和 Fork 状态，因此支持个人与组织仓库同时展示，以及转移后的归属更新。新仓库需要在 `content/projects.json`、`content/project-details.json` 和 `content/projects.en.json` 添加完整双语资料再发布，不会自动生成未经核实的能力声明。
 
-项目介绍基于社区成员维护的公开仓库，各项目按真实维护者链接，不会将尚未转移的个人项目误标为组织所有。`SimdPaddleOCR` 已标记为 [sdcb/SimdPaddleOCR](https://github.com/sdcb/SimdPaddleOCR) 的 Fork。官网为独立社区展示，不代表微软官方。转移项目之前可参考 [仓库转移说明](docs/REPOSITORY-TRANSFER.md)。
+项目按真实维护者链接。FunAsrNet、SimdYolo、PureDb、Serein、yunsevo 已转入组织；sdcb 的 6 个项目仍链接其个人仓库。原有 `hnlyf168/SimdPaddleOCR` Fork 与新增的上游介绍 `/projects/sdcb-simdpaddleocr/` 分开保留。官网为独立社区展示，不代表微软官方。详见 [仓库转移说明](docs/REPOSITORY-TRANSFER.md)。
+
+## 动态数据如何更新
+
+无需创建额外 GitHub Token，也无需 `PROJECT_DATA_GITHUB_TOKEN` Secret。已为维护者自己的 9 个项目安装 `scripts/community-data-workflow.txt` 中的工作流，使用每次任务自动签发的、仅该仓库有效的 `GITHUB_TOKEN`。新增 Star 会触发同步，每 6 小时还会校准取消 Star 等变化；GitHub 任务排队和网站缓存会带来延迟。
+
+任务只向项目的 `community-data` 分支写入公开统计和支持者的公开用户名、ID，不包含凭据或邮箱。官网后端读取该分支并校验固定仓库 ID。名单最多同步 1,000 人；超出时仍显示总数并链接 GitHub。未授权的第三方仓库仅展示公开统计与介绍，不虚构 Star 名单。
+
+成员目录合并 `content/members.json` 中明确收录的成员和 GitHub 的公开组织成员，按需同步公开头像、显示名称和简介，不修改任何人的成员可见性。新项目的双语说明仍需人工审核后添加。
+
+NuGet 接口无需密钥，展示已核实包的当前版本、累计下载量和该版本的包依赖；下载量不等于项目引用量或独立用户。SimdYolo 和 FunAsrNet 未核实存在官方 NuGet 包，因此保留源码获取方式。
+
+Pages Functions 仅处理 `/api/*`。GitHub 数据、NuGet 和头像均有边缘缓存。仅用控制台拖拽 `dist` 会部署静态页面，无法安装 Functions；完整发布请使用现有 GitHub Actions，或从源码根目录执行 `npm run deploy`。参考 [Cloudflare Functions 部署说明](https://developers.cloudflare.com/pages/functions/get-started/)。
 
 ## Cloudflare 配置
 

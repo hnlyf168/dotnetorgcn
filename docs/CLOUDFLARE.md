@@ -12,7 +12,7 @@
 2. 进入 **Workers 和 Pages / Workers & Pages** → **创建应用 / Create application**。
 3. 选择 **Pages**，再选 **上传资产 / Upload assets / Direct Upload**。界面可能先要求点击 **Get started**。选择 Pages 上传，不选 Workers 部署。
 4. 项目名称填 `dotnet-org-cn`。
-5. 本地执行 `npm ci`、`npm run build`，把生成的 **dist 文件夹** 上传，然后部署。不要上传整个源码文件夹。也可以先按第 6 节使用 API 创建项目，再让 Actions 做首次上传。
+5. 推荐先按第 6 节使用 API 创建项目，再让 Actions 做首次上传。也可上传 `dist` 初始化静态网站，但控制台拖拽上传不能安装本项目的 Pages Functions；动态数据功能须随后通过 Actions 或根目录的 `npm run deploy` 发布。
 6. 首次部署成功后会出现 `https://dotnet-org-cn.pages.dev`（以控制台实际返回为准）。
 
 本项目使用 Actions 直接上传，因此不必再配置 Cloudflare 的 Git 自动构建。首次创建时选择 Direct Upload，避免同一提交触发两套发布流程。
@@ -50,6 +50,8 @@ GitHub 网站仓库 → **Settings → Secrets and variables → Actions → New
 `xxx.workers.dev` 是 Workers 项目，`xxx.pages.dev` 才是 Pages 项目。此前误建成 Workers 时，无需把 Worker 名称填进 Pages 的 Secret；本流程会创建真正的 Pages 项目供正式网站使用。
 
 流程会先同步项目元信息、构建网站、验证链接和数据，再运行桌面/手机浏览器测试，最后上传 `dist`。后续直接修改文件提交到 `main`，无需重新填写 Token。
+
+发布命令从源码根目录执行，Wrangler 会同时编译根目录 `functions/` 并发布动态接口。`dist/_routes.json` 将函数调用限制为 `/api/*`。Star 同步已通过各项目自己的临时 `GITHUB_TOKEN` 完成，无需额外创建或填写 `PROJECT_DATA_GITHUB_TOKEN`；NuGet 公开接口也无需密钥。
 
 ## 5. 绑定 dotnet.org.cn
 
@@ -102,7 +104,8 @@ npx wrangler@4 pages deploy dist --project-name=$env:CLOUDFLARE_PAGES_PROJECT --
 - **改项目介绍**：编辑 `content/projects.json` 后提交 `main`。
 - **改首页标语**：编辑 `src/i18n.mjs` 中对应的中文与英文文案后提交。
 - **改项目独立页面**：编辑 `content/project-details.json`，英文内容在 `content/projects.en.json`。
-- **只刷新 Star 等数据**：GitHub Actions 手动 Run workflow，构建时会自动同步。
+- **刷新 Star 等数据**：名单由各项目的 `Sync public community data` Actions 自动同步，新增 Star 触发，每 6 小时校准；需要立即刷新时，在对应项目中手动运行该工作流。官网发布也会刷新构建时的公开仓库统计。
+- **更新成员**：公开组织成员由接口自动发现；人工收录及中英文简介在 `content/members.json` 修改。成员是否公开组织身份仍由本人决定。
 - **增加项目**：在 `content/projects.json` 新增记录，同时补齐 `content/project-details.json` 和 `content/projects.en.json`；使用现有 `ai`、`infra`、`connect`、`apps` 分类。Star 和 Fork 自动核对，双语介绍由人工审核。
 - **本地用 Key 更新**：按第 6 节设置环境变量，改完内容执行 `npm run deploy`。Token 只负责部署授权，不会自动编辑文案。
 - **撤销访问**：在 Cloudflare API Tokens 中撤销对应 Token；新建 Token 后只更新 GitHub Secret。

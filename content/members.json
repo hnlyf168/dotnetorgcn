@@ -1,0 +1,39 @@
+{
+  "organization": "donet-org-cn",
+  "featured": [
+    "hnlyf168",
+    "sdcb"
+  ],
+  "members": [
+    {
+      "login": "hnlyf168",
+      "id": 266281842,
+      "name": "hnlyf168",
+      "bio": {
+        "zh": "关注纯 C# AI、基础引擎、设备互联与跨平台应用，维护 FunASR.NET、SimdYolo、PureDb 等项目。",
+        "en": "Builds C# AI, foundational engines, connected systems, and cross-platform apps, including FunASR.NET, SimdYolo, and PureDb."
+      },
+      "areas": [
+        "C#",
+        "AI",
+        ".NET"
+      ],
+      "curated": true
+    },
+    {
+      "login": "sdcb",
+      "id": 1317141,
+      "name": "ZHOU Jie",
+      "bio": {
+        "zh": "C#/.NET 开发者，维护 PaddleSharp、Chats、OpenVINO.NET、SimdPaddleOCR 等开源项目，分享 AI 与工具链实践。",
+        "en": "A C#/.NET developer maintaining PaddleSharp, Chats, OpenVINO.NET, and SimdPaddleOCR, sharing AI and developer-tooling work."
+      },
+      "areas": [
+        ".NET",
+        "Computer vision",
+        "Open source"
+      ],
+      "curated": true
+    }
+  ]
+}

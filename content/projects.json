@@ -23,9 +23,12 @@
         "CPU SIMD 与显式启用的 Vulkan 混合后端"
       ],
       "note": "独立社区实现，非 FunASR 官方 SDK。需要另行准备兼容模型权重；尚未发布 NuGet 包。",
-      "command": "git clone https://github.com/hnlyf168/FunAsrNet.git",
-      "owner": "hnlyf168",
-      "repositoryId": 1414493628
+      "command": "git clone https://github.com/donet-org-cn/FunAsrNet.git",
+      "owner": "donet-org-cn",
+      "repositoryId": 1414493628,
+      "nugetPackages": [],
+      "communityData": true,
+      "maintainer": "hnlyf168"
     },
     {
       "name": "SimdYolo",
@@ -48,9 +51,12 @@
         "CPU SIMD、Vulkan / Metal 后端及检测头微调"
       ],
       "note": "模型和算子支持以仓库清单为准。Metal 后端尚未实机验证；训练为冻结骨干的检测头微调。",
-      "command": "dotnet add package SimdYolo",
-      "owner": "hnlyf168",
-      "repositoryId": 1418580617
+      "command": "git clone https://github.com/donet-org-cn/SimdYolo.git",
+      "owner": "donet-org-cn",
+      "repositoryId": 1418580617,
+      "nugetPackages": [],
+      "communityData": true,
+      "maintainer": "hnlyf168"
     },
     {
       "name": "PureDb",
@@ -73,8 +79,14 @@
       ],
       "note": "当前为预览版。SQL 与 SQLite 文件兼容均有明确边界，不支持完整 SQLite SQL 或 WAL 文件协议。",
       "command": "dotnet add package PureDb --prerelease",
-      "owner": "hnlyf168",
-      "repositoryId": 1431901367
+      "owner": "donet-org-cn",
+      "repositoryId": 1431901367,
+      "nugetPackages": [
+        "PureDb",
+        "PureDb.SqliteCompatibility"
+      ],
+      "communityData": true,
+      "maintainer": "hnlyf168"
     },
     {
       "name": "SimdSkia",
@@ -98,7 +110,13 @@
       "note": "当前为预览版，完整 API 和整页画质验收尚未全部通过；macOS GPU 尚未实现。",
       "command": "dotnet add package SimdSkia.Avalonia.Desktop --prerelease",
       "owner": "hnlyf168",
-      "repositoryId": 1428164442
+      "repositoryId": 1428164442,
+      "nugetPackages": [
+        "SimdSkia.Avalonia.Desktop",
+        "SimdSkia"
+      ],
+      "communityData": true,
+      "maintainer": "hnlyf168"
     },
     {
       "name": "Serein",
@@ -121,8 +139,16 @@
       ],
       "note": "预览版。视频链路主要负责解包和转发，不含通用视频转码；尚未实现 HLS、WebRTC 等输出。",
       "command": "dotnet add package Serein.AspNetCore --prerelease",
-      "owner": "hnlyf168",
-      "repositoryId": 1432984890
+      "owner": "donet-org-cn",
+      "repositoryId": 1432984890,
+      "nugetPackages": [
+        "Serein.AspNetCore",
+        "Serein.Media",
+        "Serein.Rtsp",
+        "Serein.Hosting"
+      ],
+      "communityData": true,
+      "maintainer": "hnlyf168"
     },
     {
       "name": "yunsevo",
@@ -144,9 +170,12 @@
         "Windows / Linux / macOS 与 Android 客户端"
       ],
       "note": "具体平台和架构请按 Releases 选择。当前不包含 iPhone 安装包。",
-      "command": "git clone https://github.com/hnlyf168/yunsevo.git",
-      "owner": "hnlyf168",
-      "repositoryId": 1424030465
+      "command": "git clone https://github.com/donet-org-cn/yunsevo.git",
+      "owner": "donet-org-cn",
+      "repositoryId": 1424030465,
+      "nugetPackages": [],
+      "communityData": true,
+      "maintainer": "hnlyf168"
     },
     {
       "name": "p2pvpn",
@@ -170,7 +199,10 @@
       "note": "实际直连效果受 NAT、防火墙和网络环境影响。中继依赖已部署且在线的节点；各平台版本以发布页为准。",
       "command": "git clone https://github.com/hnlyf168/p2pvpn.git",
       "owner": "hnlyf168",
-      "repositoryId": 1390432042
+      "repositoryId": 1390432042,
+      "nugetPackages": [],
+      "communityData": true,
+      "maintainer": "hnlyf168"
     },
     {
       "name": "ProtoBus",
@@ -194,7 +226,10 @@
       "note": "当前公开 README 较精简。以上为仓库声明的项目方向，具体实现、示例与可用性请检查源码。",
       "command": "git clone https://github.com/hnlyf168/ProtoBus.git",
       "owner": "hnlyf168",
-      "repositoryId": 1269289563
+      "repositoryId": 1269289563,
+      "nugetPackages": [],
+      "communityData": true,
+      "maintainer": "hnlyf168"
     },
     {
       "name": "SimdPaddleOCR",
@@ -219,7 +254,179 @@
       "note": "此仓库为 sdcb/SimdPaddleOCR 的 Fork，原项目归属与许可证请参见上游。本站不将其作为原创项目展示。",
       "command": "git clone https://github.com/hnlyf168/SimdPaddleOCR.git",
       "owner": "hnlyf168",
-      "repositoryId": 1412900206
+      "repositoryId": 1412900206,
+      "nugetPackages": [],
+      "communityData": true,
+      "maintainer": "hnlyf168"
+    },
+    {
+      "name": "PaddleSharp",
+      "title": "PaddleSharp",
+      "owner": "sdcb",
+      "repositoryId": 438879179,
+      "category": "ai",
+      "icon": "scan",
+      "eyebrow": "让 .NET 接入 Paddle 生态",
+      "description": "Paddle Inference 与 PaddleOCR 的 .NET/C# 绑定，连接文字识别、目标检测、表格识别与模型工具。",
+      "tags": [
+        "PaddleOCR",
+        "原生推理绑定",
+        "C#"
+      ],
+      "features": [
+        "Paddle Inference C API 的 .NET 绑定",
+        "OCR、表格识别与受支持检测模型",
+        "多平台 CPU / GPU 原生运行包"
+      ],
+      "note": "该项目是原生 Paddle Inference 的绑定，需要匹配平台、架构及 CPU/GPU 的运行包，并非无原生依赖的纯 C# 推理引擎。",
+      "stars": 1457,
+      "fork": false,
+      "nugetPackages": [
+        "Sdcb.PaddleOCR",
+        "Sdcb.PaddleInference"
+      ],
+      "command": "dotnet add package Sdcb.PaddleOCR",
+      "maintainer": "sdcb"
+    },
+    {
+      "name": "chats",
+      "title": "Sdcb Chats",
+      "owner": "sdcb",
+      "repositoryId": 886441325,
+      "category": "apps",
+      "icon": "message",
+      "eyebrow": "连接多模型的 AI 工作台",
+      "description": "基于 .NET 的大模型前端与 AI 网关，统一连接多家模型服务，提供对话、多模态、工具与管理能力。",
+      "tags": [
+        "AI 网关",
+        "多模型",
+        "自托管"
+      ],
+      "features": [
+        "多模型服务商与兼容 API 协议入口",
+        "对话、图像及可选工具工作流",
+        "Docker / 原生部署与用户管理"
+      ],
+      "note": "模型能力、费用和可用性取决于接入的服务商及配置。代码执行等可选工具需要按文档部署相应运行环境。",
+      "stars": 614,
+      "fork": false,
+      "nugetPackages": [],
+      "command": "git clone https://github.com/sdcb/chats.git",
+      "maintainer": "sdcb"
+    },
+    {
+      "name": "SimdPaddleOCR",
+      "title": "SimdPaddleOCR · 上游",
+      "owner": "sdcb",
+      "repositoryId": 1357905477,
+      "category": "ai",
+      "icon": "text",
+      "contentKey": "SdcbSimdPaddleOCR",
+      "slug": "sdcb-simdpaddleocr",
+      "eyebrow": "sdcb 维护的 OCR 上游项目",
+      "description": "纯 C# PP-OCRv6 推理库，使用托管 ONNX 解释器与 SIMD 内核完成文字检测、方向分类与识别。",
+      "tags": [
+        "OCR 上游",
+        "PP-OCRv6",
+        "SIMD"
+      ],
+      "features": [
+        "文字检测、方向分类与识别",
+        "托管 ONNX 解释器与 SIMD 内核",
+        "支持像素内存输入与可选 GPU 后端"
+      ],
+      "note": "这是 sdcb 维护的上游仓库，与目录中的 hnlyf168 Fork 分开展示。核心 API 不负责图片解码；GPU 后端需要兼容驱动。",
+      "stars": 513,
+      "fork": false,
+      "nugetPackages": [
+        "Sdcb.SimdPaddleOCR"
+      ],
+      "command": "dotnet add package Sdcb.SimdPaddleOCR",
+      "maintainer": "sdcb"
+    },
+    {
+      "name": "OpenVINO.NET",
+      "title": "OpenVINO.NET",
+      "owner": "sdcb",
+      "repositoryId": 675551868,
+      "category": "ai",
+      "icon": "layers",
+      "eyebrow": "把 OpenVINO 带入 .NET",
+      "description": "高质量 OpenVINO .NET 封装，连接模型推理、设备选择、OpenCvSharp 扩展与 OCR 相关组件。",
+      "tags": [
+        "OpenVINO",
+        "模型推理",
+        "原生运行时"
+      ],
+      "features": [
+        "OpenVINO C API 的 .NET 接口",
+        "平台原生运行包与设备推理入口",
+        "OpenCvSharp 扩展及 PaddleOCR 组件"
+      ],
+      "note": "需要与版本、平台和架构匹配的 OpenVINO 原生运行包。支持设备与模型能力以 OpenVINO 和仓库文档为准。",
+      "stars": 457,
+      "fork": false,
+      "nugetPackages": [
+        "Sdcb.OpenVINO"
+      ],
+      "command": "dotnet add package Sdcb.OpenVINO",
+      "maintainer": "sdcb"
+    },
+    {
+      "name": "Sdcb.FFmpeg",
+      "title": "Sdcb.FFmpeg",
+      "owner": "sdcb",
+      "repositoryId": 503262186,
+      "category": "connect",
+      "icon": "play",
+      "eyebrow": "连接 .NET 与音视频工具链",
+      "description": "面向 C#/.NET 的 FFmpeg 接口与高层封装，覆盖媒体上下文、编解码接口、过滤器与帧处理辅助能力。",
+      "tags": [
+        "FFmpeg",
+        "音视频",
+        "原生绑定"
+      ],
+      "features": [
+        "自动生成的 FFmpeg 底层接口",
+        "FormatContext / CodecContext 等封装",
+        "过滤器和视频帧处理辅助组件"
+      ],
+      "note": "需要匹配的 FFmpeg 原生库。项目基于 FFmpeg.AutoGen 的工作演进，实际分发应核对项目及所用 FFmpeg 构建的许可证。",
+      "stars": 408,
+      "fork": false,
+      "nugetPackages": [
+        "Sdcb.FFmpeg"
+      ],
+      "command": "dotnet add package Sdcb.FFmpeg",
+      "maintainer": "sdcb"
+    },
+    {
+      "name": "Arithmetic",
+      "title": "Sdcb.Arithmetic",
+      "owner": "sdcb",
+      "repositoryId": 588893658,
+      "category": "infra",
+      "icon": "code",
+      "eyebrow": "以 C# 探索任意精度计算",
+      "description": "纯托管 C# 任意精度运算库，提供 BigInt、BigRational 与正确舍入的 Real，并接入 .NET 泛型数学。",
+      "tags": [
+        "任意精度",
+        "泛型数学",
+        "SIMD"
+      ],
+      "features": [
+        "任意精度整数、有理数与二进制浮点",
+        "支持 .NET 泛型数学接口",
+        "可用时使用 SIMD，并提供可移植回退"
+      ],
+      "note": "当前项目为纯托管实现；曾经的 GMP/MPFR 原生绑定已迁往其他仓库。性能与数值行为应结合具体工作负载及文档评估。",
+      "stars": 171,
+      "fork": false,
+      "nugetPackages": [
+        "Sdcb.Arithmetic"
+      ],
+      "command": "dotnet add package Sdcb.Arithmetic",
+      "maintainer": "sdcb"
     }
   ]
 }

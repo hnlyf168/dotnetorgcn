@@ -1,0 +1,1109 @@
+{
+  "generatedAt": "2026-10-27T05:11:18.561Z",
+  "projects": {
+    "funasrnet": {
+      "slug": "funasrnet",
+      "name": "FunASR.NET",
+      "owner": "donet-org-cn",
+      "repository": "https://github.com/donet-org-cn/FunAsrNet",
+      "stars": 49,
+      "forks": 12,
+      "issues": 0,
+      "pushedAt": "2026-10-27T05:10:33Z",
+      "packages": [],
+      "stargazers": {
+        "users": [
+          {
+            "id": 8027556,
+            "login": "dongfo",
+            "name": "dongfo",
+            "profile": "https://github.com/dongfo",
+            "avatar": "/api/avatar/8027556",
+            "bio": ""
+          },
+          {
+            "id": 266281842,
+            "login": "hnlyf168",
+            "name": "hnlyf168",
+            "profile": "https://github.com/hnlyf168",
+            "avatar": "/api/avatar/266281842",
+            "bio": ""
+          },
+          {
+            "id": 26645219,
+            "login": "wuyuan2009123",
+            "name": "wuyuan2009123",
+            "profile": "https://github.com/wuyuan2009123",
+            "avatar": "/api/avatar/26645219",
+            "bio": ""
+          },
+          {
+            "id": 34773132,
+            "login": "TripleView",
+            "name": "TripleView",
+            "profile": "https://github.com/TripleView",
+            "avatar": "/api/avatar/34773132",
+            "bio": ""
+          },
+          {
+            "id": 29687312,
+            "login": "vxzms",
+            "name": "vxzms",
+            "profile": "https://github.com/vxzms",
+            "avatar": "/api/avatar/29687312",
+            "bio": ""
+          },
+          {
+            "id": 46519501,
+            "login": "fanshuxian",
+            "name": "fanshuxian",
+            "profile": "https://github.com/fanshuxian",
+            "avatar": "/api/avatar/46519501",
+            "bio": ""
+          },
+          {
+            "id": 102289639,
+            "login": "frog-soft",
+            "name": "frog-soft",
+            "profile": "https://github.com/frog-soft",
+            "avatar": "/api/avatar/102289639",
+            "bio": ""
+          },
+          {
+            "id": 1955219,
+            "login": "natoop",
+            "name": "natoop",
+            "profile": "https://github.com/natoop",
+            "avatar": "/api/avatar/1955219",
+            "bio": ""
+          },
+          {
+            "id": 81842835,
+            "login": "gimmickj",
+            "name": "gimmickj",
+            "profile": "https://github.com/gimmickj",
+            "avatar": "/api/avatar/81842835",
+            "bio": ""
+          },
+          {
+            "id": 38845682,
+            "login": "SwaggyMacro",
+            "name": "SwaggyMacro",
+            "profile": "https://github.com/SwaggyMacro",
+            "avatar": "/api/avatar/38845682",
+            "bio": ""
+          },
+          {
+            "id": 48583667,
+            "login": "XiaoyaHua",
+            "name": "XiaoyaHua",
+            "profile": "https://github.com/XiaoyaHua",
+            "avatar": "/api/avatar/48583667",
+            "bio": ""
+          },
+          {
+            "id": 51856793,
+            "login": "SongZhiDan",
+            "name": "SongZhiDan",
+            "profile": "https://github.com/SongZhiDan",
+            "avatar": "/api/avatar/51856793",
+            "bio": ""
+          },
+          {
+            "id": 17920677,
+            "login": "gwhzh21",
+            "name": "gwhzh21",
+            "profile": "https://github.com/gwhzh21",
+            "avatar": "/api/avatar/17920677",
+            "bio": ""
+          },
+          {
+            "id": 28486431,
+            "login": "benyuz",
+            "name": "benyuz",
+            "profile": "https://github.com/benyuz",
+            "avatar": "/api/avatar/28486431",
+            "bio": ""
+          },
+          {
+            "id": 439390,
+            "login": "geffzhang",
+            "name": "geffzhang",
+            "profile": "https://github.com/geffzhang",
+            "avatar": "/api/avatar/439390",
+            "bio": ""
+          },
+          {
+            "id": 5389565,
+            "login": "wangjunjx8868",
+            "name": "wangjunjx8868",
+            "profile": "https://github.com/wangjunjx8868",
+            "avatar": "/api/avatar/5389565",
+            "bio": ""
+          },
+          {
+            "id": 1262030,
+            "login": "zjx632",
+            "name": "zjx632",
+            "profile": "https://github.com/zjx632",
+            "avatar": "/api/avatar/1262030",
+            "bio": ""
+          },
+          {
+            "id": 741163,
+            "login": "lkicesky",
+            "name": "lkicesky",
+            "profile": "https://github.com/lkicesky",
+            "avatar": "/api/avatar/741163",
+            "bio": ""
+          },
+          {
+            "id": 36023833,
+            "login": "Auspicore",
+            "name": "Auspicore",
+            "profile": "https://github.com/Auspicore",
+            "avatar": "/api/avatar/36023833",
+            "bio": ""
+          },
+          {
+            "id": 34536477,
+            "login": "xinjiboy1234",
+            "name": "xinjiboy1234",
+            "profile": "https://github.com/xinjiboy1234",
+            "avatar": "/api/avatar/34536477",
+            "bio": ""
+          },
+          {
+            "id": 278856882,
+            "login": "Qiu2371",
+            "name": "Qiu2371",
+            "profile": "https://github.com/Qiu2371",
+            "avatar": "/api/avatar/278856882",
+            "bio": ""
+          },
+          {
+            "id": 63050837,
+            "login": "yuanyzxw",
+            "name": "yuanyzxw",
+            "profile": "https://github.com/yuanyzxw",
+            "avatar": "/api/avatar/63050837",
+            "bio": ""
+          },
+          {
+            "id": 170285781,
+            "login": "Jotaro2025",
+            "name": "Jotaro2025",
+            "profile": "https://github.com/Jotaro2025",
+            "avatar": "/api/avatar/170285781",
+            "bio": ""
+          },
+          {
+            "id": 24932654,
+            "login": "wolegecaoai",
+            "name": "wolegecaoai",
+            "profile": "https://github.com/wolegecaoai",
+            "avatar": "/api/avatar/24932654",
+            "bio": ""
+          }
+        ],
+        "available": true,
+        "hasMore": false,
+        "page": 1,
+        "total": 49,
+        "source": "snapshot"
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:11:27.456Z",
+      "license": "Apache-2.0"
+    },
+    "simdyolo": {
+      "slug": "simdyolo",
+      "name": "SimdYolo",
+      "owner": "donet-org-cn",
+      "repository": "https://github.com/donet-org-cn/SimdYolo",
+      "stars": 30,
+      "forks": 6,
+      "issues": 0,
+      "pushedAt": "2026-10-27T05:10:24Z",
+      "packages": [],
+      "stargazers": {
+        "users": [
+          {
+            "id": 1317141,
+            "login": "sdcb",
+            "name": "sdcb",
+            "profile": "https://github.com/sdcb",
+            "avatar": "/api/avatar/1317141",
+            "bio": ""
+          },
+          {
+            "id": 8101369,
+            "login": "sundayisblue",
+            "name": "sundayisblue",
+            "profile": "https://github.com/sundayisblue",
+            "avatar": "/api/avatar/8101369",
+            "bio": ""
+          },
+          {
+            "id": 439390,
+            "login": "geffzhang",
+            "name": "geffzhang",
+            "profile": "https://github.com/geffzhang",
+            "avatar": "/api/avatar/439390",
+            "bio": ""
+          },
+          {
+            "id": 23429395,
+            "login": "ixuan789",
+            "name": "ixuan789",
+            "profile": "https://github.com/ixuan789",
+            "avatar": "/api/avatar/23429395",
+            "bio": ""
+          },
+          {
+            "id": 66709012,
+            "login": "mjz17",
+            "name": "mjz17",
+            "profile": "https://github.com/mjz17",
+            "avatar": "/api/avatar/66709012",
+            "bio": ""
+          },
+          {
+            "id": 170285781,
+            "login": "Jotaro2025",
+            "name": "Jotaro2025",
+            "profile": "https://github.com/Jotaro2025",
+            "avatar": "/api/avatar/170285781",
+            "bio": ""
+          },
+          {
+            "id": 28486431,
+            "login": "benyuz",
+            "name": "benyuz",
+            "profile": "https://github.com/benyuz",
+            "avatar": "/api/avatar/28486431",
+            "bio": ""
+          },
+          {
+            "id": 5389565,
+            "login": "wangjunjx8868",
+            "name": "wangjunjx8868",
+            "profile": "https://github.com/wangjunjx8868",
+            "avatar": "/api/avatar/5389565",
+            "bio": ""
+          },
+          {
+            "id": 48583667,
+            "login": "XiaoyaHua",
+            "name": "XiaoyaHua",
+            "profile": "https://github.com/XiaoyaHua",
+            "avatar": "/api/avatar/48583667",
+            "bio": ""
+          },
+          {
+            "id": 222456742,
+            "login": "wxs56837",
+            "name": "wxs56837",
+            "profile": "https://github.com/wxs56837",
+            "avatar": "/api/avatar/222456742",
+            "bio": ""
+          },
+          {
+            "id": 102409480,
+            "login": "YDLuo-1",
+            "name": "YDLuo-1",
+            "profile": "https://github.com/YDLuo-1",
+            "avatar": "/api/avatar/102409480",
+            "bio": ""
+          },
+          {
+            "id": 20657316,
+            "login": "lison666",
+            "name": "lison666",
+            "profile": "https://github.com/lison666",
+            "avatar": "/api/avatar/20657316",
+            "bio": ""
+          },
+          {
+            "id": 71109487,
+            "login": "LAOMA-VISION",
+            "name": "LAOMA-VISION",
+            "profile": "https://github.com/LAOMA-VISION",
+            "avatar": "/api/avatar/71109487",
+            "bio": ""
+          },
+          {
+            "id": 46215418,
+            "login": "Kouuh",
+            "name": "Kouuh",
+            "profile": "https://github.com/Kouuh",
+            "avatar": "/api/avatar/46215418",
+            "bio": ""
+          },
+          {
+            "id": 2648110,
+            "login": "rayzhb",
+            "name": "rayzhb",
+            "profile": "https://github.com/rayzhb",
+            "avatar": "/api/avatar/2648110",
+            "bio": ""
+          },
+          {
+            "id": 10445953,
+            "login": "xrwang2",
+            "name": "xrwang2",
+            "profile": "https://github.com/xrwang2",
+            "avatar": "/api/avatar/10445953",
+            "bio": ""
+          },
+          {
+            "id": 41043456,
+            "login": "lxw112190",
+            "name": "lxw112190",
+            "profile": "https://github.com/lxw112190",
+            "avatar": "/api/avatar/41043456",
+            "bio": ""
+          },
+          {
+            "id": 10510947,
+            "login": "EjiHuang",
+            "name": "EjiHuang",
+            "profile": "https://github.com/EjiHuang",
+            "avatar": "/api/avatar/10510947",
+            "bio": ""
+          },
+          {
+            "id": 9312482,
+            "login": "nexusocc",
+            "name": "nexusocc",
+            "profile": "https://github.com/nexusocc",
+            "avatar": "/api/avatar/9312482",
+            "bio": ""
+          },
+          {
+            "id": 3389595,
+            "login": "lvjunlei",
+            "name": "lvjunlei",
+            "profile": "https://github.com/lvjunlei",
+            "avatar": "/api/avatar/3389595",
+            "bio": ""
+          },
+          {
+            "id": 18021614,
+            "login": "LeoYang06",
+            "name": "LeoYang06",
+            "profile": "https://github.com/LeoYang06",
+            "avatar": "/api/avatar/18021614",
+            "bio": ""
+          },
+          {
+            "id": 16435160,
+            "login": "feixingdeyun",
+            "name": "feixingdeyun",
+            "profile": "https://github.com/feixingdeyun",
+            "avatar": "/api/avatar/16435160",
+            "bio": ""
+          },
+          {
+            "id": 56852772,
+            "login": "srdava",
+            "name": "srdava",
+            "profile": "https://github.com/srdava",
+            "avatar": "/api/avatar/56852772",
+            "bio": ""
+          },
+          {
+            "id": 5523227,
+            "login": "crazyants",
+            "name": "crazyants",
+            "profile": "https://github.com/crazyants",
+            "avatar": "/api/avatar/5523227",
+            "bio": ""
+          }
+        ],
+        "available": true,
+        "hasMore": false,
+        "page": 1,
+        "total": 30,
+        "source": "snapshot"
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:11:27.419Z",
+      "license": null
+    },
+    "puredb": {
+      "slug": "puredb",
+      "name": "PureDb",
+      "owner": "donet-org-cn",
+      "repository": "https://github.com/donet-org-cn/PureDb",
+      "stars": 13,
+      "forks": 3,
+      "issues": 0,
+      "pushedAt": "2026-10-27T05:10:32Z",
+      "packages": [
+        {
+          "id": "PureDb",
+          "available": true,
+          "version": "1.0.0-preview.3",
+          "downloads": 99,
+          "url": "https://www.nuget.org/packages/PureDb",
+          "prerelease": true,
+          "dependencies": [],
+          "updatedAt": "2026-10-27T05:11:28.278Z",
+          "dependenciesAvailable": false
+        }
+      ],
+      "stargazers": {
+        "users": [
+          {
+            "id": 1317141,
+            "login": "sdcb",
+            "name": "sdcb",
+            "profile": "https://github.com/sdcb",
+            "avatar": "/api/avatar/1317141",
+            "bio": ""
+          },
+          {
+            "id": 15152253,
+            "login": "yuyu2you",
+            "name": "yuyu2you",
+            "profile": "https://github.com/yuyu2you",
+            "avatar": "/api/avatar/15152253",
+            "bio": ""
+          },
+          {
+            "id": 57142635,
+            "login": "yuebo119",
+            "name": "yuebo119",
+            "profile": "https://github.com/yuebo119",
+            "avatar": "/api/avatar/57142635",
+            "bio": ""
+          },
+          {
+            "id": 1004154,
+            "login": "sikale",
+            "name": "sikale",
+            "profile": "https://github.com/sikale",
+            "avatar": "/api/avatar/1004154",
+            "bio": ""
+          },
+          {
+            "id": 320798078,
+            "login": "ced2wang",
+            "name": "ced2wang",
+            "profile": "https://github.com/ced2wang",
+            "avatar": "/api/avatar/320798078",
+            "bio": ""
+          },
+          {
+            "id": 2587129,
+            "login": "mzy666888",
+            "name": "mzy666888",
+            "profile": "https://github.com/mzy666888",
+            "avatar": "/api/avatar/2587129",
+            "bio": ""
+          },
+          {
+            "id": 26645219,
+            "login": "wuyuan2009123",
+            "name": "wuyuan2009123",
+            "profile": "https://github.com/wuyuan2009123",
+            "avatar": "/api/avatar/26645219",
+            "bio": ""
+          },
+          {
+            "id": 35625223,
+            "login": "FinBird",
+            "name": "FinBird",
+            "profile": "https://github.com/FinBird",
+            "avatar": "/api/avatar/35625223",
+            "bio": ""
+          },
+          {
+            "id": 170285781,
+            "login": "Jotaro2025",
+            "name": "Jotaro2025",
+            "profile": "https://github.com/Jotaro2025",
+            "avatar": "/api/avatar/170285781",
+            "bio": ""
+          },
+          {
+            "id": 41043456,
+            "login": "lxw112190",
+            "name": "lxw112190",
+            "profile": "https://github.com/lxw112190",
+            "avatar": "/api/avatar/41043456",
+            "bio": ""
+          },
+          {
+            "id": 71109487,
+            "login": "LAOMA-VISION",
+            "name": "LAOMA-VISION",
+            "profile": "https://github.com/LAOMA-VISION",
+            "avatar": "/api/avatar/71109487",
+            "bio": ""
+          },
+          {
+            "id": 56746942,
+            "login": "jkh404",
+            "name": "jkh404",
+            "profile": "https://github.com/jkh404",
+            "avatar": "/api/avatar/56746942",
+            "bio": ""
+          },
+          {
+            "id": 81842835,
+            "login": "gimmickj",
+            "name": "gimmickj",
+            "profile": "https://github.com/gimmickj",
+            "avatar": "/api/avatar/81842835",
+            "bio": ""
+          }
+        ],
+        "available": true,
+        "hasMore": false,
+        "page": 1,
+        "total": 13,
+        "source": "snapshot"
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:11:27.451Z",
+      "license": "MIT"
+    },
+    "yunsevo": {
+      "slug": "yunsevo",
+      "name": "Yunsevo · 沄序",
+      "owner": "donet-org-cn",
+      "repository": "https://github.com/donet-org-cn/yunsevo",
+      "stars": 2,
+      "forks": 0,
+      "issues": 0,
+      "pushedAt": "2026-10-27T05:10:31Z",
+      "packages": [],
+      "stargazers": {
+        "users": [
+          {
+            "id": 795133,
+            "login": "god74",
+            "name": "god74",
+            "profile": "https://github.com/god74",
+            "avatar": "/api/avatar/795133",
+            "bio": ""
+          },
+          {
+            "id": 439390,
+            "login": "geffzhang",
+            "name": "geffzhang",
+            "profile": "https://github.com/geffzhang",
+            "avatar": "/api/avatar/439390",
+            "bio": ""
+          }
+        ],
+        "available": true,
+        "hasMore": false,
+        "page": 1,
+        "total": 2,
+        "source": "snapshot"
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:11:38.609Z",
+      "license": null
+    },
+    "simdskia": {
+      "slug": "simdskia",
+      "name": "SimdSkia",
+      "owner": "hnlyf168",
+      "repository": "https://github.com/hnlyf168/SimdSkia",
+      "stars": 13,
+      "forks": 4,
+      "issues": 0,
+      "pushedAt": "2026-10-27T05:10:36Z",
+      "packages": [
+        {
+          "id": "SimdSkia.Avalonia.Desktop",
+          "available": true,
+          "version": "0.1.0-preview.8",
+          "downloads": 230,
+          "url": "https://www.nuget.org/packages/SimdSkia.Avalonia.Desktop",
+          "prerelease": true,
+          "dependencies": [],
+          "updatedAt": "2026-10-27T05:11:39.258Z",
+          "dependenciesAvailable": false
+        }
+      ],
+      "stargazers": {
+        "users": [
+          {
+            "id": 57142635,
+            "login": "yuebo119",
+            "name": "yuebo119",
+            "profile": "https://github.com/yuebo119",
+            "avatar": "/api/avatar/57142635",
+            "bio": ""
+          },
+          {
+            "id": 52450772,
+            "login": "996666925",
+            "name": "996666925",
+            "profile": "https://github.com/996666925",
+            "avatar": "/api/avatar/52450772",
+            "bio": ""
+          },
+          {
+            "id": 68289686,
+            "login": "zcg",
+            "name": "zcg",
+            "profile": "https://github.com/zcg",
+            "avatar": "/api/avatar/68289686",
+            "bio": ""
+          },
+          {
+            "id": 13188169,
+            "login": "joesdu",
+            "name": "joesdu",
+            "profile": "https://github.com/joesdu",
+            "avatar": "/api/avatar/13188169",
+            "bio": ""
+          },
+          {
+            "id": 72319983,
+            "login": "lzz-world",
+            "name": "lzz-world",
+            "profile": "https://github.com/lzz-world",
+            "avatar": "/api/avatar/72319983",
+            "bio": ""
+          },
+          {
+            "id": 7424178,
+            "login": "jibie",
+            "name": "jibie",
+            "profile": "https://github.com/jibie",
+            "avatar": "/api/avatar/7424178",
+            "bio": ""
+          },
+          {
+            "id": 26645219,
+            "login": "wuyuan2009123",
+            "name": "wuyuan2009123",
+            "profile": "https://github.com/wuyuan2009123",
+            "avatar": "/api/avatar/26645219",
+            "bio": ""
+          },
+          {
+            "id": 16078846,
+            "login": "Shui77sun",
+            "name": "Shui77sun",
+            "profile": "https://github.com/Shui77sun",
+            "avatar": "/api/avatar/16078846",
+            "bio": ""
+          },
+          {
+            "id": 19919631,
+            "login": "afunc233",
+            "name": "afunc233",
+            "profile": "https://github.com/afunc233",
+            "avatar": "/api/avatar/19919631",
+            "bio": ""
+          },
+          {
+            "id": 170285781,
+            "login": "Jotaro2025",
+            "name": "Jotaro2025",
+            "profile": "https://github.com/Jotaro2025",
+            "avatar": "/api/avatar/170285781",
+            "bio": ""
+          },
+          {
+            "id": 2756996,
+            "login": "enjoycode",
+            "name": "enjoycode",
+            "profile": "https://github.com/enjoycode",
+            "avatar": "/api/avatar/2756996",
+            "bio": ""
+          },
+          {
+            "id": 26240280,
+            "login": "lingsg",
+            "name": "lingsg",
+            "profile": "https://github.com/lingsg",
+            "avatar": "/api/avatar/26240280",
+            "bio": ""
+          },
+          {
+            "id": 294192560,
+            "login": "hi-dzy",
+            "name": "hi-dzy",
+            "profile": "https://github.com/hi-dzy",
+            "avatar": "/api/avatar/294192560",
+            "bio": ""
+          }
+        ],
+        "available": true,
+        "hasMore": false,
+        "page": 1,
+        "total": 13,
+        "source": "snapshot"
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:11:38.750Z",
+      "license": "MIT"
+    },
+    "serein": {
+      "slug": "serein",
+      "name": "Serein",
+      "owner": "donet-org-cn",
+      "repository": "https://github.com/donet-org-cn/Serein",
+      "stars": 1,
+      "forks": 1,
+      "issues": 0,
+      "pushedAt": "2026-10-27T05:10:39Z",
+      "packages": [
+        {
+          "id": "Serein.AspNetCore",
+          "available": true,
+          "version": "0.1.0-preview.1",
+          "downloads": 40,
+          "url": "https://www.nuget.org/packages/Serein.AspNetCore",
+          "prerelease": true,
+          "dependencies": [],
+          "updatedAt": "2026-10-27T05:11:40.573Z",
+          "dependenciesAvailable": false
+        }
+      ],
+      "stargazers": {
+        "users": [
+          {
+            "id": 3389595,
+            "login": "lvjunlei",
+            "name": "lvjunlei",
+            "profile": "https://github.com/lvjunlei",
+            "avatar": "/api/avatar/3389595",
+            "bio": ""
+          }
+        ],
+        "available": true,
+        "hasMore": false,
+        "page": 1,
+        "total": 1,
+        "source": "snapshot"
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:11:39.092Z",
+      "license": "MIT"
+    },
+    "simdpaddleocr": {
+      "slug": "simdpaddleocr",
+      "name": "SimdPaddleOCR",
+      "owner": "hnlyf168",
+      "repository": "https://github.com/hnlyf168/SimdPaddleOCR",
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "pushedAt": "2026-10-27T05:10:36Z",
+      "packages": [],
+      "stargazers": {
+        "users": [],
+        "available": true,
+        "hasMore": false,
+        "page": 1,
+        "total": 0,
+        "source": "snapshot",
+        "complete": true
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:10:45.773Z",
+      "license": "Apache-2.0"
+    },
+    "p2pvpn": {
+      "slug": "p2pvpn",
+      "name": "P2P VPN",
+      "owner": "hnlyf168",
+      "repository": "https://github.com/hnlyf168/p2pvpn",
+      "stars": 1,
+      "forks": 0,
+      "issues": 0,
+      "pushedAt": "2026-10-27T05:10:41Z",
+      "packages": [],
+      "stargazers": {
+        "users": [
+          {
+            "id": 56746942,
+            "login": "jkh404",
+            "name": "jkh404",
+            "profile": "https://github.com/jkh404",
+            "avatar": "/api/avatar/56746942",
+            "bio": ""
+          }
+        ],
+        "available": true,
+        "hasMore": false,
+        "page": 1,
+        "total": 1,
+        "source": "snapshot"
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:11:50.360Z",
+      "license": null
+    },
+    "protobus": {
+      "slug": "protobus",
+      "name": "ProtoBus",
+      "owner": "hnlyf168",
+      "repository": "https://github.com/hnlyf168/ProtoBus",
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "pushedAt": "2026-10-27T05:10:45Z",
+      "packages": [],
+      "stargazers": {
+        "users": [],
+        "available": true,
+        "hasMore": false,
+        "page": 1,
+        "total": 0,
+        "source": "snapshot"
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:11:51.504Z",
+      "license": "MIT"
+    },
+    "paddlesharp": {
+      "slug": "paddlesharp",
+      "name": "PaddleSharp",
+      "owner": "sdcb",
+      "repository": "https://github.com/sdcb/PaddleSharp",
+      "stars": 1457,
+      "forks": 250,
+      "issues": 86,
+      "pushedAt": "2026-08-30T02:28:37Z",
+      "packages": [
+        {
+          "id": "Sdcb.PaddleOCR",
+          "available": true,
+          "version": "3.3.1",
+          "downloads": 316006,
+          "url": "https://www.nuget.org/packages/Sdcb.PaddleOCR",
+          "prerelease": false,
+          "dependencies": [],
+          "updatedAt": "2026-10-27T05:11:52.877Z",
+          "dependenciesAvailable": false
+        }
+      ],
+      "stargazers": {
+        "users": [],
+        "available": false,
+        "hasMore": false,
+        "page": 1,
+        "total": 1457,
+        "source": "snapshot",
+        "requiresAuthorization": true
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:11:52.390Z",
+      "license": "Apache-2.0"
+    },
+    "sdcb-simdpaddleocr": {
+      "slug": "sdcb-simdpaddleocr",
+      "name": "SimdPaddleOCR · 上游",
+      "owner": "sdcb",
+      "repository": "https://github.com/sdcb/SimdPaddleOCR",
+      "stars": 513,
+      "forks": 66,
+      "issues": 7,
+      "pushedAt": "2026-10-17T05:57:04Z",
+      "packages": [
+        {
+          "id": "Sdcb.SimdPaddleOCR",
+          "available": true,
+          "version": "2.0.0",
+          "downloads": 3582,
+          "url": "https://www.nuget.org/packages/Sdcb.SimdPaddleOCR",
+          "prerelease": false,
+          "dependencies": [],
+          "updatedAt": "2026-10-27T05:11:53.180Z",
+          "dependenciesAvailable": false
+        }
+      ],
+      "stargazers": {
+        "users": [],
+        "available": false,
+        "hasMore": false,
+        "page": 1,
+        "total": 513,
+        "source": "snapshot",
+        "requiresAuthorization": true
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:11:52.662Z",
+      "license": "Apache-2.0"
+    },
+    "chats": {
+      "slug": "chats",
+      "name": "Sdcb Chats",
+      "owner": "sdcb",
+      "repository": "https://github.com/sdcb/chats",
+      "stars": 614,
+      "forks": 108,
+      "issues": 9,
+      "pushedAt": "2026-10-12T08:32:26Z",
+      "packages": [],
+      "stargazers": {
+        "users": [],
+        "available": false,
+        "hasMore": false,
+        "page": 1,
+        "total": 614,
+        "source": "snapshot",
+        "requiresAuthorization": true
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:11:54.911Z",
+      "license": "Apache-2.0"
+    },
+    "arithmetic": {
+      "slug": "arithmetic",
+      "name": "Sdcb.Arithmetic",
+      "owner": "sdcb",
+      "repository": "https://github.com/sdcb/Arithmetic",
+      "stars": 171,
+      "forks": 24,
+      "issues": 0,
+      "pushedAt": "2026-10-27T01:49:57Z",
+      "packages": [
+        {
+          "id": "Sdcb.Arithmetic",
+          "available": true,
+          "version": "1.1.0",
+          "downloads": 42,
+          "url": "https://www.nuget.org/packages/Sdcb.Arithmetic",
+          "prerelease": false,
+          "dependencies": [],
+          "updatedAt": "2026-10-27T05:11:55.960Z",
+          "dependenciesAvailable": false
+        }
+      ],
+      "stargazers": {
+        "users": [],
+        "available": false,
+        "hasMore": false,
+        "page": 1,
+        "total": 171,
+        "source": "snapshot",
+        "requiresAuthorization": true
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:11:55.835Z",
+      "license": "MIT"
+    },
+    "openvino.net": {
+      "slug": "openvino.net",
+      "name": "OpenVINO.NET",
+      "owner": "sdcb",
+      "repository": "https://github.com/sdcb/OpenVINO.NET",
+      "stars": 457,
+      "forks": 46,
+      "issues": 5,
+      "pushedAt": "2026-06-16T02:49:08Z",
+      "packages": [
+        {
+          "id": "Sdcb.OpenVINO",
+          "available": true,
+          "version": "0.8.1",
+          "downloads": 32246,
+          "url": "https://www.nuget.org/packages/Sdcb.OpenVINO",
+          "prerelease": false,
+          "dependencies": [],
+          "updatedAt": "2026-10-27T05:11:56.362Z",
+          "dependenciesAvailable": false
+        }
+      ],
+      "stargazers": {
+        "users": [],
+        "available": false,
+        "hasMore": false,
+        "page": 1,
+        "total": 457,
+        "source": "snapshot",
+        "requiresAuthorization": true
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:11:56.239Z",
+      "license": "Apache-2.0"
+    },
+    "sdcb.ffmpeg": {
+      "slug": "sdcb.ffmpeg",
+      "name": "Sdcb.FFmpeg",
+      "owner": "sdcb",
+      "repository": "https://github.com/sdcb/Sdcb.FFmpeg",
+      "stars": 408,
+      "forks": 61,
+      "issues": 15,
+      "pushedAt": "2025-03-24T00:54:47Z",
+      "packages": [
+        {
+          "id": "Sdcb.FFmpeg",
+          "available": true,
+          "version": "7.0.0",
+          "downloads": 65290,
+          "url": "https://www.nuget.org/packages/Sdcb.FFmpeg",
+          "prerelease": false,
+          "dependencies": [],
+          "updatedAt": "2026-10-27T05:11:57.262Z",
+          "dependenciesAvailable": false
+        }
+      ],
+      "stargazers": {
+        "users": [],
+        "available": false,
+        "hasMore": false,
+        "page": 1,
+        "total": 408,
+        "source": "snapshot",
+        "requiresAuthorization": true
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-10-27T05:11:56.664Z",
+      "license": "LGPL-3.0"
+    }
+  },
+  "members": [
+    {
+      "id": 266281842,
+      "login": "hnlyf168",
+      "name": "hnlyf168",
+      "profile": "https://github.com/hnlyf168",
+      "avatar": "/api/avatar/266281842",
+      "bio": {
+        "zh": "关注纯 C# AI、基础引擎、设备互联与跨平台应用，维护 FunASR.NET、SimdYolo、PureDb 等项目。",
+        "en": "Builds C# AI, foundational engines, connected systems, and cross-platform apps, including FunASR.NET, SimdYolo, and PureDb."
+      },
+      "areas": [
+        "C#",
+        "AI",
+        ".NET"
+      ],
+      "curated": true,
+      "publicMembership": false,
+      "githubBio": ""
+    },
+    {
+      "id": 1317141,
+      "login": "sdcb",
+      "name": "ZHOU Jie",
+      "profile": "https://github.com/sdcb",
+      "avatar": "/api/avatar/1317141",
+      "bio": {
+        "zh": "C#/.NET 开发者，维护 PaddleSharp、Chats、OpenVINO.NET、SimdPaddleOCR 等开源项目，分享 AI 与工具链实践。",
+        "en": "A C#/.NET developer maintaining PaddleSharp, Chats, OpenVINO.NET, and SimdPaddleOCR, sharing AI and developer-tooling work."
+      },
+      "areas": [
+        ".NET",
+        "Computer vision",
+        "Open source"
+      ],
+      "curated": true,
+      "publicMembership": false,
+      "githubBio": "Microsoft MVP for C#/.NET development"
+    }
+  ]
+}

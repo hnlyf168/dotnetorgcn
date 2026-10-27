@@ -22,4 +22,4 @@ export const messages = {
 };
 export const escape = value => String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 export const prefix = locale => locale==='en'?'/en/':'/';
-export const projectPath = (project,locale='zh') => `${prefix(locale)}projects/${project.name.toLowerCase()}/`;
+export const projectPath = (project,locale='zh') => `${prefix(locale)}projects/${project.slug||project.name.toLowerCase()}/`;
