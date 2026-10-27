@@ -85,18 +85,24 @@ jobs:
             echo '::error::Invalid Pages project name.'
             exit 1
           fi
-      - name: Resolve existing Pages project
+      - name: Prepare Pages project
         id: pages
-        run: node scripts/cloudflare-setup.mjs --prefer-domain --require-existing
+        run: node scripts/cloudflare-setup.mjs --prefer-domain --create
       - name: Download site
         uses: actions/download-artifact@v4
         with:
           name: website
           path: dist
       - name: Publish to Cloudflare Pages
+        id: publish
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist --project-name=${{ steps.pages.outputs.project_name }} --branch=${{ github.head_ref || steps.pages.outputs.production_branch }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Associate custom domain
+        continue-on-error: true
+        env:
+          CLOUDFLARE_PAGES_PROJECT: ${{ steps.pages.outputs.project_name }}
+        run: node scripts/cloudflare-setup.mjs --domain
