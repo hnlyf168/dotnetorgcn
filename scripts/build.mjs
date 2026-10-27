@@ -3,8 +3,10 @@ import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {homepage} from '../src/home.mjs';
 import {projectPage} from '../src/project.mjs';
+import {aboutPage} from '../src/about.mjs';
 import {layout} from '../src/layout.mjs';
 import {messages,projectPath,prefix} from '../src/i18n.mjs';
+import {repositoryOwner} from './project-metadata.mjs';
 
 const root=fileURLToPath(new URL('../',import.meta.url));
 const readJson=async file=>JSON.parse(await readFile(path.join(root,file),'utf8'));
@@ -17,9 +19,10 @@ const urls=[];
 for(const locale of ['zh','en']) {
   const localized={...data,projects:data.projects.map(p=>{
     if(!details[p.name]||!english[p.name])throw new Error(`Missing bilingual project content: ${p.name}`);
-    return {...p,...details[p.name],...(locale==='en'?english[p.name]:{}),searchText:[p.name,p.title,p.description,...p.tags,english[p.name].description,...english[p.name].tags].join(' ')};
+    return {...p,owner:repositoryOwner(p,data.owner),...details[p.name],...(locale==='en'?english[p.name]:{}),searchText:[p.name,p.title,p.description,...p.tags,english[p.name].description,...english[p.name].tags].join(' ')};
   })};
   await output(prefix(locale),homepage(localized,locale));urls.push(prefix(locale));
+  await output(`${prefix(locale)}about/`,aboutPage(localized,locale));urls.push(`${prefix(locale)}about/`);
   for(const project of localized.projects){const url=projectPath(project,locale);await output(url,projectPage(project,localized,locale));urls.push(url);}
 }
 const t=messages.zh;

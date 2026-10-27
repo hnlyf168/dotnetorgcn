@@ -75,3 +75,20 @@ test('custom 404 offers a working return to the homepage',async({page})=>{
   const response=await page.goto('/not-a-real-page');expect(response.status()).toBe(404);
   await page.getByRole('link',{name:/^回到首页/}).click();await expect(page).toHaveTitle(/.NET 中国/);
 });
+
+test('About pages identify the organization and preserve language when switching',async({page})=>{
+  const errors=[];page.on('pageerror',error=>errors.push(error.message));
+  await page.goto('/');
+  await expect(page.getByRole('link',{name:'GitHub 开源主页'})).toHaveAttribute('href','https://github.com/donet-org-cn');
+  const menu=page.getByRole('button',{name:'打开导航菜单'});
+  if(await menu.isVisible())await menu.click();
+  await page.getByRole('navigation',{name:'主导航'}).getByRole('link',{name:'关于我们'}).click();
+  await expect(page).toHaveURL(/\/about\/$/);
+  await expect(page.locator('.about-hero')).toContainText('开放协作');
+  await expect(page.locator('.about-body')).toContainText('donet-org-cn');
+  await page.getByRole('link',{name:'Switch to English'}).click();
+  await expect(page).toHaveURL(/\/en\/about\/$/);
+  await expect(page.getByRole('heading',{name:'Our GitHub organization',exact:true})).toBeVisible();
+  await expect(page.locator('.about-body a').filter({hasText:'Join the discussion'})).toHaveAttribute('href','https://github.com/donet-org-cn/community/discussions');
+  expect(errors).toEqual([]);
+});

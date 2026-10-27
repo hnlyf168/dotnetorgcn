@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile,stat,readdir} from 'node:fs/promises';
 import {resolve,dirname} from 'node:path';
+import {repositoryUrl} from '../scripts/project-metadata.mjs';
 
 const root=new URL('../dist/',import.meta.url);
 const data=JSON.parse(await readFile(new URL('../content/projects.json',import.meta.url),'utf8'));
@@ -19,7 +20,7 @@ test('all nine projects have server-rendered introductions and links in both lan
       assert.ok(home.includes(`href="${path}"`));
       assert.ok(page.includes(locale==='en'?english[p.name].description:p.description));
       for(const section of ['overview','capabilities','scenarios','quickStart','boundaries'])assert.ok(page.includes(`id="${section}"`));
-      assert.ok(page.includes(`href="https://github.com/${data.owner}/${p.name}"`));
+      assert.ok(page.includes(`href="${repositoryUrl(p,data.owner)}"`));
       assert.ok(page.includes(`<link rel="canonical" href="https://dotnet.org.cn${path}">`));
     }
   }
@@ -27,7 +28,7 @@ test('all nine projects have server-rendered introductions and links in both lan
 
 test('every internal page, fragment, and packaged asset resolves',async()=>{
   const files=await htmlFiles(root);
-  assert.equal(files.length,21);
+  assert.equal(files.length,23);
   for(const file of files){
     const html=await readFile(file,'utf8');
     for(const [,url] of html.matchAll(/(?:href|src)="((?:\/|#)[^\"]*)"/g)){
@@ -43,12 +44,22 @@ test('every internal page, fragment, and packaged asset resolves',async()=>{
   }
 });
 
-test('sitemap and alternate-language metadata cover all twenty public pages',async()=>{
+test('sitemap and alternate-language metadata cover all bilingual public pages',async()=>{
   const sitemap=await read('sitemap.xml');
-  assert.equal((sitemap.match(/<loc>/g)||[]).length,20);
-  for(const url of ['/', '/en/',...data.projects.flatMap(p=>[`/projects/${p.name.toLowerCase()}/`,`/en/projects/${p.name.toLowerCase()}/`])])assert.ok(sitemap.includes(`<loc>https://dotnet.org.cn${url}</loc>`));
+  assert.equal((sitemap.match(/<loc>/g)||[]).length,22);
+  for(const url of ['/', '/en/','/about/','/en/about/',...data.projects.flatMap(p=>[`/projects/${p.name.toLowerCase()}/`,`/en/projects/${p.name.toLowerCase()}/`])])assert.ok(sitemap.includes(`<loc>https://dotnet.org.cn${url}</loc>`));
   for(const file of await htmlFiles(root)){
     const html=await readFile(file,'utf8');assert.ok(html.includes('hreflang="zh-CN"'));assert.ok(html.includes('hreflang="en"'));
+  }
+});
+
+test('community navigation points to the organization while source links retain actual ownership',async()=>{
+  for(const locale of ['','en/']){
+    const home=await read(`${locale}index.html`),about=await read(`${locale}about/index.html`);
+    assert.ok(home.includes('href="https://github.com/donet-org-cn"'));
+    assert.ok(home.includes(`href="/${locale}about/"`));
+    assert.ok(about.includes('https://github.com/donet-org-cn/community/discussions'));
+    assert.ok(about.includes('https://github.com/donet-org-cn/.github/blob/main/CONTRIBUTING.md'));
   }
 });
 

@@ -23,7 +23,9 @@
         "CPU SIMD 与显式启用的 Vulkan 混合后端"
       ],
       "note": "独立社区实现，非 FunASR 官方 SDK。需要另行准备兼容模型权重；尚未发布 NuGet 包。",
-      "command": "git clone https://github.com/hnlyf168/FunAsrNet.git"
+      "command": "git clone https://github.com/hnlyf168/FunAsrNet.git",
+      "owner": "hnlyf168",
+      "repositoryId": 1414493628
     },
     {
       "name": "SimdYolo",
@@ -46,7 +48,9 @@
         "CPU SIMD、Vulkan / Metal 后端及检测头微调"
       ],
       "note": "模型和算子支持以仓库清单为准。Metal 后端尚未实机验证；训练为冻结骨干的检测头微调。",
-      "command": "dotnet add package SimdYolo"
+      "command": "dotnet add package SimdYolo",
+      "owner": "hnlyf168",
+      "repositoryId": 1418580617
     },
     {
       "name": "PureDb",
@@ -68,7 +72,9 @@
         "可选纯托管 SQLite 文件兼容库"
       ],
       "note": "当前为预览版。SQL 与 SQLite 文件兼容均有明确边界，不支持完整 SQLite SQL 或 WAL 文件协议。",
-      "command": "dotnet add package PureDb --prerelease"
+      "command": "dotnet add package PureDb --prerelease",
+      "owner": "hnlyf168",
+      "repositoryId": 1431901367
     },
     {
       "name": "SimdSkia",
@@ -82,7 +88,7 @@
         "Avalonia",
         "SIMD"
       ],
-      "stars": 10,
+      "stars": 13,
       "fork": false,
       "features": [
         "C# 绘图、字体、基础排版及图像编解码",
@@ -90,7 +96,9 @@
         "Avalonia 桌面适配与部分 SkiaSharp 源码 API 兼容"
       ],
       "note": "当前为预览版，完整 API 和整页画质验收尚未全部通过；macOS GPU 尚未实现。",
-      "command": "dotnet add package SimdSkia.Avalonia.Desktop --prerelease"
+      "command": "dotnet add package SimdSkia.Avalonia.Desktop --prerelease",
+      "owner": "hnlyf168",
+      "repositoryId": 1428164442
     },
     {
       "name": "Serein",
@@ -112,7 +120,9 @@
         "媒体录制、托管音频处理及 ASP.NET Core 集成"
       ],
       "note": "预览版。视频链路主要负责解包和转发，不含通用视频转码；尚未实现 HLS、WebRTC 等输出。",
-      "command": "dotnet add package Serein.AspNetCore --prerelease"
+      "command": "dotnet add package Serein.AspNetCore --prerelease",
+      "owner": "hnlyf168",
+      "repositoryId": 1432984890
     },
     {
       "name": "yunsevo",
@@ -134,7 +144,9 @@
         "Windows / Linux / macOS 与 Android 客户端"
       ],
       "note": "具体平台和架构请按 Releases 选择。当前不包含 iPhone 安装包。",
-      "command": "git clone https://github.com/hnlyf168/yunsevo.git"
+      "command": "git clone https://github.com/hnlyf168/yunsevo.git",
+      "owner": "hnlyf168",
+      "repositoryId": 1424030465
     },
     {
       "name": "p2pvpn",
@@ -156,7 +168,9 @@
         "Windows、Linux 客户端及 Android 源码"
       ],
       "note": "实际直连效果受 NAT、防火墙和网络环境影响。中继依赖已部署且在线的节点；各平台版本以发布页为准。",
-      "command": "git clone https://github.com/hnlyf168/p2pvpn.git"
+      "command": "git clone https://github.com/hnlyf168/p2pvpn.git",
+      "owner": "hnlyf168",
+      "repositoryId": 1390432042
     },
     {
       "name": "ProtoBus",
@@ -178,7 +192,9 @@
         "Modbus、FINS、S7 等工业协议方向"
       ],
       "note": "当前公开 README 较精简。以上为仓库声明的项目方向，具体实现、示例与可用性请检查源码。",
-      "command": "git clone https://github.com/hnlyf168/ProtoBus.git"
+      "command": "git clone https://github.com/hnlyf168/ProtoBus.git",
+      "owner": "hnlyf168",
+      "repositoryId": 1269289563
     },
     {
       "name": "SimdPaddleOCR",
@@ -201,7 +217,9 @@
         "核心 API 接收像素内存，不强制图片解码库"
       ],
       "note": "此仓库为 sdcb/SimdPaddleOCR 的 Fork，原项目归属与许可证请参见上游。本站不将其作为原创项目展示。",
-      "command": "git clone https://github.com/hnlyf168/SimdPaddleOCR.git"
+      "command": "git clone https://github.com/hnlyf168/SimdPaddleOCR.git",
+      "owner": "hnlyf168",
+      "repositoryId": 1412900206
     }
   ]
 }

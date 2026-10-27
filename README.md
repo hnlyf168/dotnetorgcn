@@ -2,7 +2,9 @@
 
 面向中国开发者的 .NET 与 AI 开源社区官网。纯静态、无运行时第三方依赖，部署到 Cloudflare Pages。
 
-采用白色、浅灰与靛紫色的阅读友好设计。包含可交互粒子主视觉、9 个真实开源仓库、分类与搜索、独立项目介绍页、技术生态代码切换、代码复制和移动端导航。首页及全部项目均提供完整中英双语，共 20 个静态页面。
+采用白色、浅灰与靛紫色的阅读友好设计。包含可交互粒子主视觉、9 个真实开源仓库、分类与搜索、独立项目介绍页、技术生态代码切换、代码复制和移动端导航。首页、项目介绍及关于我们提供完整中英双语，共 22 个静态页面。
+
+社区组织为 [donet-org-cn](https://github.com/donet-org-cn)，交流入口为 [Community Discussions](https://github.com/donet-org-cn/community/discussions)，贡献说明见 [组织贡献指南](https://github.com/donet-org-cn/.github/blob/main/CONTRIBUTING.md)。[关于我们](https://dotnet.org.cn/about/)明确说明社区方向、参与方式和项目归属。
 
 首次访问默认网址时按浏览器首选语言选择：中文系统显示中文，其余显示英文。导航栏可手动切换并记住选择，项目切换语言后仍停留在同一项目。显式的 `/en/` 链接保留英文，便于跨语言分享。浏览器禁用存储时仍可切换语言。
 
@@ -37,14 +39,15 @@ npm run data        # 同步 GitHub Star / Fork 状态，保留人工介绍
 | `src/i18n.mjs` | 中英文页面文案 |
 | `src/home.mjs`、`src/project.mjs` | 首页和独立项目页结构 |
 | `src/layout.mjs` | 共用导航、语言切换、SEO 与页脚 |
+| `src/about.mjs`、`src/config.mjs` | 双语关于页面与社区组织配置 |
 | `public/style.css` | 配色与响应式布局 |
 | `public/app.js`、`public/shared.js` | 首页交互、粒子、代码示例与共用行为 |
 | `public/locale.js` | 首选语言检测和手动语言偏好 |
 | `.github/workflows/deploy.yml` | 构建、校验、浏览器测试、自动发布 |
 
-提交到 GitHub 的 `main` 分支即自动发布；PR 在相同仓库内生成预览部署，Fork PR 只运行检查。每次正式发布自动同步公开仓库元信息。新仓库需要在 `content/projects.json`、`content/project-details.json` 和 `content/projects.en.json` 添加完整双语资料再发布，不会自动生成未经核实的能力声明。
+提交到 GitHub 的 `main` 分支即自动发布；PR 在相同仓库内生成预览部署，Fork PR 只运行检查。每次正式发布自动按固定 GitHub 仓库 ID 查询当前归属、Star 和 Fork 状态，因此支持个人与组织仓库同时展示，以及转移后的归属更新。新仓库需要在 `content/projects.json`、`content/project-details.json` 和 `content/projects.en.json` 添加完整双语资料再发布，不会自动生成未经核实的能力声明。
 
-项目介绍基于 [hnlyf168 的公开仓库](https://github.com/hnlyf168)，`SimdPaddleOCR` 已标记为 [sdcb/SimdPaddleOCR](https://github.com/sdcb/SimdPaddleOCR) 的 Fork。官网为独立社区展示，不代表微软官方。
+项目介绍基于社区成员维护的公开仓库，各项目按真实维护者链接，不会将尚未转移的个人项目误标为组织所有。`SimdPaddleOCR` 已标记为 [sdcb/SimdPaddleOCR](https://github.com/sdcb/SimdPaddleOCR) 的 Fork。官网为独立社区展示，不代表微软官方。转移项目之前可参考 [仓库转移说明](docs/REPOSITORY-TRANSFER.md)。
 
 ## Cloudflare 配置
 

@@ -28,11 +28,13 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && document.activeElement === search) { search.value = ''; applyFilters(); search.blur(); }
 });
 
+const exampleRepositories=JSON.parse(document.querySelector('#code-source').dataset.repositories||'{}');
 const examples = {
   ai: { filename:'Speech.cs', caption:'FunASR.NET · 普通话语音识别', source:'FunAsrNet', code:'using FunAsrNet;\n\n// 模型权重需按项目文档另行准备\nvar asr = new FunAsr(\n  "models/funasr-encoder-f16.gguf",\n  "models/qwen3-0.6b-q8_0.gguf", threads: 4);\nvar (samples, rate) = AudioFile.ReadWave("input.wav");\nvar result = asr.Transcribe(\n  AudioFile.Resample(samples, rate, 16000),\n  maxTokens: 128);\nConsole.WriteLine(result.Text);' },
   infra: { filename:'Database.cs', caption:'PureDb · 纯托管文件数据库', source:'PureDb', code:'using PureDb;\n\n// 为想法，留一份持久的存储\nawait using var db = new SqlDatabase("app.pdb");\nawait db.ExecuteAsync(\n  "CREATE TABLE IF NOT EXISTS ideas(" +\n  "id INTEGER PRIMARY KEY, name TEXT)");\n\nvar result = db.Query("SELECT name FROM ideas");\nConsole.WriteLine(result.Rows.Count);' },
   connect: { filename:'Terminal', caption:'Serein · 从源码启动流媒体服务', source:'Serein', code:'# 需要 .NET 10 SDK\ngit clone https://github.com/hnlyf168/Serein.git\ncd Serein\n\n# 还原、构建并运行示例\ndotnet restore Serein.slnx\ndotnet build Serein.slnx -c Release --no-restore\ndotnet run --project samples/Serein.Server \\\n  -c Release --no-build\n\n# 默认地址 http://127.0.0.1:5080' }
 };
+if(exampleRepositories.Serein)examples.connect.code=examples.connect.code.replace('https://github.com/hnlyf168/Serein.git',exampleRepositories.Serein+'.git');
 if(locale==='en'){
  examples.ai.caption='FunASR.NET · Mandarin speech recognition';examples.infra.caption='PureDb · Managed file storage';examples.connect.caption='Serein · Run the streaming example';
  for(const item of Object.values(examples))item.code=item.code.replace('模型权重需按项目文档另行准备','Prepare compatible model weights separately').replace('为想法，留一份持久的存储','Give your ideas a persistent home').replace('需要 .NET 10 SDK','Requires the .NET 10 SDK').replace('还原、构建并运行示例','Restore, build, and run the example').replace('默认地址','Default URL');
@@ -53,7 +55,7 @@ function selectExample(tab) {
   document.querySelector('#code-filename').textContent = currentExample.filename;
   document.querySelector('#code-caption').textContent = currentExample.caption;
   document.querySelector('#ecosystem-code').innerHTML = highlight(currentExample.code);
-  document.querySelector('#code-source').href = `https://github.com/hnlyf168/${currentExample.source}#readme`;
+  document.querySelector('#code-source').href = `${exampleRepositories[currentExample.source]||'https://github.com/hnlyf168/'+currentExample.source}#readme`;
 }
 ecoTabs.forEach((tab,index) => {
   tab.addEventListener('click', () => selectExample(tab));
