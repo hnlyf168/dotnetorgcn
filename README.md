@@ -2,7 +2,7 @@
 
 面向中文开发者的 .NET 与 AI 开源社区官网。页面预渲染，动态数据使用 Cloudflare Pages Functions，无生产环境 npm 依赖。
 
-首页采用重点项目交互速览、侧边分类与紧凑项目目录、代码工作台和维护者介绍。支持完整浅色与深色主题，首次跟随系统，导航按钮可切换并记住选择。包含项目下拉菜单、15 个真实仓库、分类与搜索、独立项目介绍页、成员目录、Star 支持者分页、NuGet 数据和图标下载。首页、项目、关于我们、成员及品牌页面提供完整中英双语，共 38 个页面。
+首页采用重点项目交互速览、侧边分类与紧凑项目目录、代码工作台和维护者介绍。支持完整浅色与深色主题，首次跟随系统，导航按钮可切换并记住选择。包含项目下拉菜单、14 个真实仓库、分类与搜索、独立项目介绍页、成员目录、Star 支持者分页、NuGet 数据和图标下载。首页、项目、关于我们、成员及品牌页面提供完整中英双语，共 36 个页面。
 
 社区组织为 [donet-org-cn](https://github.com/donet-org-cn)，交流入口为 [Community Discussions](https://github.com/donet-org-cn/community/discussions)，贡献说明见 [组织贡献指南](https://github.com/donet-org-cn/.github/blob/main/CONTRIBUTING.md)。[关于我们](https://dotnet.org.cn/about/)明确说明社区方向、参与方式和项目归属。
 
@@ -51,11 +51,11 @@ npm run brand:generate # 从 SVG 原稿重新生成网站、GitHub、NuGet 图�
 
 提交到 GitHub 的 `main` 分支即自动发布；PR 在相同仓库内生成预览部署，Fork PR 只运行检查。每次正式发布自动按固定 GitHub 仓库 ID 查询当前归属、Star 和 Fork 状态，因此支持个人与组织仓库同时展示，以及转移后的归属更新。新仓库需要在 `content/projects.json`、`content/project-details.json` 和 `content/projects.en.json` 添加完整双语资料再发布，不会自动生成未经核实的能力声明。
 
-项目按真实维护者链接。FunAsrNet、SimdYolo、PureDb、SimdSkia、Serein、yunsevo 已转入组织；sdcb 的 6 个项目仍链接其个人仓库。原有 `hnlyf168/SimdPaddleOCR` Fork 与新增的上游介绍 `/projects/sdcb-simdpaddleocr/` 分开保留。官网为独立社区展示，不代表微软官方。详见 [仓库转移说明](docs/REPOSITORY-TRANSFER.md)。
+项目按真实维护者链接。FunAsrNet、SimdYolo、PureDb、SimdSkia、Serein、yunsevo 已转入组织；sdcb 的 6 个项目仍链接其个人仓库。SimdPaddleOCR 统一展示 `sdcb/SimdPaddleOCR`，位于首页重点项目速览和目录前列，使用上游介绍、NuGet 包与 Star 数据；`/projects/sdcb-simdpaddleocr/` 会重定向到 `/projects/simdpaddleocr/`。官网为独立社区展示，不代表微软官方。详见 [仓库转移说明](docs/REPOSITORY-TRANSFER.md)。
 
 ## 动态数据如何更新
 
-无需创建额外 GitHub Token，也无需 `PROJECT_DATA_GITHUB_TOKEN` Secret。已为维护者自己的 9 个项目安装 `scripts/community-data-workflow.txt` 中的工作流，使用每次任务自动签发的、仅该仓库有效的 `GITHUB_TOKEN`。新增 Star 会触发同步，每 6 小时还会校准取消 Star 等变化；GitHub 任务排队和网站缓存会带来延迟。
+无需创建额外 GitHub Token，也无需 `PROJECT_DATA_GITHUB_TOKEN` Secret。官网使用的维护者自有 8 个项目已安装 `scripts/community-data-workflow.txt` 中的工作流，使用每次任务自动签发的、仅该仓库有效的 `GITHUB_TOKEN`。新增 Star 会触发同步，每 6 小时还会校准取消 Star 等变化；GitHub 任务排队和网站缓存会带来延迟。
 
 任务只向项目的 `community-data` 分支写入公开统计和支持者的公开用户名、ID，不包含凭据或邮箱。官网后端读取该分支并校验固定仓库 ID。名单最多同步 1,000 人；超出时仍显示总数并链接 GitHub。未授权的第三方仓库仅展示公开统计与介绍，不虚构 Star 名单。
 

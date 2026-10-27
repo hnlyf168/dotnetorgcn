@@ -38,13 +38,13 @@ test('category and bilingual search combine, then reset the empty state',async({
   await page.getByRole('button',{name:'重置搜索'}).click();await expect(page.locator('.project-card:visible')).toHaveCount(catalog.projects.length);
 });
 
-test('project links open standalone pages that survive a reload and retain attribution',async({page})=>{
+test('the main OCR project opens the sdcb upstream page and survives a reload',async({page})=>{
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
-  await page.goto('/');await page.locator('.catalog-more summary').click();await page.locator('.project-title[href="/projects/simdpaddleocr/"]').click();
+  await page.goto('/');await page.locator('.project-title[href="/projects/simdpaddleocr/"]').click();
   await expect(page).toHaveURL(/\/projects\/simdpaddleocr\/$/);
   await expect(page.getByRole('heading',{level:1})).toHaveText('SimdPaddleOCR');
-  await expect(page.locator('.attribution')).toContainText('此仓库是上游项目的 Fork');
-  await expect(page.locator('.attribution a')).toHaveAttribute('href','https://github.com/sdcb/SimdPaddleOCR');
+  await expect(page.locator('.attribution')).toHaveCount(0);
+  await expect(page.locator('.project-hero a[href="https://github.com/sdcb/SimdPaddleOCR"]')).toBeVisible();
   await page.reload();await expect(page.getByRole('heading',{name:'项目概况',exact:true})).toBeVisible();
   expect(errors).toEqual([]);
 });
@@ -123,8 +123,8 @@ test('project dropdown supports keyboard, mobile taps, and independent upstream 
   await page.keyboard.press('Escape');await expect(toggle).toHaveAttribute('aria-expanded','false');
   if(isMobile)await page.getByRole('button',{name:'打开导航菜单'}).click();
   await toggle.press('ArrowDown');
-  await page.locator('.projects-dropdown a[href="/projects/sdcb-simdpaddleocr/"]').click();
-  await expect(page.getByRole('heading',{level:1})).toHaveText('SimdPaddleOCR · 上游');
+  await page.locator('.projects-dropdown a[href="/projects/simdpaddleocr/"]').click();
+  await expect(page.getByRole('heading',{level:1})).toHaveText('SimdPaddleOCR');
   await expect(page.locator('.project-hero a[href="https://github.com/sdcb/SimdPaddleOCR"]')).toBeVisible();
 });
 
@@ -177,10 +177,21 @@ test('a failed data endpoint keeps readable project details and cached supporter
 test('featured project tabs expose real introductions and support keyboard navigation',async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/');
   const first=page.locator('[data-spotlight-tab="0"]');await first.focus();
+  await expect(page.locator('[data-spotlight-tab]')).toHaveCount(4);
   await expect(page.locator('#spotlight-panel-0')).toBeVisible();await page.keyboard.press('ArrowRight');
   await expect(page.locator('[data-spotlight-tab="1"]')).toHaveAttribute('aria-selected','true');
   await expect(page.locator('#spotlight-panel-1')).toBeVisible();await expect(page.locator('#spotlight-panel-0')).toBeHidden();
   await page.locator('#spotlight-panel-1 a').click();await expect(page).toHaveURL(/\/projects\/simdyolo\/$/);
+});
+
+test('the featured OCR panel shows upstream Star data and older upstream links redirect',async({page})=>{
+  await page.goto('/');await page.locator('[data-spotlight-tab="2"]').click();
+  const panel=page.locator('#spotlight-panel-2');await expect(panel.getByRole('heading')).toHaveText('SimdPaddleOCR');
+  await expect(panel.locator('.spotlight-project-meta')).toContainText('sdcb');
+  await expect(panel.locator('[data-star-count="simdpaddleocr"]')).toHaveText(String(snapshot.projects.simdpaddleocr.stars));
+  await expect(panel.locator('a[href="/projects/simdpaddleocr/"]')).toBeVisible();
+  const response=await page.request.get('/en/projects/sdcb-simdpaddleocr/?ref=community',{maxRedirects:0});expect(response.status()).toBe(301);expect(response.headers().location).toBe('/en/projects/simdpaddleocr/?ref=community');
+  await page.goto('/projects/sdcb-simdpaddleocr/');await expect(page).toHaveURL(/\/projects\/simdpaddleocr\/$/);
 });
 
 test('color themes follow the system, remember manual choices, and survive language and page changes',async({page})=>{

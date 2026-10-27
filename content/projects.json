@@ -28,7 +28,9 @@
       "repositoryId": 1414493628,
       "nugetPackages": [],
       "communityData": true,
-      "maintainer": "hnlyf168"
+      "maintainer": "hnlyf168",
+      "featured": true,
+      "spotlightKind": "voice"
     },
     {
       "name": "SimdYolo",
@@ -56,7 +58,39 @@
       "repositoryId": 1418580617,
       "nugetPackages": [],
       "communityData": true,
-      "maintainer": "hnlyf168"
+      "maintainer": "hnlyf168",
+      "featured": true,
+      "spotlightKind": "vision"
+    },
+    {
+      "name": "SimdPaddleOCR",
+      "title": "SimdPaddleOCR",
+      "owner": "sdcb",
+      "repositoryId": 1357905477,
+      "category": "ai",
+      "icon": "text",
+      "eyebrow": "纯 C#，读懂图片中的文字",
+      "description": "纯 C# PP-OCRv6 推理库，使用托管 ONNX 解释器与 SIMD 内核完成文字检测、方向分类与识别。",
+      "tags": [
+        "OCR",
+        "PP-OCRv6",
+        "SIMD"
+      ],
+      "features": [
+        "文字检测、方向分类与识别",
+        "托管 ONNX 解释器与 SIMD 内核",
+        "支持像素内存输入与可选 GPU 后端"
+      ],
+      "note": "由 sdcb 维护的纯 C# OCR 项目。核心 API 接收像素内存，不负责图片解码；可选 GPU 路径需要 .NET 10 和兼容的 Vulkan / Metal 驱动。模型与平台支持范围以项目文档为准。",
+      "stars": 517,
+      "fork": false,
+      "nugetPackages": [
+        "Sdcb.SimdPaddleOCR"
+      ],
+      "command": "dotnet add package Sdcb.SimdPaddleOCR",
+      "maintainer": "sdcb",
+      "featured": true,
+      "spotlightKind": "ocr"
     },
     {
       "name": "PureDb",
@@ -86,7 +120,9 @@
         "PureDb.SqliteCompatibility"
       ],
       "communityData": true,
-      "maintainer": "hnlyf168"
+      "maintainer": "hnlyf168",
+      "featured": true,
+      "spotlightKind": "database"
     },
     {
       "name": "SimdSkia",
@@ -232,34 +268,6 @@
       "maintainer": "hnlyf168"
     },
     {
-      "name": "SimdPaddleOCR",
-      "title": "SimdPaddleOCR",
-      "category": "ai",
-      "icon": "text",
-      "eyebrow": "把图像变成文字",
-      "description": "关注纯 C# PP-OCRv6 文字识别。以托管 ONNX 解释器连接文字检测、方向分类与识别。",
-      "tags": [
-        "OCR",
-        "PP-OCRv6",
-        "Fork"
-      ],
-      "stars": 0,
-      "fork": true,
-      "upstream": "https://github.com/sdcb/SimdPaddleOCR",
-      "features": [
-        "文字检测、方向分类与文字识别",
-        "托管 ONNX 解释器及 SIMD 内核",
-        "核心 API 接收像素内存，不强制图片解码库"
-      ],
-      "note": "此仓库为 sdcb/SimdPaddleOCR 的 Fork，原项目归属与许可证请参见上游。本站不将其作为原创项目展示。",
-      "command": "git clone https://github.com/hnlyf168/SimdPaddleOCR.git",
-      "owner": "hnlyf168",
-      "repositoryId": 1412900206,
-      "nugetPackages": [],
-      "communityData": true,
-      "maintainer": "hnlyf168"
-    },
-    {
       "name": "PaddleSharp",
       "title": "PaddleSharp",
       "owner": "sdcb",
@@ -312,36 +320,6 @@
       "fork": false,
       "nugetPackages": [],
       "command": "git clone https://github.com/sdcb/chats.git",
-      "maintainer": "sdcb"
-    },
-    {
-      "name": "SimdPaddleOCR",
-      "title": "SimdPaddleOCR · 上游",
-      "owner": "sdcb",
-      "repositoryId": 1357905477,
-      "category": "ai",
-      "icon": "text",
-      "contentKey": "SdcbSimdPaddleOCR",
-      "slug": "sdcb-simdpaddleocr",
-      "eyebrow": "sdcb 维护的 OCR 上游项目",
-      "description": "纯 C# PP-OCRv6 推理库，使用托管 ONNX 解释器与 SIMD 内核完成文字检测、方向分类与识别。",
-      "tags": [
-        "OCR 上游",
-        "PP-OCRv6",
-        "SIMD"
-      ],
-      "features": [
-        "文字检测、方向分类与识别",
-        "托管 ONNX 解释器与 SIMD 内核",
-        "支持像素内存输入与可选 GPU 后端"
-      ],
-      "note": "这是 sdcb 维护的上游仓库，与目录中的 hnlyf168 Fork 分开展示。核心 API 不负责图片解码；GPU 后端需要兼容驱动。",
-      "stars": 513,
-      "fork": false,
-      "nugetPackages": [
-        "Sdcb.SimdPaddleOCR"
-      ],
-      "command": "dotnet add package Sdcb.SimdPaddleOCR",
       "maintainer": "sdcb"
     },
     {

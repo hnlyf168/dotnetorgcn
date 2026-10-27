@@ -1,4 +1,4 @@
-import {readFile,mkdir,writeFile,cp} from 'node:fs/promises';
+import {readFile,mkdir,writeFile,cp,readdir,unlink} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {homepage} from '../src/home.mjs';
@@ -18,6 +18,17 @@ const roster=rosterWithProfiles(members,snapshot);
 const dist=path.join(root,'dist');
 await mkdir(dist,{recursive:true});
 await cp(path.join(root,'public'),dist,{recursive:true});
+// Remove only obsolete generated project HTML, keeping the build directory and assets intact.
+const slugs=new Set(data.projects.map(p=>p.slug||p.name.toLowerCase()));
+for(const folder of ['projects','en/projects']){
+  const directory=path.join(dist,folder);let entries=[];
+  try{entries=await readdir(directory,{withFileTypes:true});}catch(error){if(error.code!=='ENOENT')throw error;}
+  for(const entry of entries)if(entry.isDirectory()&&!slugs.has(entry.name)){
+    const obsolete=path.join(directory,entry.name,'index.html');
+    if(!obsolete.startsWith(dist+path.sep))throw new Error('Invalid generated page path');
+    try{await unlink(obsolete);}catch(error){if(error.code!=='ENOENT')throw error;}
+  }
+}
 async function output(url,html){const dir=path.join(dist,url);await mkdir(dir,{recursive:true});await writeFile(path.join(dir,'index.html'),html);}
 const urls=[];
 for(const locale of ['zh','en']) {

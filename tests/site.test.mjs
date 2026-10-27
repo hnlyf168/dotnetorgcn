@@ -65,10 +65,15 @@ test('community navigation points to the organization while source links retain 
   }
 });
 
-test('fork attribution and capability boundaries remain visible in both languages',async()=>{
+test('SimdPaddleOCR uses the unique sdcb upstream identity, content, package and canonical route',async()=>{
+  const entries=data.projects.filter(project=>project.name==='SimdPaddleOCR');
+  assert.equal(entries.length,1);assert.equal(entries[0].owner,'sdcb');assert.equal(entries[0].repositoryId,1357905477);assert.equal(entries[0].featured,true);assert.equal(entries[0].fork,false);
   for(const locale of ['','en/']){
     const html=await read(`${locale}projects/simdpaddleocr/index.html`);
     assert.ok(html.includes('https://github.com/sdcb/SimdPaddleOCR'));
-    assert.ok(html.includes(locale?'This repository is a fork.':'此仓库是上游项目的 Fork'));
+    assert.ok(html.includes('Sdcb.SimdPaddleOCR'));
+    assert.ok(!html.includes('github.com/hnlyf168/SimdPaddleOCR'));
+    assert.ok(!html.includes('class="attribution"'));
+    const redirects=await read('_redirects');assert.ok(redirects.includes(`/${locale}projects/sdcb-simdpaddleocr/* /${locale}projects/simdpaddleocr/:splat 301`));
   }
 });

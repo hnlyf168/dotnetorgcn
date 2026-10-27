@@ -1,0 +1,4 @@
+/projects/sdcb-simdpaddleocr /projects/simdpaddleocr/ 301
+/projects/sdcb-simdpaddleocr/* /projects/simdpaddleocr/:splat 301
+/en/projects/sdcb-simdpaddleocr /en/projects/simdpaddleocr/ 301
+/en/projects/sdcb-simdpaddleocr/* /en/projects/simdpaddleocr/:splat 301

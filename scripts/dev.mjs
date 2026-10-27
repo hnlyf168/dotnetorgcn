@@ -9,6 +9,10 @@ const port = Number(process.env.PORT || 4321);
 http.createServer(async (req,res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+    if(/^\/(?:en\/)?projects\/sdcb-simdpaddleocr(?:\/|$)/.test(pathname)){
+      const target=new URL(req.url,'http://localhost');target.pathname=target.pathname.replace('sdcb-simdpaddleocr','simdpaddleocr');if(!target.pathname.endsWith('/'))target.pathname+='/';
+      res.writeHead(301,{'Location':target.pathname+target.search}).end();return;
+    }
     if(pathname.startsWith('/api/')){
       const request=new Request(`http://127.0.0.1:${port}${req.url}`);
       let module,params={};

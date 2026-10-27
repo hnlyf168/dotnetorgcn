@@ -251,34 +251,33 @@
     ]
   },
   "SimdPaddleOCR": {
-    "eyebrow": "Turn pixels into words",
-    "description": "A fork exploring pure C# PP-OCRv6 inference, connecting text detection, orientation classification, and recognition through a managed ONNX interpreter.",
+    "title": "SimdPaddleOCR",
+    "eyebrow": "Read the text inside your images",
+    "description": "Pure C# PP-OCRv6 inference with a managed ONNX interpreter and SIMD kernels for detection, orientation, and recognition.",
     "tags": [
       "OCR",
       "PP-OCRv6",
-      "Fork"
+      "SIMD"
     ],
     "features": [
       "Text detection, orientation classification, and recognition",
-      "A managed ONNX interpreter and SIMD kernels",
-      "Pixel-memory input without a mandatory image-decoding library"
+      "Managed ONNX interpretation and SIMD kernels",
+      "Pixel-memory input and optional GPU backends"
     ],
-    "note": "This is a fork of sdcb/SimdPaddleOCR. Original authorship and licensing belong to the upstream project; it is not presented as an original project here.",
-    "overview": "This repository is a fork of sdcb/SimdPaddleOCR, a pure C# PP-OCRv6 inference library. Upstream uses a managed ONNX interpreter and SIMD kernels for detection, orientation classification, and recognition. Its core API accepts pixel memory directly rather than requiring a particular image decoder. Review upstream documentation and licensing when evaluating it.",
+    "note": "Maintained by sdcb. The core accepts pixel memory rather than decoding images. Optional GPU paths require .NET 10 and compatible Vulkan or Metal drivers; consult the repository for supported models and platforms.",
+    "overview": "SimdPaddleOCR provides managed OCR with a pixel-memory API, allowing callers to choose their image decoder and prepare the documented models. Public NuGet packages provide core functionality and model components.",
     "scenarios": [
-      "Explore image-text extraction and OCR workflows in .NET",
-      "Compare integrations with different pixel layouts and image decoders",
-      "Study upstream code and contribute documentation, tests, or inference improvements"
+      "Extract text from images and documents in .NET",
+      "Study managed ONNX and SIMD inference",
+      "Compare pixel-layout and image-decoder integration"
     ],
     "requirements": [
-      "Prepare .NET 10, the core package, and models following upstream documentation",
-      "Provide pixel memory in a supported layout",
-      "Review upstream and model licensing terms"
+      "Prepare .NET, models, and image decoding as documented",
+      "Verify supported formats, models, and GPU backends"
     ],
     "steps": [
-      "Start with the upstream README for packages, models, and input layouts.",
-      "Choose an image decoder and prepare pixels in a supported format.",
-      "Run the upstream OCR example, then compare this fork with upstream if researching changes."
+      "Install the core package and documented model packages.",
+      "Supply pixel memory following an example and validate your images."
     ]
   },
   "PaddleSharp": {
@@ -337,36 +336,6 @@
     "steps": [
       "Choose your database and runtime using the deployment documentation.",
       "Configure providers and validate users, conversations, and tools."
-    ]
-  },
-  "SdcbSimdPaddleOCR": {
-    "title": "SimdPaddleOCR · upstream",
-    "eyebrow": "The OCR upstream maintained by sdcb",
-    "description": "Pure C# PP-OCRv6 inference with a managed ONNX interpreter and SIMD kernels for detection, orientation, and recognition.",
-    "tags": [
-      "OCR upstream",
-      "PP-OCRv6",
-      "SIMD"
-    ],
-    "features": [
-      "Text detection, orientation classification, and recognition",
-      "Managed ONNX interpretation and SIMD kernels",
-      "Pixel-memory input and optional GPU backends"
-    ],
-    "note": "This is the upstream repository maintained by sdcb, listed separately from the hnlyf168 fork. Core APIs do not decode image files; GPU use requires compatible drivers.",
-    "overview": "SimdPaddleOCR provides managed OCR with a pixel-memory API, allowing callers to choose their image decoder and prepare the documented models. Public NuGet packages provide core functionality and model components.",
-    "scenarios": [
-      "Extract text from images and documents in .NET",
-      "Study managed ONNX and SIMD inference",
-      "Compare pixel-layout and image-decoder integration"
-    ],
-    "requirements": [
-      "Prepare .NET, models, and image decoding as documented",
-      "Verify supported formats, models, and GPU backends"
-    ],
-    "steps": [
-      "Install the core package and documented model packages.",
-      "Supply pixel memory following an example and validate your images."
     ]
   },
   "OpenVINO.NET": {
