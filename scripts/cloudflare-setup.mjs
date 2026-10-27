@@ -12,18 +12,18 @@ if(!token || !account) {
 if(!/^[a-f0-9]{32}$/i.test(account)) throw new Error('Account ID 应为 32 位十六进制字符串，请勿使用 Zone ID。');
 if(!/^[a-z0-9][a-z0-9-]*$/.test(project)) throw new Error('项目名仅支持小写字母、数字和连字符。');
 const base = `https://api.cloudflare.com/client/v4/accounts/${account}/pages/projects`;
-async function api(url, method='GET', body) {
+async function api(url, method='GET', body, envelope=false) {
   const response = await fetch(url, {method, headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'}, ...(body?{body:JSON.stringify(body)}:{}), signal:AbortSignal.timeout(30000)});
   const data = await response.json();
   if(!response.ok || !data.success) throw new Error(`Cloudflare 请求失败 (HTTP ${response.status}): ${(data.errors||[]).map(error=>`${error.code}: ${error.message}`).join('; ')}`);
-  return data.result;
+  return envelope?data:data.result;
 }
 try {
   const projects=[];
   for(let page=1;;page++){
-    const batch=await api(`${base}?page=${page}&per_page=100`);
-    projects.push(...batch);
-    if(batch.length<100)break;
+    const response=await api(page===1?base:`${base}?page=${page}`,'GET',undefined,true);
+    projects.push(...response.result);
+    if(!response.result_info?.total_pages||page>=response.result_info.total_pages)break;
   }
   let selected=selectPagesProject(projects,project,{preferDomain:args.has('--prefer-domain'),requireExisting:args.has('--require-existing')});
   if(selected)project=selected.name;
@@ -35,7 +35,10 @@ try {
     process.exit(0);
   }
   console.log(`Pages 项目: ${selected.name} · ${selected.subdomain || '首次发布后生成 pages.dev 地址'}`);
-  if(process.env.GITHUB_OUTPUT)await appendFile(process.env.GITHUB_OUTPUT,`project_name=${selected.name}\n`);
+  const productionBranch=selected.production_branch||'main';
+  if(!/^[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(productionBranch))throw new Error('现有 Pages 项目的生产分支名称需要核对。');
+  console.log(`Production branch: ${productionBranch}`);
+  if(process.env.GITHUB_OUTPUT)await appendFile(process.env.GITHUB_OUTPUT,`project_name=${selected.name}\nproduction_branch=${productionBranch}\n`);
   if(args.has('--domain')) {
     const url = `${base}/${project}/domains`;
     const domains = await api(url);

@@ -98,5 +98,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=${{ steps.pages.outputs.project_name }} --branch=${{ github.head_ref || github.ref_name }}
+          command: pages deploy dist --project-name=${{ steps.pages.outputs.project_name }} --branch=${{ github.head_ref || steps.pages.outputs.production_branch }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
