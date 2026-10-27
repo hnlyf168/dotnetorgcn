@@ -47,5 +47,21 @@ try {
     console.log(`自定义域名: ${domain.name} · 状态: ${domain.status}`);
     console.log('请在 Pages → 自定义域检查 DNS 与证书状态；本脚本不会修改已有 DNS 记录。');
   }
+  if(args.has('--inspect-domain')) {
+    const apiRoot='https://api.cloudflare.com/client/v4';
+    try {
+      const zones=await api(`${apiRoot}/zones?name=dotnet.org.cn`);
+      const zone=zones.find(item=>item.name==='dotnet.org.cn'&&item.account?.id===account);
+      if(!zone)console.log('DOMAIN_DIAGNOSTIC: 该 Token 可见范围内没有找到本账户的 dotnet.org.cn DNS 区域。');
+      else {
+        const records=await api(`${apiRoot}/zones/${zone.id}/dns_records?name=dotnet.org.cn`);
+        console.log('DOMAIN_DIAGNOSTIC: '+JSON.stringify(records.filter(record=>['A','AAAA','CNAME'].includes(record.type)).map(record=>({type:record.type,name:record.name,content:record.content}))));
+      }
+    } catch(error) {console.log(`DOMAIN_DIAGNOSTIC: DNS 查询权限不足或不可用：${error.message}`);}
+    try {
+      const domains=await api(`${apiRoot}/accounts/${account}/workers/domains`);
+      console.log('DOMAIN_DIAGNOSTIC: '+JSON.stringify(domains.filter(domain=>domain.hostname==='dotnet.org.cn').map(domain=>({hostname:domain.hostname,service:domain.service}))));
+    } catch(error) {console.log(`DOMAIN_DIAGNOSTIC: Worker 域名查询权限不足或不可用：${error.message}`);}
+  }
   console.log('可执行 npm run deploy 发布。已存在的项目会复用，不会删除或重建。');
 } catch(error) { console.error(error.message);process.exitCode=1; }

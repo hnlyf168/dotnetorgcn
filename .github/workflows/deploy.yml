@@ -105,4 +105,4 @@ jobs:
         continue-on-error: true
         env:
           CLOUDFLARE_PAGES_PROJECT: ${{ steps.pages.outputs.project_name }}
-        run: node scripts/cloudflare-setup.mjs --domain
+        run: node scripts/cloudflare-setup.mjs --domain --inspect-domain
