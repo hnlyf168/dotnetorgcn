@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createDataService,publicUser} from '../src/data-service.mjs';
+import {profileHighlights} from '../src/member-profile.mjs';
 
 const project={name:'Example',title:'Example',owner:'organization',repositoryId:42,stars:2,communityData:true};
 const members={organization:'organization',members:[{id:1,login:'maintainer',name:'Maintainer',bio:{zh:'社区介绍',en:'Community bio'},areas:['.NET']}]};
@@ -56,4 +57,16 @@ test('member discovery merges public memberships with curated introductions with
   }});
   const result=await service.community();assert.equal(result.members.length,2);assert.equal(result.members[0].bio.en,'Community bio');assert.equal(result.members[0].publicMembership,true);
   assert.ok(!JSON.stringify(result).includes('admin'));assert.ok(!JSON.stringify(result).includes('hidden@example.com'));assert.equal(publicUser({id:1,login:'../evil'}),null);
+});
+
+test('MVP badges come from a member public bio and are removed when that bio changes',async()=>{
+  let bio='Microsoft MVP for C#/.NET development';
+  const service=createDataService({projects:[],members,fetcher:async url=>reply(url.includes('/public_members?')?[]:{id:1,login:'maintainer',name:'Maintainer',bio})});
+  const first=await service.community();
+  assert.equal(first.members[0].highlights[0].label,'Microsoft MVP');
+  assert.equal(first.members[0].highlights[0].source,'github-profile');
+  assert.equal(first.members[0].githubBio,bio);
+  bio='C# developer';
+  const updated=await service.community();assert.deepEqual(updated.members[0].highlights,[]);assert.equal(updated.members[0].bio.en,'Community bio');
+  for(const bio of ['Former Microsoft MVP','I hope to become a Microsoft MVP','Microsoft MVP candidate','An aspiring Microsoft MVP'])assert.deepEqual(profileHighlights({login:'maintainer',bio}),[]);
 });

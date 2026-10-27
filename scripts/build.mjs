@@ -8,10 +8,12 @@ import {membersPage} from '../src/members.mjs';
 import {layout} from '../src/layout.mjs';
 import {messages,projectPath,prefix} from '../src/i18n.mjs';
 import {repositoryOwner} from './project-metadata.mjs';
+import {rosterWithProfiles} from '../src/member-profile.mjs';
 
 const root=fileURLToPath(new URL('../',import.meta.url));
 const readJson=async file=>JSON.parse(await readFile(path.join(root,file),'utf8'));
 const [data,details,english,members,snapshot]=await Promise.all([readJson('content/projects.json'),readJson('content/project-details.json'),readJson('content/projects.en.json'),readJson('content/members.json'),readJson('content/live-snapshot.json')]);
+const roster=rosterWithProfiles(members,snapshot);
 const dist=path.join(root,'dist');
 await mkdir(dist,{recursive:true});
 await cp(path.join(root,'public'),dist,{recursive:true});
@@ -23,9 +25,9 @@ for(const locale of ['zh','en']) {
     if(!details[key]||!english[key])throw new Error(`Missing bilingual project content: ${key}`);
     return {...p,owner:repositoryOwner(p,data.owner),...details[key],...(locale==='en'?english[key]:{}),searchText:[p.name,p.title,p.description,...p.tags,english[key].description,...english[key].tags].join(' '),activity:snapshot.projects?.[p.slug||p.name.toLowerCase()]};
   })};
-  await output(prefix(locale),homepage(localized,locale));urls.push(prefix(locale));
+  await output(prefix(locale),homepage(localized,locale,roster));urls.push(prefix(locale));
   await output(`${prefix(locale)}about/`,aboutPage(localized,locale));urls.push(`${prefix(locale)}about/`);
-  await output(`${prefix(locale)}members/`,membersPage(members,localized,locale));urls.push(`${prefix(locale)}members/`);
+  await output(`${prefix(locale)}members/`,membersPage(roster,localized,locale));urls.push(`${prefix(locale)}members/`);
   for(const project of localized.projects){const url=projectPath(project,locale);await output(url,projectPage(project,localized,locale));urls.push(url);}
 }
 const t=messages.zh;

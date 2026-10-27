@@ -1193,14 +1193,16 @@
         "zh": "关注纯 C# AI、基础引擎、设备互联与跨平台应用，维护 FunASR.NET、SimdYolo、PureDb 等项目。",
         "en": "Builds C# AI, foundational engines, connected systems, and cross-platform apps, including FunASR.NET, SimdYolo, and PureDb."
       },
+      "githubBio": "",
+      "highlights": [],
+      "profileUpdatedAt": "2026-10-27T06:57:26.748Z",
       "areas": [
         "C#",
         "AI",
         ".NET"
       ],
       "curated": true,
-      "publicMembership": false,
-      "githubBio": ""
+      "publicMembership": false
     },
     {
       "id": 1317141,
@@ -1212,14 +1214,24 @@
         "zh": "C#/.NET 开发者，维护 PaddleSharp、Chats、OpenVINO.NET、SimdPaddleOCR 等开源项目，分享 AI 与工具链实践。",
         "en": "A C#/.NET developer maintaining PaddleSharp, Chats, OpenVINO.NET, and SimdPaddleOCR, sharing AI and developer-tooling work."
       },
+      "githubBio": "Microsoft MVP for C#/.NET development",
+      "highlights": [
+        {
+          "id": "microsoft-mvp",
+          "label": "Microsoft MVP",
+          "source": "github-profile",
+          "url": "https://github.com/sdcb"
+        }
+      ],
+      "profileUpdatedAt": "2026-10-27T06:57:26.751Z",
       "areas": [
         ".NET",
         "Computer vision",
         "Open source"
       ],
       "curated": true,
-      "publicMembership": false,
-      "githubBio": "Microsoft MVP for C#/.NET development"
+      "publicMembership": false
     }
-  ]
+  ],
+  "membersUpdatedAt": "2026-10-27T06:57:26.751Z"
 }

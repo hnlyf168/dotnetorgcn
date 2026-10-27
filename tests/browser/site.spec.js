@@ -2,12 +2,14 @@ import {test,expect} from '@playwright/test';
 import catalog from '../../content/projects.json' with {type:'json'};
 import roster from '../../content/members.json' with {type:'json'};
 import snapshot from '../../content/live-snapshot.json' with {type:'json'};
+import {rosterWithProfiles} from '../../src/member-profile.mjs';
+const profiles=rosterWithProfiles(roster,snapshot).members;
 
 test.beforeEach(async({page})=>{
   await page.route('**/api/**',async route=>{
     const url=new URL(route.request().url());
     if(url.pathname.startsWith('/api/avatar/'))return route.fulfill({contentType:'image/svg+xml',body:'<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="64" height="64" fill="#334a78"/></svg>'});
-    if(url.pathname==='/api/community')return route.fulfill({json:{members:roster.members,source:'live',updatedAt:'2026-10-27T05:00:00Z'}});
+    if(url.pathname==='/api/community')return route.fulfill({json:{members:profiles,source:'live',updatedAt:'2026-10-27T05:00:00Z'}});
     const slug=url.pathname.split('/').pop(),record=snapshot.projects[slug];
     if(!record)return route.fulfill({status:404,json:{error:'Unknown project'}});
     const pageNumber=Number(url.searchParams.get('page'))||1;
@@ -89,7 +91,7 @@ test('mobile navigation and bilingual project pages fit narrow screens with redu
 
 test('custom 404 offers a working return to the homepage',async({page})=>{
   const response=await page.goto('/not-a-real-page');expect(response.status()).toBe(404);
-  await page.getByRole('link',{name:/^回到首页/}).click();await expect(page).toHaveTitle(/.NET 中国/);
+  await page.getByRole('link',{name:/^回到首页/}).click();await expect(page).toHaveTitle(/.NET 中文开源社区/);
 });
 
 test('About pages identify the organization and preserve language when switching',async({page})=>{
@@ -152,8 +154,11 @@ test('NuGet data displays real package versions, dependencies and an install com
 });
 
 test('member pages include curated maintainers and automatically add only public profiles',async({page})=>{
-  await page.route('**/api/community',route=>route.fulfill({json:{members:[...roster.members,{id:1234,login:'public-member',name:'Public Member',bio:'A public GitHub bio',publicMembership:true}],source:'live',updatedAt:'2026-10-27T05:00:00Z'}}));
+  await page.route('**/api/community',route=>route.fulfill({json:{members:[...profiles,{id:1234,login:'public-member',name:'Public Member',bio:'A public GitHub bio',publicMembership:true}],source:'live',updatedAt:'2026-10-27T05:00:00Z'}}));
   await page.goto('/members/');await expect(page.locator('.members-grid [data-member="sdcb"]')).toContainText('PaddleSharp');
+  await expect(page.locator('[data-member="sdcb"] .member-honor')).toHaveText('◆ Microsoft MVP');
+  await expect(page.locator('[data-member="sdcb"] .member-public-bio')).toContainText('Microsoft MVP');
+  await expect(page.locator('[data-member="sdcb"] .member-profile-source')).toHaveAttribute('href','https://github.com/sdcb');
   await expect(page.locator('[data-member="public-member"]')).toContainText('A public GitHub bio');
   await expect(page.locator('.member-visibility-note')).toContainText('由成员自行选择');
   await page.getByRole('link',{name:'Switch to English'}).click();await expect(page).toHaveURL(/\/en\/members\/$/);

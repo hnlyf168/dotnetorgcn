@@ -53,9 +53,16 @@ function newMember(member){
  const title=element('h2'),link=element('a','',member.name||member.login);link.href=`https://github.com/${member.login}`;link.target='_blank';link.rel='noopener noreferrer';title.append(link);const bio=typeof member.bio==='string'?member.bio:(member.bio?.[locale]||member.githubBio||'');card.append(top,title,element('p','member-handle','@'+member.login),element('p','member-intro',bio));const more=element('a','text-link',zh?'查看 GitHub 作品 ↗':'Explore GitHub repositories ↗');more.href=`https://github.com/${member.login}?tab=repositories`;more.target='_blank';more.rel='noopener noreferrer';card.append(more);return card;
 }
 let communityPromise;
+function profileDetails(member){
+ const details=element('div','member-profile-details');
+ if(typeof member.githubBio!=='string'||!member.githubBio)return details;
+ const url=`https://github.com/${member.login}`,source=zh?'GitHub 公开简介':'Public GitHub bio';
+ if(member.highlights?.some(item=>item.id==='microsoft-mvp')){const badge=element('a','member-honor');badge.href=url;badge.target='_blank';badge.rel='noopener noreferrer';badge.title=source;badge.append(element('span','','◆'),document.createTextNode(' Microsoft MVP'));details.append(badge);}
+ const link=element('a','member-profile-source',source+' ↗');link.href=url;link.target='_blank';link.rel='noopener noreferrer';details.append(element('p','member-public-bio',member.githubBio),link);return details;
+}
 async function loadMembers(grid){
  try{communityPromise||=fetch('/api/community',{signal:AbortSignal.timeout(15000)}).then(response=>{if(!response.ok)throw new Error();return response.json();}).catch(async()=>({members:(await snapshot()).members||[],source:'snapshot'}));const data=await communityPromise,limit=Number(grid.dataset.memberLimit)||100;
-  for(const member of data.members||[]){const existing=[...grid.querySelectorAll('[data-member]')].find(node=>node.dataset.member===member.login);if(existing){const name=existing.querySelector('h2 a');if(name)name.textContent=(member.name||member.login)+' ↗';continue;}if(grid.children.length<limit)grid.append(newMember(member));}
+  for(const member of data.members||[]){const existing=[...grid.querySelectorAll('[data-member]')].find(node=>node.dataset.member===member.login);if(existing){const name=existing.querySelector('h2 a');if(name)name.textContent=(member.name||member.login)+' ↗';const old=existing.querySelector('.member-profile-details'),details=profileDetails(member);if(old)old.replaceWith(details);else existing.querySelector('.member-intro')?.before(details);continue;}if(grid.children.length<limit){const card=newMember(member);card.querySelector('.member-intro').before(profileDetails(member));grid.append(card);}}
   const status=document.querySelector('[data-members-status]');if(status)status.textContent=(zh?'公开资料与社区名单 · 更新于 ':'Public profiles and community roster · Updated ')+timestamp(data.updatedAt);
  }catch{}
 }

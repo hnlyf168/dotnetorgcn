@@ -1,3 +1,4 @@
+import {profileHighlights,rosterWithProfiles} from './member-profile.mjs';
 export const projectSlug=project=>project.slug||project.name.toLowerCase();
 const numeric=value=>Number.isFinite(value)&&value>=0?value:0;
 const iso=value=>value&&!Number.isNaN(Date.parse(value))?value:null;
@@ -85,7 +86,7 @@ export function createDataService({projects,members,snapshot={},token='',fetcher
     return result;
   }
   async function community(){
-    const selected=new Map(members.members.map(member=>[member.login,{id:member.id,login:member.login,name:member.name,profile:`https://github.com/${member.login}`,avatar:`/api/avatar/${member.id}`,bio:member.bio,areas:member.areas,curated:true,publicMembership:false}]));
+    const selected=new Map(rosterWithProfiles(members,snapshot).members.map(member=>[member.login,{id:member.id,login:member.login,name:member.name,profile:`https://github.com/${member.login}`,avatar:`/api/avatar/${member.id}`,bio:member.bio,githubBio:member.githubBio||'',highlights:member.highlights||[],profileUpdatedAt:member.profileUpdatedAt||null,areas:member.areas,curated:true,publicMembership:false}]));
     let source='snapshot';
     try{
       const list=await json(`https://api.github.com/orgs/${members.organization}/public_members?per_page=100`,true);
@@ -93,7 +94,7 @@ export function createDataService({projects,members,snapshot={},token='',fetcher
       source='live';
     }catch{}
     const output=await Promise.all([...selected.values()].slice(0,100).map(async member=>{
-      try{const profile=publicUser(await json(`https://api.github.com/users/${member.login}`,true));if(profile)return {...member,name:profile.name,githubBio:profile.bio};}catch{}
+      try{const profile=publicUser(await json(`https://api.github.com/users/${member.login}`,true));if(profile)return {...member,name:profile.name,githubBio:profile.bio,highlights:profileHighlights(profile),profileUpdatedAt:now()};}catch{}
       return member;
     }));
     return {members:output,source,updatedAt:now(),organization:members.organization,visibility:'public-and-curated'};

@@ -40,6 +40,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: npm run data
+      - name: Refresh public member profiles
+        # Public profiles also seed the static fallback; credentials stay in this job.
+        if: github.event_name != 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/sync-members.mjs
       - name: Build site
         run: npm run build
       - name: Validate build
@@ -54,6 +60,11 @@ jobs:
           name: website
           path: dist
           include-hidden-files: true
+      - name: Upload public member profile fallback
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-profile-data
+          path: content/live-snapshot.json
 
   deploy:
     needs: build
@@ -93,6 +104,11 @@ jobs:
         with:
           name: website
           path: dist
+      - name: Download public member profile fallback
+        uses: actions/download-artifact@v4
+        with:
+          name: public-profile-data
+          path: content
       - name: Publish to Cloudflare Pages
         id: publish
         uses: cloudflare/wrangler-action@v4
