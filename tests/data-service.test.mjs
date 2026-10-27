@@ -36,7 +36,7 @@ test('private repositories are never returned by the live endpoint',async()=>{
 test('NuGet resolves an exact package ID and returns downloads and version dependencies separately',async()=>{
   const service=createDataService({projects:[],members,fetcher:async url=>{
     if(url.includes('/query?'))return reply({data:[{id:'Example.Other',version:'99.0',totalDownloads:900},{id:'Example',version:'1.2.0-preview.1',totalDownloads:1234}]});
-    return reply({catalogEntry:{dependencyGroups:[{targetFramework:'net10.0',dependencies:[{id:'Dependency',range:'[2.0, )'}]},{targetFramework:'net9.0',dependencies:[{id:'Dependency',range:'[2.0, )'}]}]}});
+    return reply({items:[{items:[{catalogEntry:{version:'1.2.0-preview.1',dependencyGroups:[{targetFramework:'net10.0',dependencies:[{id:'Dependency',range:'[2.0, )'}]},{targetFramework:'net9.0',dependencies:[{id:'Dependency',range:'[2.0, )'}]}]}}]}]});
   }});
   const info=await service.packageInfo('Example',{dependencies:true});assert.equal(info.downloads,1234);assert.equal(info.version,'1.2.0-preview.1');assert.equal(info.prerelease,true);assert.equal(info.dependencies.length,1);assert.equal(info.dependencies[0].id,'Dependency');assert.equal(info.dependenciesAvailable,true);
 });
@@ -44,7 +44,7 @@ test('NuGet resolves an exact package ID and returns downloads and version depen
 test('NuGet does not fetch catalog URLs outside the NuGet service',async()=>{
   const service=createDataService({projects:[],members,fetcher:async url=>{
     assert.ok(new URL(url).hostname.endsWith('nuget.org'));
-    return reply(url.includes('/query?')?{data:[{id:'Example',version:'1.0',totalDownloads:3}]}:{catalogEntry:'https://other.example/private'});
+    return reply(url.includes('/query?')?{data:[{id:'Example',version:'1.0',totalDownloads:3}]}:{items:[{'@id':'https://other.example/private'}]});
   }});
   const info=await service.packageInfo('Example',{dependencies:true});assert.equal(info.dependenciesAvailable,false);assert.equal(info.downloads,3);
 });

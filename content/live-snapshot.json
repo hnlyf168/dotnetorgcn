@@ -449,8 +449,8 @@
           "url": "https://www.nuget.org/packages/PureDb",
           "prerelease": true,
           "dependencies": [],
-          "updatedAt": "2026-10-27T05:11:28.278Z",
-          "dependenciesAvailable": false
+          "updatedAt": "2026-10-27T05:30:48.675Z",
+          "dependenciesAvailable": true
         }
       ],
       "stargazers": {
@@ -626,9 +626,35 @@
           "downloads": 230,
           "url": "https://www.nuget.org/packages/SimdSkia.Avalonia.Desktop",
           "prerelease": true,
-          "dependencies": [],
-          "updatedAt": "2026-10-27T05:11:39.258Z",
-          "dependenciesAvailable": false
+          "dependencies": [
+            {
+              "id": "SimdSkia.Avalonia",
+              "range": "[0.1.0-preview.8, )",
+              "framework": "net8.0"
+            },
+            {
+              "id": "Avalonia",
+              "range": "[12.1.4, 12.1.4]",
+              "framework": "net8.0"
+            },
+            {
+              "id": "Avalonia.FreeDesktop",
+              "range": "[12.1.4, 12.1.4]",
+              "framework": "net8.0"
+            },
+            {
+              "id": "Avalonia.FreeDesktop.AtSpi",
+              "range": "[12.1.4, 12.1.4]",
+              "framework": "net8.0"
+            },
+            {
+              "id": "Avalonia.Native",
+              "range": "[12.1.4, 12.1.4]",
+              "framework": "net8.0"
+            }
+          ],
+          "updatedAt": "2026-10-27T05:30:49.129Z",
+          "dependenciesAvailable": true
         }
       ],
       "stargazers": {
@@ -765,9 +791,20 @@
           "downloads": 40,
           "url": "https://www.nuget.org/packages/Serein.AspNetCore",
           "prerelease": true,
-          "dependencies": [],
-          "updatedAt": "2026-10-27T05:11:40.573Z",
-          "dependenciesAvailable": false
+          "dependencies": [
+            {
+              "id": "Serein.Hosting",
+              "range": "[0.1.0-preview.1, )",
+              "framework": "net10.0"
+            },
+            {
+              "id": "Serein.Rtsp",
+              "range": "[0.1.0-preview.1, )",
+              "framework": "net10.0"
+            }
+          ],
+          "updatedAt": "2026-10-27T05:30:49.564Z",
+          "dependenciesAvailable": true
         }
       ],
       "stargazers": {
@@ -884,9 +921,25 @@
           "downloads": 316006,
           "url": "https://www.nuget.org/packages/Sdcb.PaddleOCR",
           "prerelease": false,
-          "dependencies": [],
-          "updatedAt": "2026-10-27T05:11:52.877Z",
-          "dependenciesAvailable": false
+          "dependencies": [
+            {
+              "id": "OpenCvSharp4",
+              "range": "[4.11.0.20250507, )",
+              "framework": ".NETStandard2.0"
+            },
+            {
+              "id": "Sdcb.PaddleInference",
+              "range": "[3.3.1, )",
+              "framework": ".NETStandard2.0"
+            },
+            {
+              "id": "YamlDotNet",
+              "range": "[16.3.0, )",
+              "framework": ".NETStandard2.0"
+            }
+          ],
+          "updatedAt": "2026-10-27T05:30:48.678Z",
+          "dependenciesAvailable": true
         }
       ],
       "stargazers": {
@@ -919,9 +972,40 @@
           "downloads": 3582,
           "url": "https://www.nuget.org/packages/Sdcb.SimdPaddleOCR",
           "prerelease": false,
-          "dependencies": [],
-          "updatedAt": "2026-10-27T05:11:53.180Z",
-          "dependenciesAvailable": false
+          "dependencies": [
+            {
+              "id": "Sdcb.SimdPaddleOCR.ModelProvider",
+              "range": "[1.0.0, )",
+              "framework": ".NETStandard2.0"
+            },
+            {
+              "id": "Microsoft.Bcl.Numerics",
+              "range": "[10.0.11, )",
+              "framework": ".NETStandard2.0"
+            },
+            {
+              "id": "System.Memory",
+              "range": "[4.6.3, )",
+              "framework": ".NETStandard2.0"
+            },
+            {
+              "id": "System.Numerics.Vectors",
+              "range": "[4.6.1, )",
+              "framework": ".NETStandard2.0"
+            },
+            {
+              "id": "System.Runtime.CompilerServices.Unsafe",
+              "range": "[6.1.2, )",
+              "framework": ".NETStandard2.0"
+            },
+            {
+              "id": "System.Threading.Tasks.Extensions",
+              "range": "[4.6.3, )",
+              "framework": ".NETStandard2.0"
+            }
+          ],
+          "updatedAt": "2026-10-27T05:30:48.671Z",
+          "dependenciesAvailable": true
         }
       ],
       "stargazers": {
@@ -978,8 +1062,8 @@
           "url": "https://www.nuget.org/packages/Sdcb.Arithmetic",
           "prerelease": false,
           "dependencies": [],
-          "updatedAt": "2026-10-27T05:11:55.960Z",
-          "dependenciesAvailable": false
+          "updatedAt": "2026-10-27T05:30:49.435Z",
+          "dependenciesAvailable": true
         }
       ],
       "stargazers": {
@@ -1012,9 +1096,25 @@
           "downloads": 32246,
           "url": "https://www.nuget.org/packages/Sdcb.OpenVINO",
           "prerelease": false,
-          "dependencies": [],
-          "updatedAt": "2026-10-27T05:11:56.362Z",
-          "dependenciesAvailable": false
+          "dependencies": [
+            {
+              "id": "Microsoft.Bcl.HashCode",
+              "range": "[6.0.0, )",
+              "framework": ".NETStandard2.0"
+            },
+            {
+              "id": "System.Memory",
+              "range": "[4.6.3, )",
+              "framework": ".NETStandard2.0"
+            },
+            {
+              "id": "System.ValueTuple",
+              "range": "[4.6.1, )",
+              "framework": ".NETFramework4.6.2"
+            }
+          ],
+          "updatedAt": "2026-10-27T05:30:49.224Z",
+          "dependenciesAvailable": true
         }
       ],
       "stargazers": {
@@ -1047,9 +1147,25 @@
           "downloads": 65290,
           "url": "https://www.nuget.org/packages/Sdcb.FFmpeg",
           "prerelease": false,
-          "dependencies": [],
-          "updatedAt": "2026-10-27T05:11:57.262Z",
-          "dependenciesAvailable": false
+          "dependencies": [
+            {
+              "id": "IndexRange",
+              "range": "[1.0.2, )",
+              "framework": ".NETFramework4.8"
+            },
+            {
+              "id": "Microsoft.Bcl.HashCode",
+              "range": "[1.1.1, )",
+              "framework": ".NETFramework4.8"
+            },
+            {
+              "id": "System.Memory",
+              "range": "[4.5.5, )",
+              "framework": ".NETFramework4.8"
+            }
+          ],
+          "updatedAt": "2026-10-27T05:30:48.697Z",
+          "dependenciesAvailable": true
         }
       ],
       "stargazers": {

@@ -22,7 +22,16 @@ export function createDataService({projects,members,snapshot={},token='',fetcher
     const result={id:item.id,available:true,version:item.version,downloads:numeric(item.totalDownloads),url:`https://www.nuget.org/packages/${encodeURIComponent(item.id)}`,prerelease:String(item.version).includes('-'),dependencies:[],updatedAt:now()};
     if(dependencies){
       try{
-        const leaf=await json(`https://api.nuget.org/v3/registration5-gz-semver2/${id.toLowerCase()}/${item.version.toLowerCase()}.json`);
+        const registration=await json(`https://api.nuget.org/v3/registration5-gz-semver2/${id.toLowerCase()}/index.json`);
+        const find=entries=>entries?.find(entry=>String(entry.catalogEntry?.version||'').toLowerCase()===item.version.toLowerCase());
+        let leaf=find(registration.items?.flatMap(page=>page.items||[]));
+        // Most packages embed their versions in the index; larger histories use pages.
+        for(const page of [...(registration.items||[])].reverse().filter(page=>!page.items).slice(0,8)){
+          if(leaf)break;
+          const url=new URL(page['@id']);if(url.protocol!=='https:'||url.hostname!=='api.nuget.org')throw new Error('Invalid NuGet registration URL');
+          leaf=find((await json(url.href)).items);
+        }
+        if(!leaf)throw new Error('NuGet version metadata is unavailable');
         let entry=leaf.catalogEntry;
         if(typeof entry==='string'){
           const url=new URL(entry);if(url.protocol!=='https:'||url.hostname!=='api.nuget.org')throw new Error('Invalid NuGet catalog URL');
