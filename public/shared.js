@@ -6,6 +6,7 @@ const paths = {
 };
 Object.assign(paths,{globe:'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM3 12h18M12 3c4 5 4 13 0 18-4-5-4-13 0-18Z',check:'m5 12 4 4 10-10',info:'M12 11v6m0-10v.1M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z',message:'M21 11a9 9 0 0 1-9 9H5l-4 3 2-7a9 9 0 1 1 18-5Z'});
 paths.chevron='m6 9 6 6 6-6';
+paths['arrow-down']='M12 4v16m-6-6 6 6 6-6';
 document.querySelectorAll('[data-icon]').forEach(el => {
   el.innerHTML = `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${paths[el.dataset.icon] || paths.code}"/></svg>`;
 });
@@ -44,3 +45,5 @@ projectMenu?.addEventListener('focusout',()=>setTimeout(()=>{if(!projectMenu.con
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&dropdown&&!dropdown.hidden){event.preventDefault();projectMenuState(false);projectToggle.focus();}});
 document.addEventListener('click',event=>{if(!event.target.closest('.nav-projects'))projectMenuState(false);const button=event.target.closest('[data-copy-package]');if(button)copy(button.closest('.install-command').querySelector('code').textContent);});
 nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>projectMenuState(false)));
+
+const progress=document.querySelector('.reading-progress');let scrollFrame;function updateReadingProgress(){scrollFrame=null;const range=document.documentElement.scrollHeight-innerHeight;if(progress)progress.style.transform='scaleX('+Math.min(1,Math.max(0,scrollY/(range||1)))+')';}addEventListener('scroll',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(updateReadingProgress);},{passive:true});addEventListener('resize',updateReadingProgress);updateReadingProgress();

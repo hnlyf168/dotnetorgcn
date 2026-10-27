@@ -29,7 +29,7 @@ test('all curated projects have server-rendered introductions and links in both 
 
 test('every internal page, fragment, and packaged asset resolves',async()=>{
   const files=await htmlFiles(root);
-  assert.equal(files.length,data.projects.length*2+7);
+  assert.equal(files.length,data.projects.length*2+9);
   for(const file of files){
     const html=await readFile(file,'utf8');
     for(const [,url] of html.matchAll(/(?:href|src)="((?:\/|#)[^\"]*)"/g)){
@@ -48,8 +48,8 @@ test('every internal page, fragment, and packaged asset resolves',async()=>{
 
 test('sitemap and alternate-language metadata cover all bilingual public pages',async()=>{
   const sitemap=await read('sitemap.xml');
-  assert.equal((sitemap.match(/<loc>/g)||[]).length,data.projects.length*2+6);
-  for(const url of ['/', '/en/','/about/','/en/about/','/members/','/en/members/',...data.projects.flatMap(p=>[`/projects/${projectSlug(p)}/`,`/en/projects/${projectSlug(p)}/`])])assert.ok(sitemap.includes(`<loc>https://dotnet.org.cn${url}</loc>`));
+  assert.equal((sitemap.match(/<loc>/g)||[]).length,data.projects.length*2+8);
+  for(const url of ['/', '/en/','/about/','/en/about/','/members/','/en/members/','/brand/','/en/brand/',...data.projects.flatMap(p=>[`/projects/${projectSlug(p)}/`,`/en/projects/${projectSlug(p)}/`])])assert.ok(sitemap.includes(`<loc>https://dotnet.org.cn${url}</loc>`));
   for(const file of await htmlFiles(root)){
     const html=await readFile(file,'utf8');assert.ok(html.includes('hreflang="zh-CN"'));assert.ok(html.includes('hreflang="en"'));
   }

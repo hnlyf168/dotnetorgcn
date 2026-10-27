@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "build": "node scripts/build.mjs",
+    "brand:generate": "node scripts/generate-social.mjs && node scripts/generate-brand-assets.mjs",
     "check": "node --test tests/site.test.mjs tests/pages-project.test.mjs tests/project-metadata.test.mjs tests/data-service.test.mjs",
     "data": "node scripts/sync-projects.mjs",
     "deploy": "npm run build && npx wrangler@4 pages deploy dist --project-name=dotnet-org-cn --branch=main",

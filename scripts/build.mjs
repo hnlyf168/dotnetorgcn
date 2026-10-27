@@ -5,6 +5,7 @@ import {homepage} from '../src/home.mjs';
 import {projectPage} from '../src/project.mjs';
 import {aboutPage} from '../src/about.mjs';
 import {membersPage} from '../src/members.mjs';
+import {brandPage} from '../src/brand.mjs';
 import {layout} from '../src/layout.mjs';
 import {messages,projectPath,prefix} from '../src/i18n.mjs';
 import {repositoryOwner} from './project-metadata.mjs';
@@ -28,6 +29,7 @@ for(const locale of ['zh','en']) {
   await output(prefix(locale),homepage(localized,locale,roster));urls.push(prefix(locale));
   await output(`${prefix(locale)}about/`,aboutPage(localized,locale));urls.push(`${prefix(locale)}about/`);
   await output(`${prefix(locale)}members/`,membersPage(roster,localized,locale));urls.push(`${prefix(locale)}members/`);
+  await output(`${prefix(locale)}brand/`,brandPage(locale));urls.push(`${prefix(locale)}brand/`);
   for(const project of localized.projects){const url=projectPath(project,locale);await output(url,projectPage(project,localized,locale));urls.push(url);}
 }
 const t=messages.zh;

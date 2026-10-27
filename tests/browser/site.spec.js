@@ -173,3 +173,22 @@ test('a failed data endpoint keeps readable project details and cached supporter
   await expect(page.getByRole('dialog').locator('.stars-status')).toContainText('缓存名单');
   await expect(page.getByRole('dialog').getByRole('button',{name:'加载更多'})).toBeHidden();
 });
+
+test('the project network exposes real project links and keyboard-readable context',async({page})=>{
+  await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/');
+  const node=page.locator('[data-nexus-node="0"]');await node.focus();
+  await expect(page.locator('[data-nexus-title]')).toHaveText('FunASR.NET');
+  await expect(page.locator('[data-nexus-info]')).toContainText('donet-org-cn');
+  await expect(page.locator('[data-nexus-node]')).toHaveCount(6);
+  await node.press('Enter');await expect(page).toHaveURL(/\/projects\/funasrnet\/$/);
+});
+
+test('brand downloads provide real NuGet and GitHub PNG files and preserve language',async({page})=>{
+  await page.goto('/brand/');
+  const response=await page.request.get('/brand/nuget-icon.png'),bytes=await response.body();
+  expect(response.status()).toBe(200);expect(bytes.subarray(0,8).toString('hex')).toBe('89504e470d0a1a0a');expect(bytes.readUInt32BE(16)).toBe(256);expect(bytes.readUInt32BE(20)).toBe(256);expect(bytes.length).toBeLessThan(1024*1024);
+  const avatar=await page.request.get('/brand/github-avatar.png');expect((await avatar.body()).readUInt32BE(16)).toBe(512);
+  const download=page.waitForEvent('download');await page.locator('a[download][href$=".zip"]').click();expect((await download).suggestedFilename()).toBe('dotnet-community-brand-kit.zip');
+  await page.getByRole('link',{name:'Switch to English'}).click();await expect(page).toHaveURL(/\/en\/brand\/$/);await expect(page.getByRole('heading',{level:1})).toContainText('Open code');
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});

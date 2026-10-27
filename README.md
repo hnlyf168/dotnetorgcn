@@ -2,7 +2,7 @@
 
 面向中文开发者的 .NET 与 AI 开源社区官网。页面预渲染，动态数据使用 Cloudflare Pages Functions，无生产环境 npm 依赖。
 
-采用深蓝轨道主视觉与浅色阅读区域。包含项目下拉菜单、15 个真实仓库、分类与搜索、独立项目介绍页、成员目录、Star 支持者分页、NuGet 版本/下载量/包依赖、代码复制与移动端导航。首页、项目、关于我们和成员页面提供完整中英双语，共 36 个页面。
+采用炭黑、薄荷绿与紫色的统一视觉，首页以可点击项目网络、重点项目展示、代码工作台和社区成员组织内容。包含项目下拉菜单、15 个真实仓库、分类与搜索、独立项目介绍页、成员目录、Star 支持者分页、NuGet 数据和图标下载。首页、项目、关于我们、成员及品牌页面提供完整中英双语，共 38 个页面。
 
 社区组织为 [donet-org-cn](https://github.com/donet-org-cn)，交流入口为 [Community Discussions](https://github.com/donet-org-cn/community/discussions)，贡献说明见 [组织贡献指南](https://github.com/donet-org-cn/.github/blob/main/CONTRIBUTING.md)。[关于我们](https://dotnet.org.cn/about/)明确说明社区方向、参与方式和项目归属。
 
@@ -27,6 +27,7 @@ npm run check       # 检查静态内容与部署产物
 npx playwright install chromium
 npm run test:e2e    # 桌面与移动端浏览器验证
 npm run data        # 同步 GitHub Star / Fork 状态，保留人工介绍
+npm run brand:generate # 从 SVG 原稿重新生成网站、GitHub、NuGet 图标与分享卡片
 ```
 
 ## 内容更新
@@ -63,6 +64,12 @@ npm run data        # 同步 GitHub Star / Fork 状态，保留人工介绍
 NuGet 接口无需密钥，展示已核实包的当前版本、累计下载量和该版本的包依赖；下载量不等于项目引用量或独立用户。SimdYolo 和 FunAsrNet 未核实存在官方 NuGet 包，因此保留源码获取方式。
 
 Pages Functions 仅处理 `/api/*`。GitHub 数据、NuGet 和头像均有边缘缓存。仅用控制台拖拽 `dist` 会部署静态页面，无法安装 Functions；完整发布请使用现有 GitHub Actions，或从源码根目录执行 `npm run deploy`。参考 [Cloudflare Functions 部署说明](https://developers.cloudflare.com/pages/functions/get-started/)。
+
+## 社区标志
+
+标志以开放代码括号、连接两侧的 N 和连接点，表达 .NET、开源与开发者协作。品牌页面为 `/brand/`、`/en/brand/`，提供 SVG、单色版、NuGet PNG、圆形裁切安全的 GitHub 头像、favicon、网站图标和完整 ZIP。
+
+原稿位于 `src/brand-mark.mjs`，使用说明见 [图标与使用说明](docs/BRAND.md)。`npm run brand:generate` 使用本地已安装的 Edge；也可通过 `PLAYWRIGHT_CHANNEL` 指定其他已安装浏览器。产物已提交，部署无需安装图像生成工具。
 
 ## Cloudflare 配置
 
