@@ -26,12 +26,12 @@ test('homepage renders all curated projects with no external runtime requests or
   await expect(page.getByRole('heading',{level:1})).toContainText('超越想象');
   await expect(page.locator('.project-card')).toHaveCount(catalog.projects.length);
   await expect(page.locator('#ecosystem-code')).toContainText('using FunAsrNet');
-  await expect(page.getByRole('link',{name:'GitHub 开源主页'}).locator('svg').first()).toBeVisible();
+  await expect(page.getByRole('link',{name:'参与 GitHub 社区'}).locator('svg').first()).toBeVisible();
   expect(errors).toEqual([]);expect(external).toEqual([]);
 });
 
 test('category and bilingual search combine, then reset the empty state',async({page})=>{
-  await page.goto('/');await page.getByRole('button',{name:'人工智能',exact:true}).click();
+  await page.goto('/');await page.getByRole('button',{name:/人工智能/}).click();
   await expect(page.locator('.project-card:visible')).toHaveCount(catalog.projects.filter(project=>project.category==='ai').length);
   await page.getByRole('searchbox').fill('speech');await expect(page.locator('.project-card:visible')).toHaveCount(1);
   await page.getByRole('searchbox').fill('not-a-real-project');await expect(page.locator('.empty-state')).toBeVisible();
@@ -40,7 +40,7 @@ test('category and bilingual search combine, then reset the empty state',async({
 
 test('project links open standalone pages that survive a reload and retain attribution',async({page})=>{
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
-  await page.goto('/');await page.locator('.project-title[href="/projects/simdpaddleocr/"]').click();
+  await page.goto('/');await page.locator('.catalog-more summary').click();await page.locator('.project-title[href="/projects/simdpaddleocr/"]').click();
   await expect(page).toHaveURL(/\/projects\/simdpaddleocr\/$/);
   await expect(page.getByRole('heading',{level:1})).toHaveText('SimdPaddleOCR');
   await expect(page.locator('.attribution')).toContainText('此仓库是上游项目的 Fork');
@@ -97,7 +97,7 @@ test('custom 404 offers a working return to the homepage',async({page})=>{
 test('About pages identify the organization and preserve language when switching',async({page})=>{
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
   await page.goto('/');
-  await expect(page.getByRole('link',{name:'GitHub 开源主页'})).toHaveAttribute('href','https://github.com/donet-org-cn');
+  await expect(page.locator('a.github-button')).toHaveAttribute('href','https://github.com/donet-org-cn');
   const menu=page.getByRole('button',{name:'打开导航菜单'});
   if(await menu.isVisible())await menu.click();
   await page.getByRole('navigation',{name:'主导航'}).getByRole('link',{name:'关于我们'}).click();
@@ -174,13 +174,28 @@ test('a failed data endpoint keeps readable project details and cached supporter
   await expect(page.getByRole('dialog').getByRole('button',{name:'加载更多'})).toBeHidden();
 });
 
-test('the project network exposes real project links and keyboard-readable context',async({page})=>{
+test('featured project tabs expose real introductions and support keyboard navigation',async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/');
-  const node=page.locator('[data-nexus-node="0"]');await node.focus();
-  await expect(page.locator('[data-nexus-title]')).toHaveText('FunASR.NET');
-  await expect(page.locator('[data-nexus-info]')).toContainText('donet-org-cn');
-  await expect(page.locator('[data-nexus-node]')).toHaveCount(6);
-  await node.press('Enter');await expect(page).toHaveURL(/\/projects\/funasrnet\/$/);
+  const first=page.locator('[data-spotlight-tab="0"]');await first.focus();
+  await expect(page.locator('#spotlight-panel-0')).toBeVisible();await page.keyboard.press('ArrowRight');
+  await expect(page.locator('[data-spotlight-tab="1"]')).toHaveAttribute('aria-selected','true');
+  await expect(page.locator('#spotlight-panel-1')).toBeVisible();await expect(page.locator('#spotlight-panel-0')).toBeHidden();
+  await page.locator('#spotlight-panel-1 a').click();await expect(page).toHaveURL(/\/projects\/simdyolo\/$/);
+});
+
+test('color themes follow the system, remember manual choices, and survive language and page changes',async({page})=>{
+  await page.emulateMedia({colorScheme:'dark'});await page.goto('/');await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
+  await page.getByRole('button',{name:'切换到浅色模式'}).click();await expect(page.locator('html')).toHaveAttribute('data-theme','light');
+  await page.emulateMedia({colorScheme:'dark'});await page.reload();await expect(page.locator('html')).toHaveAttribute('data-theme','light');
+  await page.getByRole('link',{name:'Switch to English'}).click();await expect(page.locator('html')).toHaveAttribute('data-theme','light');
+  await page.getByRole('button',{name:'Switch to dark mode'}).click();await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
+  await page.goto('/en/members/');await expect(page.locator('html')).toHaveAttribute('data-theme','dark');await expect(page.getByRole('button',{name:'Switch to light mode'})).toBeVisible();
+});
+
+test('a system theme change is applied until the visitor makes a manual choice',async({page})=>{
+  await page.emulateMedia({colorScheme:'light'});await page.goto('/');await expect(page.locator('html')).toHaveAttribute('data-theme','light');
+  await page.emulateMedia({colorScheme:'dark'});await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
+  await page.getByRole('button',{name:'切换到浅色模式'}).click();await page.emulateMedia({colorScheme:'light'});await page.emulateMedia({colorScheme:'dark'});await expect(page.locator('html')).toHaveAttribute('data-theme','light');
 });
 
 test('brand downloads provide real NuGet and GitHub PNG files and preserve language',async({page})=>{

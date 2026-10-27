@@ -2,7 +2,7 @@
 
 面向中文开发者的 .NET 与 AI 开源社区官网。页面预渲染，动态数据使用 Cloudflare Pages Functions，无生产环境 npm 依赖。
 
-采用炭黑、薄荷绿与紫色的统一视觉，首页以可点击项目网络、重点项目展示、代码工作台和社区成员组织内容。包含项目下拉菜单、15 个真实仓库、分类与搜索、独立项目介绍页、成员目录、Star 支持者分页、NuGet 数据和图标下载。首页、项目、关于我们、成员及品牌页面提供完整中英双语，共 38 个页面。
+首页采用重点项目交互速览、侧边分类与紧凑项目目录、代码工作台和维护者介绍。支持完整浅色与深色主题，首次跟随系统，导航按钮可切换并记住选择。包含项目下拉菜单、15 个真实仓库、分类与搜索、独立项目介绍页、成员目录、Star 支持者分页、NuGet 数据和图标下载。首页、项目、关于我们、成员及品牌页面提供完整中英双语，共 38 个页面。
 
 社区组织为 [donet-org-cn](https://github.com/donet-org-cn)，交流入口为 [Community Discussions](https://github.com/donet-org-cn/community/discussions)，贡献说明见 [组织贡献指南](https://github.com/donet-org-cn/.github/blob/main/CONTRIBUTING.md)。[关于我们](https://dotnet.org.cn/about/)明确说明社区方向、参与方式和项目归属。
 

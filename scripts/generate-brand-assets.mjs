@@ -8,10 +8,12 @@ await mkdir(output,{recursive:true});
 const color=brandMark({title:brandName.zh,size:1024});
 const light=brandMark({variant:'light',title:brandName.zh,size:1024});
 const dark=brandMark({variant:'dark',title:brandName.zh,size:1024});
+const colorLight=brandMark({variant:'color-light',title:brandName.zh,size:1024});
 await Promise.all([
   writeFile(resolve(output,'logo-symbol.svg'),color),
   writeFile(resolve(output,'logo-light.svg'),light),
-  writeFile(resolve(output,'logo-dark.svg'),dark)
+  writeFile(resolve(output,'logo-dark.svg'),dark),
+  writeFile(resolve(output,'logo-color-light.svg'),colorLight)
 ]);
 
 const symbol=variant=>brandMark({variant,size:100}).replace(/<svg[^>]*>/,'').replace('</svg>','');
@@ -29,6 +31,7 @@ async function raster(name,svg,size){
 
 try{
   await raster('logo-1024.png',color,1024);
+  await raster('logo-color-light-1024.png',colorLight,1024);
   await raster('logo-square-1024.png',appIcon(1024),1024);
   await raster('nuget-icon.png',appIcon(256,.12),256);
   await raster('nuget-icon-128.png',appIcon(128,.12),128);
@@ -47,7 +50,7 @@ try{
   }
   await writeFile(resolve(output,'favicon.ico'),Buffer.concat([header,...faviconFrames.map(frame=>frame.data)]));
 
-  for(const name of ['logo-1024.png','nuget-icon.png','github-avatar.png']){
+  for(const name of ['logo-1024.png','logo-color-light-1024.png','nuget-icon.png','github-avatar.png']){
     const bytes=await readFile(resolve(output,name));
     const pixels=await page.evaluate(async base64=>{
       const img=new Image();img.src='data:image/png;base64,'+base64;await img.decode();
@@ -71,6 +74,11 @@ try{
   await page.setViewportSize({width:1200,height:680});
   await page.setContent(`<html><body style="margin:0">${contact}</body></html>`);
   await page.screenshot({path:resolve(output,'contact-sheet.png')});
+  const lightContact=`<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360"><rect width="900" height="360" fill="#ffffff"/><text x="36" y="44" fill="#182235" font-family="Segoe UI,sans-serif" font-size="20" font-weight="600">COLOR ON LIGHT / .NET COMMUNITY</text><g transform="translate(28 82) scale(2.25)">${symbol('color-light')}</g><text x="320" y="105" fill="#182235" font-family="Consolas,monospace" font-size="13">WHITE-SURFACE VARIANT</text>${[24,32,48,64].map((size,index)=>`<g transform="translate(${320+index*135} 145) scale(${size/100})">${symbol('color-light')}</g><text x="${320+index*135}" y="242" fill="#536173" font-family="Consolas,monospace" font-size="13">${size}px</text>`).join('')}<text x="320" y="300" fill="#7252c3" font-family="Consolas,monospace" font-size="13">#7252C3</text><text x="455" y="300" fill="#182235" font-family="Consolas,monospace" font-size="13">#182235</text><text x="590" y="300" fill="#3f741f" font-family="Consolas,monospace" font-size="13">#3F741F</text></svg>`;
+  await writeFile(resolve(output,'contact-sheet-color-light.svg'),lightContact);
+  await page.setViewportSize({width:900,height:360});
+  await page.setContent(`<html><body style="margin:0">${lightContact}</body></html>`);
+  await page.screenshot({path:resolve(output,'contact-sheet-color-light.png')});
 }finally{await browser.close();}
 
 const usage=await readFile('docs/BRAND.md','utf8');

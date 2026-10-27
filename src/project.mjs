@@ -1,6 +1,6 @@
 import {messages,escape as e,projectPath,prefix} from './i18n.mjs';
 import {layout,icon} from './layout.mjs';
-import {projectCard} from './home.mjs';
+import {projectCard} from './project-card.mjs';
 import {repositoryUrl,repositoryOwner} from '../scripts/project-metadata.mjs';
 import {activityPanel} from './activity.mjs';
 export function projectPage(p,data,locale) {

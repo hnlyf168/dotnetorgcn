@@ -12,7 +12,7 @@ function applyFilters() {
     if (!card.hidden) count++;
   }
   document.querySelector('.empty-state').hidden = count > 0;
-  const brandTile=document.querySelector('.catalog-brand-tile');if(brandTile)brandTile.hidden=activeFilter!=='all'||Boolean(query);
+  const more=document.querySelector('.catalog-more');if(more){more.open=true;more.hidden=count===0||![...more.querySelectorAll('.project-card')].some(card=>!card.hidden);more.classList.toggle('is-filtered',activeFilter!=='all'||Boolean(query));}
   document.querySelector('#filter-status').textContent = `${count} ${labels.projects}`;
 }
 filters.forEach(button => button.addEventListener('click', () => {
@@ -56,6 +56,7 @@ function selectExample(tab) {
   document.querySelector('#code-filename').textContent = currentExample.filename;
   document.querySelector('#code-caption').textContent = currentExample.caption;
   document.querySelector('#ecosystem-code').innerHTML = highlight(currentExample.code);
+  const brief=document.querySelector('[data-workbench-projects]');if(brief){const item=JSON.parse(brief.dataset.workbenchProjects)[currentExample.source];if(item){brief.querySelector('[data-workbench-title]').textContent=item.title;brief.querySelector('[data-workbench-description]').textContent=item.description;brief.querySelector('[data-workbench-link]').href=item.url;const list=brief.querySelector('[data-workbench-features]');list.replaceChildren(...item.features.map(feature=>{const li=document.createElement('li');li.textContent='✓ '+feature;return li;}));}}
   document.querySelector('#code-source').href = `${exampleRepositories[currentExample.source]||'https://github.com/hnlyf168/'+currentExample.source}#readme`;
 }
 ecoTabs.forEach((tab,index) => {
@@ -68,4 +69,4 @@ ecoTabs.forEach((tab,index) => {
 selectExample(ecoTabs[0]);
 document.querySelector('#copy-code').addEventListener('click', () => copy(currentExample.code));
 
-import './network.js';
+import './showcase.js';

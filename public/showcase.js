@@ -1,0 +1,3 @@
+const tabs=[...document.querySelectorAll('[data-spotlight-tab]')];
+function select(tab){for(const item of tabs){const active=item===tab;item.classList.toggle('active',active);item.setAttribute('aria-selected',String(active));item.tabIndex=active?0:-1;document.getElementById(item.getAttribute('aria-controls')).hidden=!active;}}
+tabs.forEach((tab,index)=>{tab.disabled=false;tab.addEventListener('click',()=>select(tab));tab.addEventListener('keydown',event=>{const next=event.key==='ArrowRight'||event.key==='ArrowDown'?(index+1)%tabs.length:event.key==='ArrowLeft'||event.key==='ArrowUp'?(index+tabs.length-1)%tabs.length:event.key==='Home'?0:event.key==='End'?tabs.length-1:null;if(next!==null){event.preventDefault();tabs[next].focus();select(tabs[next]);}});});
