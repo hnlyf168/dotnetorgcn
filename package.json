@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "build": "node scripts/build.mjs",
-    "check": "node --test tests/site.test.mjs",
+    "check": "node --test tests/site.test.mjs tests/pages-project.test.mjs",
     "data": "node scripts/sync-projects.mjs",
     "deploy": "npm run build && npx wrangler@4 pages deploy dist --project-name=dotnet-org-cn --branch=main",
     "cloudflare:setup": "node scripts/cloudflare-setup.mjs",

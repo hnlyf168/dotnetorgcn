@@ -1,7 +1,9 @@
 // Credentials are read only from the process environment and never written to disk.
+import {appendFile} from 'node:fs/promises';
+import {selectPagesProject} from './pages-project.mjs';
 const token = process.env.CLOUDFLARE_API_TOKEN;
 const account = process.env.CLOUDFLARE_ACCOUNT_ID;
-const project = process.env.CLOUDFLARE_PAGES_PROJECT || 'dotnet-org-cn';
+let project = process.env.CLOUDFLARE_PAGES_PROJECT || 'dotnet-org-cn';
 const args = new Set(process.argv.slice(2));
 if(!token || !account) {
   console.error('请先在当前终端设置 CLOUDFLARE_API_TOKEN 和 CLOUDFLARE_ACCOUNT_ID。详见 docs/CLOUDFLARE.md。');
@@ -17,8 +19,14 @@ async function api(url, method='GET', body) {
   return data.result;
 }
 try {
-  const projects = await api(base);
-  let selected = projects.find(item=>item.name===project);
+  const projects=[];
+  for(let page=1;;page++){
+    const batch=await api(`${base}?page=${page}&per_page=100`);
+    projects.push(...batch);
+    if(batch.length<100)break;
+  }
+  let selected=selectPagesProject(projects,project,{preferDomain:args.has('--prefer-domain'),requireExisting:args.has('--require-existing')});
+  if(selected)project=selected.name;
   if(!selected && args.has('--create')) {
     selected = await api(base,'POST',{name:project,production_branch:'main'});
     console.log(`已创建 Direct Upload Pages 项目: ${selected.name}`);
@@ -27,6 +35,7 @@ try {
     process.exit(0);
   }
   console.log(`Pages 项目: ${selected.name} · ${selected.subdomain || '首次发布后生成 pages.dev 地址'}`);
+  if(process.env.GITHUB_OUTPUT)await appendFile(process.env.GITHUB_OUTPUT,`project_name=${selected.name}\n`);
   if(args.has('--domain')) {
     const url = `${base}/${project}/domains`;
     const domains = await api(url);

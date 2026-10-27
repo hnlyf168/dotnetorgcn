@@ -45,6 +45,8 @@ GitHub 网站仓库 → **Settings → Secrets and variables → Actions → New
 
 然后到 GitHub **Actions → Deploy to Cloudflare Pages → Run workflow → main → Run workflow**。等待 build 和 deploy 两个任务成功。
 
+自动发布会先查找该账户里绑定 `dotnet.org.cn` 的现有 Pages 项目，找到时优先复用。没有域名匹配时使用 Secret 中填写的项目名；两者都不存在则停止并提示核对账户与项目名，不会自动新建一个无关站点。
+
 流程会先同步项目元信息、构建网站、验证链接和数据，再运行桌面/手机浏览器测试，最后上传 `dist`。后续直接修改文件提交到 `main`，无需重新填写 Token。
 
 ## 5. 绑定 dotnet.org.cn

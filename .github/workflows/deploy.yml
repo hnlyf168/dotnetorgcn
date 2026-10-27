@@ -68,6 +68,12 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_PAGES_PROJECT: ${{ secrets.CLOUDFLARE_PAGES_PROJECT }}
     steps:
+      - name: Checkout deployment scripts
+        uses: actions/checkout@v6
+      - name: Set up deployment Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
       - name: Check deployment configuration
         shell: bash
         run: |
@@ -79,6 +85,9 @@ jobs:
             echo '::error::Invalid Pages project name.'
             exit 1
           fi
+      - name: Resolve existing Pages project
+        id: pages
+        run: node scripts/cloudflare-setup.mjs --prefer-domain --require-existing
       - name: Download site
         uses: actions/download-artifact@v4
         with:
@@ -89,5 +98,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=${{ secrets.CLOUDFLARE_PAGES_PROJECT }} --branch=${{ github.head_ref || github.ref_name }}
+          command: pages deploy dist --project-name=${{ steps.pages.outputs.project_name }} --branch=${{ github.head_ref || github.ref_name }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
