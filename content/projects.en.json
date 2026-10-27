@@ -1,0 +1,83 @@
+{
+  "FunAsrNet": {
+    "eyebrow":"Let applications understand speech", "description":"Explore Mandarin speech AI in pure C#: recognition, synthesis, browser transcription, and telephone audio processing.", "tags":["Speech recognition","Mandarin TTS","SIMD","Vulkan"],
+    "features":["Mandarin ASR, VAD segmentation, and WebSocket transcription","Chinese speech synthesis and browser demos","CPU SIMD and an explicitly enabled Vulkan hybrid backend"],
+    "note":"An independent community implementation, not an official FunASR SDK. Compatible model weights must be prepared separately. No NuGet package has been published.",
+    "overview":"FunASR.NET brings model loading, audio features, neural-network operators, VAD, and Mandarin synthesis into a familiar .NET stack. CLI tools, a web service, and browser demos offer a path from transcribing one recording to experimenting with interactive speech applications.",
+    "scenarios":["Explore Mandarin transcription and speech output in .NET apps","Experiment with browser microphones, WebSockets, and VAD segmentation","Work with PCM, G.711, and resampling in telephone-audio experiments"],
+    "requirements":["Install the matching .NET 10 SDK specified in the README","Prepare and verify compatible model weights separately","The optional Vulkan backend requires a compatible system driver"],
+    "steps":["Clone the source, build the solution, and run the checks that do not require models.","Prepare the ASR / VAD or Mandarin TTS weights using the model documentation.","Choose the CLI or web-service example and validate it with your own audio."]
+  },
+  "SimdYolo": {
+    "eyebrow":"Give your code a new perspective", "description":"Pure C# YOLO inference and detection-head fine-tuning, with object detection, instance segmentation, and pose estimation.", "tags":["Computer vision","YOLO","Vulkan","Metal"],
+    "features":["Load supported PT and ONNX model files directly","Object detection, instance segmentation, and pose estimation","CPU SIMD, Vulkan / Metal backends, and detection-head fine-tuning"],
+    "note":"Model and operator support is limited to the repository's compatibility list. Metal has not been validated on real hardware. Training fine-tunes the detection head with a frozen backbone.",
+    "overview":"SimdYolo implements YOLO inference and supported detection-head fine-tuning in pure C#. It reads supported PT and ONNX files, uses SIMD / intrinsics on the CPU, and offers Vulkan and Metal backends. The repository includes a web example, model documentation, and reproducible validation reports.",
+    "scenarios":["Explore detection, segmentation, and pose in .NET image applications","Study model loading and execution without a Python inference runtime","Experiment with labeling, pre-labeling, and supported detection-head fine-tuning"],
+    "requirements":["A .NET 10 SDK or a matching runtime","Supported weights and tasks, with model licenses reviewed","Compatible GPU drivers when using a GPU backend; validation differs by backend"],
+    "steps":["Install the inference package or build from source.","Prepare weights from the supported model list and read the inference examples.","Validate a single image before exploring the web demo or fine-tuning workflow."]
+  },
+  "PureDb": {
+    "eyebrow":"Keep data close to your code", "description":"A pure .NET embedded file database with SQL, JOINs, JSON, transactions, and ADO.NET for lightweight applications.", "tags":["Database","SQL","ADO.NET"],
+    "features":["Separate KV and SQL APIs, parameterized queries, and JOINs","JSON, transactions, savepoints, and ADO.NET","An optional managed SQLite file-compatibility library"],
+    "note":"Currently a preview. SQL and SQLite file compatibility have explicit limits. Full SQLite SQL and the WAL file protocol are not supported.",
+    "overview":"PureDb implements an embedded file database in C# and the .NET standard library. Separate KV and SQL APIs provide parameterized queries, JOINs, JSON, transactions, and ADO.NET. An optional compatibility package reads and writes supported SQLite files in place, with documented SQL, transaction, and file-protocol boundaries.",
+    "scenarios":["Explore embedded storage for local tools and desktop apps","Query structured and JSON data through SQL or ADO.NET","Study managed database internals, transactions, and file compatibility"],
+    "requirements":["A .NET 10 development environment","Review the preview's SQL and transaction support","Check compatibility and back up data before opening SQLite files"],
+    "steps":["Install the preview package and distinguish the separate KV and SQL files.","Start with parameterized queries, table creation, and transaction examples.","Install the optional compatibility package only when you need supported SQLite file access."]
+  },
+  "SimdSkia": {
+    "eyebrow":"Build the next frame", "description":"An independent C# 2D renderer connecting CPU SIMD, Vulkan, Direct2D, and Avalonia desktop applications.", "tags":["2D rendering","Avalonia","SIMD"],
+    "features":["C# drawing, fonts, basic text layout, and image codecs","CPU rendering with optional Vulkan / Direct2D backends","Avalonia integration and partial SkiaSharp source-API compatibility"],
+    "note":"Currently a preview. Full API and whole-page visual parity have not passed all checks. A macOS GPU backend has not been implemented.",
+    "overview":"SimdSkia is an independent C# 2D engine for drawing, fonts, basic text layout, and image encoding and decoding. CPU rendering is the default, with optional Vulkan and Windows Direct2D backends. Avalonia integration packages make it possible to evaluate managed rendering in cross-platform desktop applications.",
+    "scenarios":["Study C# graphics, glyph rendering, and pixel compositing","Evaluate rendering backends in Avalonia desktop examples","Compare startup, allocation, memory, and visual quality in specific workloads"],
+    "requirements":["Matching .NET, Avalonia, and preview-package versions from the README","The relevant system APIs and drivers for GPU backends","Evaluate API, font, and whole-page visual differences before migrating"],
+    "steps":["For a new desktop example, start with the SimdSkia.Avalonia.Desktop preview package.","Configure startup code as documented; installing the package alone is insufficient.","Test real application pages for visual quality, performance, and memory before migrating."]
+  },
+  "Serein": {
+    "eyebrow":"Connect every frame", "description":"A pure .NET streaming engine for RTSP/RTP ingestion, media remuxing, live distribution, and recording.", "tags":["Media streaming","RTSP / RTP","WebSocket"],
+    "features":["RTSP / RTP / MPEG-PS media ingestion","RTSP, HTTP-FLV, and WebSocket-FLV output","Recording, managed audio processing, and ASP.NET Core integration"],
+    "note":"A preview focused on unpacking and forwarding video, not general video transcoding. HLS and WebRTC output are not implemented.",
+    "overview":"Serein focuses on ingesting, unpacking, remuxing, distributing, and recording media. Unified media frames and MediaStreamHub connect RTSP / RTP inputs to RTSP, HTTP-FLV, WebSocket-FLV, and file outputs, with managed .NET code and ASP.NET Core integration. The video pipeline primarily handles packaging and forwarding.",
+    "scenarios":["Explore RTSP ingestion and multi-subscriber distribution in .NET services","Build HTTP-FLV / WebSocket-FLV playback and recording experiments","Study RTP / PS processing, resampling, and media-status events"],
+    "requirements":["A .NET 10 SDK or matching application runtime","An accessible RTSP source, or start with the no-source example","Verify that your required output protocol is supported"],
+    "steps":["Install the ASP.NET Core integration package or build the source examples.","Run the sample service and inspect its read-only status API.","Configure your media source locally and validate distribution and recording."]
+  },
+  "yunsevo": {
+    "title":"Yunsevo Drive", "eyebrow":"Let your files move freely", "description":".NET cloud file management and cross-platform synchronization, with permissions, version history, resumable transfers, and desktop / Android clients.", "tags":["Private cloud","File sync","Cross-platform"],
+    "features":["User and group permissions, quotas, version history, and recycle bin","Chunked resumable transfers, multi-directory sync, and auditing","Windows / Linux / macOS and Android clients"],
+    "note":"Choose the platform and architecture specified in Releases. No iPhone installation package is currently available.",
+    "overview":"Yunsevo combines a .NET cloud file service with cross-platform sync clients. It covers user and group permissions, quotas, version history, a recycle bin, and auditing. Transfers support resumable chunks; desktop clients handle multiple servers and directories, while Android provides file and photo workflows.",
+    "scenarios":["Evaluate privately deployed file management and team-folder permissions","Explore multi-directory synchronization across desktop platforms","Manage engineering photos and files with the Android client"],
+    "requirements":["Complete packages matching your platform and architecture","Persistent server storage and the first-install setup wizard","Read migration notes and back up data and configuration before upgrading"],
+    "steps":["Download the server and client packages from Releases and read their instructions.","Run the server and configure administrator access and storage in the setup wizard.","Sign in with a personal account, create a sync task, and verify permissions and recovery."]
+  },
+  "p2pvpn": {
+    "eyebrow":"Bring devices together", "description":"An independent virtual-networking project with network and device management, P2P hole punching, clients, and separate relay nodes.", "tags":["Virtual networking","P2P","Native AOT"],
+    "features":["Network, group, and device management","P2P direct connections with optional WSS relays","Windows and Linux clients, plus Android source"],
+    "note":"Connectivity depends on NAT, firewalls, and network conditions. Relaying requires deployed online nodes. Platform availability follows the current release documentation.",
+    "overview":"P2P VPN includes a public website, a user console, clients, backup hole-punching nodes, and independent relays. Users manage networks, groups, and devices, with clients preferring direct connections. The control service coordinates accounts and connectivity; relaying depends on deployed online infrastructure.",
+    "scenarios":["Validate virtual-network connections between grouped devices in a controlled environment","Study NAT traversal, control coordination, and optional relaying","Evaluate client behavior across operating systems and network conditions"],
+    "requirements":["Check the current release for operating-system and architecture support","Configure server authentication, email, and nodes as documented","Client installation and virtual interfaces require appropriate system permissions"],
+    "steps":["Read the deployment and architecture documents to understand each service's role.","Create a network and group in your test environment, then add devices.","Verify connectivity with a second grouped device and evaluate relay needs."]
+  },
+  "ProtoBus": {
+    "eyebrow":"Go beyond protocol boundaries", "description":"A .NET multi-transport, multi-protocol communication framework aimed at industrial, IoT, and vehicle connectivity.", "tags":["Industrial IoT","MQTT","Modbus"],
+    "features":["TCP / UDP / serial / Unix sockets / CAN transport directions","MQTT, SIP, GB28181, and JT/T 808 protocol directions","Industrial protocol directions including Modbus, FINS, and S7"],
+    "note":"The public README is currently brief. These are the repository's stated directions; inspect the source for actual implementation, examples, and availability.",
+    "overview":"ProtoBus is described as a unified .NET communication framework across transports and protocols for industrial, IoT, and vehicle systems. The README lists TCP, UDP, serial, Unix sockets, CAN, MQTT, SIP, and Modbus among its directions. Public documentation is currently brief, so implementation details must be verified in the source.",
+    "scenarios":["Understand a multi-transport communication framework's intended structure","Study industrial, IoT, and vehicle protocol-integration requirements","Evaluate implementation against a specific device or protocol experiment"],
+    "requirements":["Inspect the current source, project structure, and build requirements","Prepare appropriate test devices or protocol simulators","A protocol name alone does not establish complete or production-ready support"],
+    "steps":["Clone the repository and inspect its current implementation and structure.","Confirm the status of your required transport and protocol, then review available examples.","Test with your own device or simulator and use Issues for clarification."]
+  },
+  "SimdPaddleOCR": {
+    "eyebrow":"Turn pixels into words", "description":"A fork exploring pure C# PP-OCRv6 inference, connecting text detection, orientation classification, and recognition through a managed ONNX interpreter.", "tags":["OCR","PP-OCRv6","Fork"],
+    "features":["Text detection, orientation classification, and recognition","A managed ONNX interpreter and SIMD kernels","Pixel-memory input without a mandatory image-decoding library"],
+    "note":"This is a fork of sdcb/SimdPaddleOCR. Original authorship and licensing belong to the upstream project; it is not presented as an original project here.",
+    "overview":"This repository is a fork of sdcb/SimdPaddleOCR, a pure C# PP-OCRv6 inference library. Upstream uses a managed ONNX interpreter and SIMD kernels for detection, orientation classification, and recognition. Its core API accepts pixel memory directly rather than requiring a particular image decoder. Review upstream documentation and licensing when evaluating it.",
+    "scenarios":["Explore image-text extraction and OCR workflows in .NET","Compare integrations with different pixel layouts and image decoders","Study upstream code and contribute documentation, tests, or inference improvements"],
+    "requirements":["Prepare .NET 10, the core package, and models following upstream documentation","Provide pixel memory in a supported layout","Review upstream and model licensing terms"],
+    "steps":["Start with the upstream README for packages, models, and input layouts.","Choose an image decoder and prepare pixels in a supported format.","Run the upstream OCR example, then compare this fork with upstream if researching changes."]
+  }
+}

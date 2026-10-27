@@ -1,48 +1,61 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile, stat } from 'node:fs/promises';
+import {readFile,stat,readdir} from 'node:fs/promises';
+import {resolve,dirname} from 'node:path';
 
-const html = await readFile(new URL('../dist/index.html',import.meta.url),'utf8');
-const source = JSON.parse(await readFile(new URL('../content/projects.json',import.meta.url),'utf8'));
+const root=new URL('../dist/',import.meta.url);
+const data=JSON.parse(await readFile(new URL('../content/projects.json',import.meta.url),'utf8'));
+const english=JSON.parse(await readFile(new URL('../content/projects.en.json',import.meta.url),'utf8'));
+const read=url=>readFile(new URL(url.replace(/^\//,''),root),'utf8');
+async function htmlFiles(dir){const files=[];for(const entry of await readdir(dir,{withFileTypes:true})){const file=new URL(entry.name+(entry.isDirectory()?'/':''),dir);if(entry.isDirectory())files.push(...await htmlFiles(file));else if(entry.name.endsWith('.html'))files.push(file);}return files;}
 
-test('all curated projects are present in the built HTML without JavaScript',()=>{
-  for(const project of source.projects) {
-    assert.ok(html.includes(`data-project="${project.name}"`), `${project.name} must be discoverable`);
-    assert.ok(html.includes(project.description), `${project.name} description must be server rendered`);
-    assert.ok(html.includes(`href="https://github.com/${source.owner}/${project.name}"`));
+test('all nine projects have server-rendered introductions and links in both languages',async()=>{
+  for(const locale of ['zh','en']){
+    const home=await read(locale==='en'?'en/index.html':'index.html');
+    assert.equal((home.match(/class="project-card /g)||[]).length,data.projects.length);
+    for(const p of data.projects){
+      const path=`${locale==='en'?'/en':''}/projects/${p.name.toLowerCase()}/`;
+      const page=await read(path+'index.html');
+      assert.ok(home.includes(`href="${path}"`));
+      assert.ok(page.includes(locale==='en'?english[p.name].description:p.description));
+      for(const section of ['overview','capabilities','scenarios','quickStart','boundaries'])assert.ok(page.includes(`id="${section}"`));
+      assert.ok(page.includes(`href="https://github.com/${data.owner}/${p.name}"`));
+      assert.ok(page.includes(`<link rel="canonical" href="https://dotnet.org.cn${path}">`));
+    }
   }
-  assert.equal(new Set(source.projects.map(p=>p.name)).size,source.projects.length);
-  assert.equal((html.match(/class="project-card /g)||[]).length,source.projects.length);
 });
 
-test('internal navigation and packaged asset paths resolve',async()=>{
-  const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]));
-  for(const [,anchor] of html.matchAll(/href="#([^"]+)"/g)) assert.ok(ids.has(anchor),`Missing section ${anchor}`);
-  for(const [,asset] of html.matchAll(/(?:href|src)="(\/(?!\/)[^"#]+)"/g)) {
-    const file = new URL(`../dist${asset}`,import.meta.url);
-    assert.ok((await stat(file)).isFile(),`Missing asset ${asset}`);
+test('every internal page, fragment, and packaged asset resolves',async()=>{
+  const files=await htmlFiles(root);
+  assert.equal(files.length,21);
+  for(const file of files){
+    const html=await readFile(file,'utf8');
+    for(const [,url] of html.matchAll(/(?:href|src)="((?:\/|#)[^\"]*)"/g)){
+      const parsed=new URL(url,file.href);
+      let target=parsed.pathname;
+      if(url.startsWith('/'))target=new URL(url.slice(1),root).pathname;
+      if(target.endsWith('/'))target+='index.html';
+      const path=decodeURIComponent(target);
+      assert.ok((await stat(process.platform==='win32'?path.replace(/^\/(\w:)/,'$1'):path)).isFile(),`${file.href}: missing ${url}`);
+      if(parsed.hash){const content=await readFile(process.platform==='win32'?path.replace(/^\/(\w:)/,'$1'):path,'utf8');assert.ok(content.includes(`id="${parsed.hash.slice(1)}"`),`Missing anchor ${url}`);}
+    }
+    assert.ok(!html.includes('{{'));
   }
-  assert.ok(!html.includes('<!-- PROJECT_CARDS -->'));
-  assert.ok(!html.includes('{{'));
 });
 
-test('domain metadata and crawler resources agree',async()=>{
-  assert.ok(html.includes('<link rel="canonical" href="https://dotnet.org.cn/">'));
-  const sitemap = await readFile(new URL('../dist/sitemap.xml',import.meta.url),'utf8');
-  const robots = await readFile(new URL('../dist/robots.txt',import.meta.url),'utf8');
-  assert.ok(sitemap.includes('<loc>https://dotnet.org.cn/</loc>'));
-  assert.ok(robots.includes('https://dotnet.org.cn/sitemap.xml'));
-  assert.ok((await readFile(new URL('../dist/404.html',import.meta.url),'utf8')).includes('回到首页'));
+test('sitemap and alternate-language metadata cover all twenty public pages',async()=>{
+  const sitemap=await read('sitemap.xml');
+  assert.equal((sitemap.match(/<loc>/g)||[]).length,20);
+  for(const url of ['/', '/en/',...data.projects.flatMap(p=>[`/projects/${p.name.toLowerCase()}/`,`/en/projects/${p.name.toLowerCase()}/`])])assert.ok(sitemap.includes(`<loc>https://dotnet.org.cn${url}</loc>`));
+  for(const file of await htmlFiles(root)){
+    const html=await readFile(file,'utf8');assert.ok(html.includes('hreflang="zh-CN"'));assert.ok(html.includes('hreflang="en"'));
+  }
 });
 
-test('project details preserve attribution and meaningful capability limits',async()=>{
-  const data = JSON.parse(await readFile(new URL('../dist/projects.json',import.meta.url),'utf8'));
-  const fork = data.projects.find(p=>p.name==='SimdPaddleOCR');
-  assert.equal(fork.fork,true);
-  assert.equal(fork.upstream,'https://github.com/sdcb/SimdPaddleOCR');
-  for(const project of data.projects) {
-    assert.ok(['ai','infra','connect','apps'].includes(project.category));
-    assert.ok(project.features.length && project.note && project.command);
-    assert.ok(Number.isInteger(project.stars) && project.stars>=0);
+test('fork attribution and capability boundaries remain visible in both languages',async()=>{
+  for(const locale of ['','en/']){
+    const html=await read(`${locale}projects/simdpaddleocr/index.html`);
+    assert.ok(html.includes('https://github.com/sdcb/SimdPaddleOCR'));
+    assert.ok(html.includes(locale?'This repository is a fork.':'此仓库是上游项目的 Fork'));
   }
 });

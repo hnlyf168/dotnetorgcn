@@ -96,9 +96,10 @@ npx wrangler@4 pages deploy dist --project-name=$env:CLOUDFLARE_PAGES_PROJECT --
 ## 日常如何更新
 
 - **改项目介绍**：编辑 `content/projects.json` 后提交 `main`。
-- **改首页标语**：编辑 `src/index.html` 后提交。
+- **改首页标语**：编辑 `src/i18n.mjs` 中对应的中文与英文文案后提交。
+- **改项目独立页面**：编辑 `content/project-details.json`，英文内容在 `content/projects.en.json`。
 - **只刷新 Star 等数据**：GitHub Actions 手动 Run workflow，构建时会自动同步。
-- **增加项目**：在 JSON 中新增完整项目记录，使用现有 `ai`、`infra`、`connect`、`apps` 分类；Star 和 Fork 会自动核对，中文介绍由人工审核。
+- **增加项目**：在 `content/projects.json` 新增记录，同时补齐 `content/project-details.json` 和 `content/projects.en.json`；使用现有 `ai`、`infra`、`connect`、`apps` 分类。Star 和 Fork 自动核对，双语介绍由人工审核。
 - **本地用 Key 更新**：按第 6 节设置环境变量，改完内容执行 `npm run deploy`。Token 只负责部署授权，不会自动编辑文案。
 - **撤销访问**：在 Cloudflare API Tokens 中撤销对应 Token；新建 Token 后只更新 GitHub Secret。
 
