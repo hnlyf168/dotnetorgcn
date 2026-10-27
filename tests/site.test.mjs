@@ -55,6 +55,23 @@ test('sitemap and alternate-language metadata cover all bilingual public pages',
   }
 });
 
+test('all page assets and their module imports resolve inside a versioned release',async()=>{
+  const releases=new Set();
+  for(const file of await htmlFiles(root)){
+    const html=await readFile(file,'utf8');
+    for(const [,url] of html.matchAll(/(?:href|src)="([^"?]+\.(?:js|css))"/g)){
+      assert.match(url,/^\/assets\/site-[a-f0-9]{20}\/[^/]+\.(js|css)$/);
+      const directory=url.slice(0,url.lastIndexOf('/')+1);releases.add(directory);
+      const content=await read(url);
+      for(const [,specifier] of content.matchAll(/import\s+(?:[^;]*?\s+from\s+)?['"](\.\/[^'"]+)['"]/g)){
+        const imported=new URL(specifier,`https://example.com${url}`).pathname;
+        assert.ok(imported.startsWith(directory));assert.ok((await read(imported)).length>0);
+      }
+    }
+  }
+  assert.equal(releases.size,1);
+});
+
 test('community navigation points to the organization while source links retain actual ownership',async()=>{
   for(const locale of ['','en/']){
     const home=await read(`${locale}index.html`),about=await read(`${locale}about/index.html`);

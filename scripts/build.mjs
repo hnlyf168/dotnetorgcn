@@ -10,6 +10,7 @@ import {layout} from '../src/layout.mjs';
 import {messages,projectPath,prefix} from '../src/i18n.mjs';
 import {repositoryOwner} from './project-metadata.mjs';
 import {rosterWithProfiles} from '../src/member-profile.mjs';
+import {packageSiteAssets} from './site-assets.mjs';
 
 const root=fileURLToPath(new URL('../',import.meta.url));
 const readJson=async file=>JSON.parse(await readFile(path.join(root,file),'utf8'));
@@ -18,6 +19,7 @@ const roster=rosterWithProfiles(members,snapshot);
 const dist=path.join(root,'dist');
 await mkdir(dist,{recursive:true});
 await cp(path.join(root,'public'),dist,{recursive:true});
+const versionAssets=await packageSiteAssets(path.join(root,'public'),dist);
 // Remove only obsolete generated project HTML, keeping the build directory and assets intact.
 const slugs=new Set(data.projects.map(p=>p.slug||p.name.toLowerCase()));
 for(const folder of ['projects','en/projects']){
@@ -29,7 +31,7 @@ for(const folder of ['projects','en/projects']){
     try{await unlink(obsolete);}catch(error){if(error.code!=='ENOENT')throw error;}
   }
 }
-async function output(url,html){const dir=path.join(dist,url);await mkdir(dir,{recursive:true});await writeFile(path.join(dir,'index.html'),html);}
+async function output(url,html){const dir=path.join(dist,url);await mkdir(dir,{recursive:true});await writeFile(path.join(dir,'index.html'),versionAssets(html));}
 const urls=[];
 for(const locale of ['zh','en']) {
   const localized={...data,projects:data.projects.map(p=>{
@@ -44,7 +46,7 @@ for(const locale of ['zh','en']) {
   for(const project of localized.projects){const url=projectPath(project,locale);await output(url,projectPage(project,localized,locale));urls.push(url);}
 }
 const t=messages.zh;
-await writeFile(path.join(dist,'404.html'),layout({title:`404 · ${t.name}`,autoLocale:false,body:`<main id="main" class="not-found container"><p class="eyebrow">404 / PAGE NOT FOUND</p><h1>${t.notFound}</h1><p>${t.notFoundText}</p><p>Page not found. Head home to explore .NET open source.</p><a class="button primary" href="/">${t.returnHome} →</a><a class="button secondary" href="/en/" data-set-locale="en">English home →</a></main>`,script:'shared.js'}));
+await writeFile(path.join(dist,'404.html'),versionAssets(layout({title:`404 · ${t.name}`,autoLocale:false,body:`<main id="main" class="not-found container"><p class="eyebrow">404 / PAGE NOT FOUND</p><h1>${t.notFound}</h1><p>${t.notFoundText}</p><p>Page not found. Head home to explore .NET open source.</p><a class="button primary" href="/">${t.returnHome} →</a><a class="button secondary" href="/en/" data-set-locale="en">English home →</a></main>`,script:'shared.js'})));
 await writeFile(path.join(dist,'projects.json'),JSON.stringify(data));
 await writeFile(path.join(dist,'live-data.json'),JSON.stringify(snapshot));
 await writeFile(path.join(dist,'sitemap.xml'),'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'+urls.map(url=>{const zh=url.replace(/^\/en\//,'/');return `<url><loc>https://dotnet.org.cn${url}</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://dotnet.org.cn${zh}"/><xhtml:link rel="alternate" hreflang="en" href="https://dotnet.org.cn/en${zh}"/></url>`;}).join('')+'</urlset>');

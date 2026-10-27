@@ -184,6 +184,46 @@ test('featured project tabs expose real introductions and support keyboard navig
   await page.locator('#spotlight-panel-1 a').click();await expect(page).toHaveURL(/\/projects\/simdyolo\/$/);
 });
 
+test('featured tabs ignore stale unversioned assets and stay on one row in both languages and themes',async({page})=>{
+  const legacyRequests=[];
+  await page.route(/^http:\/\/127\.0\.0\.1:4321\/(?:(?:app|showcase|shared|live|theme|locale)\.js|(?:style|themes|home-layout)\.css)$/,route=>{
+    legacyRequests.push(route.request().url());return route.fulfill({status:404,body:'Stale asset'});
+  });
+  for(const path of ['/','/en/']){
+    await page.goto(path);
+    for(const colorScheme of ['light','dark']){
+      await page.emulateMedia({colorScheme});
+      for(const width of [320,390,768,1440]){
+        await page.setViewportSize({width,height:900});
+        const tabs=page.locator('[data-spotlight-tab]');
+        const boxes=await tabs.evaluateAll(items=>items.map(item=>{
+          const rect=item.getBoundingClientRect();return {top:rect.top,left:rect.left,right:rect.right,width:rect.width,overflow:item.scrollWidth>item.clientWidth};
+        }));
+        expect(boxes).toHaveLength(4);
+        expect(Math.max(...boxes.map(box=>box.top))-Math.min(...boxes.map(box=>box.top))).toBeLessThan(1);
+        for(let i=0;i<boxes.length;i++){
+          expect(boxes[i].width).toBeGreaterThan(40);expect(boxes[i].overflow).toBe(false);
+          if(i>0)expect(boxes[i].left).toBeGreaterThanOrEqual(boxes[i-1].right-1);
+          await tabs.nth(i).click();
+          await expect(page.locator(`#spotlight-panel-${i}`)).toBeVisible();
+          await expect(page.locator('.spotlight-panel:visible')).toHaveCount(1);
+        }
+      }
+    }
+  }
+  expect(legacyRequests).toEqual([]);
+});
+
+test('featured project switching still works when the main application fails to download',async({page})=>{
+  await page.route('**/app.js',route=>route.abort('failed'));
+  await page.goto('/');
+  for(const index of [1,2,3,0]){
+    await page.locator(`[data-spotlight-tab="${index}"]`).click();
+    await expect(page.locator(`#spotlight-panel-${index}`)).toBeVisible();
+    await expect(page.locator('.spotlight-panel:visible')).toHaveCount(1);
+  }
+});
+
 test('the featured OCR panel shows upstream Star data and older upstream links redirect',async({page})=>{
   await page.goto('/');await page.locator('[data-spotlight-tab="2"]').click();
   const panel=page.locator('#spotlight-panel-2');await expect(panel.getByRole('heading')).toHaveText('SimdPaddleOCR');

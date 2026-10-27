@@ -68,5 +68,3 @@ ecoTabs.forEach((tab,index) => {
 });
 selectExample(ecoTabs[0]);
 document.querySelector('#copy-code').addEventListener('click', () => copy(currentExample.code));
-
-import './showcase.js';
