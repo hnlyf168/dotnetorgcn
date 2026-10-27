@@ -612,8 +612,8 @@
     "simdskia": {
       "slug": "simdskia",
       "name": "SimdSkia",
-      "owner": "hnlyf168",
-      "repository": "https://github.com/hnlyf168/SimdSkia",
+      "owner": "donet-org-cn",
+      "repository": "https://github.com/donet-org-cn/SimdSkia",
       "stars": 13,
       "forks": 4,
       "issues": 0,

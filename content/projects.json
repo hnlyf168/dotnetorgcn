@@ -109,7 +109,7 @@
       ],
       "note": "当前为预览版，完整 API 和整页画质验收尚未全部通过；macOS GPU 尚未实现。",
       "command": "dotnet add package SimdSkia.Avalonia.Desktop --prerelease",
-      "owner": "hnlyf168",
+      "owner": "donet-org-cn",
       "repositoryId": 1428164442,
       "nugetPackages": [
         "SimdSkia.Avalonia.Desktop",

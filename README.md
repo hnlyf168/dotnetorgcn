@@ -50,7 +50,7 @@ npm run data        # 同步 GitHub Star / Fork 状态，保留人工介绍
 
 提交到 GitHub 的 `main` 分支即自动发布；PR 在相同仓库内生成预览部署，Fork PR 只运行检查。每次正式发布自动按固定 GitHub 仓库 ID 查询当前归属、Star 和 Fork 状态，因此支持个人与组织仓库同时展示，以及转移后的归属更新。新仓库需要在 `content/projects.json`、`content/project-details.json` 和 `content/projects.en.json` 添加完整双语资料再发布，不会自动生成未经核实的能力声明。
 
-项目按真实维护者链接。FunAsrNet、SimdYolo、PureDb、Serein、yunsevo 已转入组织；sdcb 的 6 个项目仍链接其个人仓库。原有 `hnlyf168/SimdPaddleOCR` Fork 与新增的上游介绍 `/projects/sdcb-simdpaddleocr/` 分开保留。官网为独立社区展示，不代表微软官方。详见 [仓库转移说明](docs/REPOSITORY-TRANSFER.md)。
+项目按真实维护者链接。FunAsrNet、SimdYolo、PureDb、SimdSkia、Serein、yunsevo 已转入组织；sdcb 的 6 个项目仍链接其个人仓库。原有 `hnlyf168/SimdPaddleOCR` Fork 与新增的上游介绍 `/projects/sdcb-simdpaddleocr/` 分开保留。官网为独立社区展示，不代表微软官方。详见 [仓库转移说明](docs/REPOSITORY-TRANSFER.md)。
 
 ## 动态数据如何更新
 
