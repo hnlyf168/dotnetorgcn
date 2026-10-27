@@ -6,7 +6,7 @@ import {createDataService} from '../../src/data-service.mjs';
 export async function dataResponse(context,kind){
   const url=new URL(context.request.url),slug=context.params?.slug;
   const people=url.searchParams.get('people')==='1',page=Math.max(1,Math.min(100,Math.floor(Number(url.searchParams.get('page'))||1)));
-  const key=new Request(`${url.origin}/__community-cache/v1/${kind}/${slug||'members'}?people=${people?1:0}&page=${page}&auth=${context.env?.GITHUB_READ_TOKEN?'1':'0'}`);
+  const key=new Request(`${url.origin}/__community-cache/v2/${kind}/${slug||'members'}?people=${people?1:0}&page=${page}&auth=${context.env?.GITHUB_READ_TOKEN?'1':'0'}`);
   const cache=typeof caches!=='undefined'?caches.default:null;
   const cached=await cache?.match(key);
   if(cached){const body=await cached.json();return Response.json({...body,cache:'hit'},{headers:responseHeaders(300)});}
