@@ -424,5 +424,50 @@
       "Install Sdcb.Arithmetic and read the type documentation.",
       "Validate precision, boundaries, and resource needs with small examples."
     ]
+  },
+  "SimdCodecs": {
+    "eyebrow": "Decode every frame in managed .NET",
+    "description": "Pure managed .NET image codecs by sdcb, covering JPEG, PNG, WebP, TIFF, GIF and more, with SIMD acceleration and NativeAOT support.",
+    "tags": [
+      "Image codecs",
+      "SIMD",
+      "NativeAOT"
+    ],
+    "features": [
+      "Multi-format image I/O including JPEG, PNG, WebP, TIFF and GIF",
+      "AVX2, SSE, ARM AdvSimd and scalar fallback, without native codec libraries",
+      "Optional HEIF / HEIC decoding in 1.4.0, plus EXIF / ICC processing"
+    ],
+    "note": "The published NuGet version is 1.4.0; encoding and decoding support varies by format. HEIF / HEIC requires a separately installed and registered extension; MIT does not grant HEVC patent rights. Version 1.x outputs 10-bit HEIC as 8-bit samples and does not support AVIF. Main-branch 2.0 APIs differ from 1.x.",
+    "overview": "Maintained by sdcb, SimdCodecs implements image codecs in pure C# for .NET 10, without native codec dependencies and with NativeAOT compatibility. Its facade identifies formats from file headers and decodes pixels into caller-owned buffers. Individual codecs support formats including JPEG, PNG, WebP, TIFF and GIF, with EXIF / ICC processing; JPEG 2000 and JBIG2 provide decoding. Version 1.4.0 adds separately installed and registered HEIF / HEIC support. Benchmark results depend on the hardware, corpus and measurement conditions documented in the repository.",
+    "scenarios": [
+      "Build image-loading, conversion and thumbnail workflows in .NET services",
+      "Provide RGB / BGRA / grayscale buffers to OCR, computer vision or desktop rendering",
+      "Evaluate managed decoding in NativeAOT or WebAssembly environments"
+    ],
+    "requirements": [
+      "A .NET 10 environment and the APIs documented for published version 1.4.0",
+      "SIMD selects AVX2 / SSE / AdvSimd where available, with a scalar fallback",
+      "HEIF / HEIC needs Sdcb.SimdCodecs.Heif and explicit registration; review format and patent notes"
+    ],
+    "steps": [
+      "Install Sdcb.SimdCodecs 1.4.0 and inspect image headers with TryReadInfo.",
+      "Follow the 1.4.0 README to allocate a buffer and call TryDecodeIntoRgba8 or an explicit pixel-format API.",
+      "Choose the encoder for your format; for HEIC, install the extension and call SimdCodecs.Register(HeifImageDecoder.Registration)."
+    ],
+    "resources": [
+      {
+        "title": "Author introduction and implementation notes (Chinese)",
+        "url": "https://www.cnblogs.com/sdcb/p/23486182/20261029-simdcodecs-intro"
+      },
+      {
+        "title": "Version 1.4.0 documentation and examples",
+        "url": "https://github.com/sdcb/SimdCodecs/tree/v1.4.0"
+      },
+      {
+        "title": "Version 1.4.0 release notes and format boundaries",
+        "url": "https://github.com/sdcb/SimdCodecs/releases/tag/v1.4.0"
+      }
+    ]
   }
 }

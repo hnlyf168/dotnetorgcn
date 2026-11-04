@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-04T13:47:32.175Z",
+  "generatedAt": "2026-11-04T13:56:19.830Z",
   "projects": {
     "funasrnet": {
       "slug": "funasrnet",
@@ -1208,6 +1208,38 @@
       "source": "snapshot",
       "updatedAt": "2026-11-04T13:47:32.175Z",
       "license": "LGPL-3.0"
+    },
+    "simdcodecs": {
+      "slug": "simdcodecs",
+      "name": "SimdCodecs",
+      "owner": "sdcb",
+      "repository": "https://github.com/sdcb/SimdCodecs",
+      "stars": 86,
+      "forks": 10,
+      "issues": 1,
+      "pushedAt": "2026-11-04T12:12:10Z",
+      "license": "MIT",
+      "packages": [
+        {
+          "id": "Sdcb.SimdCodecs",
+          "available": true,
+          "version": "1.4.0",
+          "downloads": 652,
+          "url": "https://www.nuget.org/packages/Sdcb.SimdCodecs",
+          "prerelease": false,
+          "dependencies": [],
+          "dependenciesAvailable": false,
+          "updatedAt": "2026-11-04T13:56:19.830Z"
+        }
+      ],
+      "stargazers": {
+        "users": [],
+        "available": false,
+        "hasMore": false,
+        "page": 1
+      },
+      "source": "snapshot",
+      "updatedAt": "2026-11-04T13:56:19.830Z"
     }
   },
   "members": [

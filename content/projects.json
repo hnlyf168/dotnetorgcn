@@ -156,6 +156,35 @@
       "maintainer": "hnlyf168"
     },
     {
+      "name": "SimdCodecs",
+      "title": "SimdCodecs",
+      "slug": "simdcodecs",
+      "owner": "sdcb",
+      "repositoryId": 1435455167,
+      "category": "infra",
+      "icon": "layers",
+      "eyebrow": "用纯 .NET 读写每一帧",
+      "description": "sdcb 的纯托管 .NET 图像编解码库，覆盖 JPEG、PNG、WebP、TIFF、GIF 等格式，支持 SIMD 加速与 NativeAOT。",
+      "tags": [
+        "图像编解码",
+        "SIMD",
+        "NativeAOT"
+      ],
+      "features": [
+        "JPEG / PNG / WebP / TIFF / GIF 等多格式图像读写",
+        "AVX2、SSE、ARM AdvSimd 与标量回退，无原生编解码库依赖",
+        "1.4.0 可选 HEIF / HEIC 解码扩展，支持 EXIF / ICC 处理"
+      ],
+      "note": "正式 NuGet 版本为 1.4.0，具体编码 / 解码能力按格式区分。HEIF / HEIC 需单独安装并注册扩展，MIT 许可证不授予 HEVC 专利许可；1.x 将 10 位 HEIC 输出为 8 位样本，不支持 AVIF。主分支 2.0 API 与 1.x 不完全相同。",
+      "stars": 86,
+      "fork": false,
+      "nugetPackages": [
+        "Sdcb.SimdCodecs"
+      ],
+      "command": "dotnet add package Sdcb.SimdCodecs --version 1.4.0",
+      "maintainer": "sdcb"
+    },
+    {
       "name": "Serein",
       "title": "Serein",
       "category": "connect",

@@ -238,5 +238,37 @@
       "安装 Sdcb.Arithmetic 包并阅读类型说明。",
       "从小型运算示例开始，验证精度、边界和资源需求。"
     ]
+  },
+  "SimdCodecs": {
+    "overview": "SimdCodecs 由 sdcb 维护，以纯 C# 实现图像编解码，面向 .NET 10，无原生编解码库依赖，兼容 NativeAOT。门面 API 可根据文件头识别格式，将像素解码到调用方提供的缓冲区，按格式支持 JPEG、PNG、WebP、TIFF、GIF 等图像以及 EXIF / ICC 元数据处理；JPEG 2000、JBIG2 提供解码能力。1.4.0 新增需单独安装并注册的 HEIF / HEIC 扩展。性能比较以仓库公布的硬件、样本与测试口径为准。",
+    "scenarios": [
+      "为 .NET 服务构建图像读取、格式转换与缩略图处理流程",
+      "向 OCR、计算机视觉或桌面渲染提供 RGB / BGRA / 灰度像素缓冲区",
+      "在 NativeAOT 或 WebAssembly 场景评估纯托管图像解码"
+    ],
+    "requirements": [
+      ".NET 10 开发环境，按正式版文档选择 1.4.0 API",
+      "SIMD 根据硬件选择 AVX2 / SSE / AdvSimd，不支持时回退标量实现",
+      "HEIF / HEIC 需安装 Sdcb.SimdCodecs.Heif 并注册；核对格式支持范围与专利说明"
+    ],
+    "steps": [
+      "安装 Sdcb.SimdCodecs 1.4.0，先用 TryReadInfo 检查图像信息。",
+      "按 1.4.0 README 准备像素缓冲区，使用 TryDecodeIntoRgba8 或指定像素格式的入口。",
+      "按格式选择编码 API；需要 HEIC 时单独安装扩展并调用 SimdCodecs.Register(HeifImageDecoder.Registration)。"
+    ],
+    "resources": [
+      {
+        "title": "作者介绍：SimdCodecs 开源与实现思路",
+        "url": "https://www.cnblogs.com/sdcb/p/23486182/20261029-simdcodecs-intro"
+      },
+      {
+        "title": "1.4.0 文档与使用示例",
+        "url": "https://github.com/sdcb/SimdCodecs/tree/v1.4.0"
+      },
+      {
+        "title": "1.4.0 发布说明与格式边界",
+        "url": "https://github.com/sdcb/SimdCodecs/releases/tag/v1.4.0"
+      }
+    ]
   }
 }

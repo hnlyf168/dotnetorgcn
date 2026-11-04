@@ -25,8 +25,8 @@
       "id": 1317141,
       "name": "ZHOU Jie",
       "bio": {
-        "zh": "C#/.NET 开发者，维护 PaddleSharp、Chats、OpenVINO.NET、SimdPaddleOCR 等开源项目，分享 AI 与工具链实践。",
-        "en": "A C#/.NET developer maintaining PaddleSharp, Chats, OpenVINO.NET, and SimdPaddleOCR, sharing AI and developer-tooling work."
+        "zh": "C#/.NET 开发者，维护 SimdPaddleOCR、SimdCodecs、PaddleSharp、Chats、OpenVINO.NET 等开源项目，分享 AI、图像处理与工具链实践。",
+        "en": "A C#/.NET developer maintaining SimdPaddleOCR, SimdCodecs, PaddleSharp, Chats and OpenVINO.NET, sharing AI, imaging and developer-tooling work."
       },
       "areas": [
         ".NET",
