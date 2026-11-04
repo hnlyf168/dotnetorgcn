@@ -1,6 +1,6 @@
 {
   "owner": "hnlyf168",
-  "syncedAt": "2026-10-27",
+  "syncedAt": "2026-11-04",
   "projects": [
     {
       "name": "FunAsrNet",
@@ -15,7 +15,7 @@
         "SIMD",
         "Vulkan"
       ],
-      "stars": 49,
+      "stars": 60,
       "fork": false,
       "features": [
         "普通话 ASR、VAD 切句与 WebSocket 转写",
@@ -45,14 +45,14 @@
         "Vulkan",
         "Metal"
       ],
-      "stars": 30,
+      "stars": 32,
       "fork": false,
       "features": [
         "支持范围内的 PT / ONNX 模型直接加载",
         "目标检测、实例分割与姿态估计",
         "CPU SIMD、Vulkan / Metal 后端及检测头微调"
       ],
-      "note": "模型和算子支持以仓库清单为准。Metal 后端尚未实机验证；训练为冻结骨干的检测头微调。",
+      "note": "模型和算子支持以仓库清单为准。Metal 后端尚未实机验证；训练为冻结骨干的检测头微调。 当前源码 0.11.3，正式 Release 0.11.2；按所选版本核对启动优化与发布方式。",
       "command": "git clone https://github.com/donet-org-cn/SimdYolo.git",
       "owner": "donet-org-cn",
       "repositoryId": 1418580617,
@@ -82,7 +82,7 @@
         "支持像素内存输入与可选 GPU 后端"
       ],
       "note": "由 sdcb 维护的纯 C# OCR 项目。核心 API 接收像素内存，不负责图片解码；可选 GPU 路径需要 .NET 10 和兼容的 Vulkan / Metal 驱动。模型与平台支持范围以项目文档为准。",
-      "stars": 517,
+      "stars": 531,
       "fork": false,
       "nugetPackages": [
         "Sdcb.SimdPaddleOCR"
@@ -98,21 +98,21 @@
       "category": "infra",
       "icon": "database",
       "eyebrow": "数据，回归纯粹",
-      "description": "纯 .NET 嵌入式文件数据库。把 SQL、JOIN、JSON、事务与 ADO.NET 带入轻量应用。",
+      "description": "纯 .NET 10 嵌入式文件数据库。1.0.0-rc.1 提供 SQL、JSON、ADO.NET、事务与一致快照备份，优化大库访问及检查点内存。",
       "tags": [
         "数据库",
         "SQL",
         "ADO.NET"
       ],
-      "stars": 13,
+      "stars": 15,
       "fork": false,
       "features": [
-        "独立 KV 与 SQL API、参数化查询及 JOIN",
-        "JSON、事务、保存点与 ADO.NET",
-        "可选纯托管 SQLite 文件兼容库"
+        "KV / SQL、复合索引、CTE、窗口函数与 C# 用户函数",
+        "事务、保存点、多线程写入与一致快照备份",
+        "rc.1 优化大库范围读写、检查点与可选 SQLite 文件兼容"
       ],
-      "note": "当前为预览版。SQL 与 SQLite 文件兼容均有明确边界，不支持完整 SQLite SQL 或 WAL 文件协议。",
-      "command": "dotnet add package PureDb --prerelease",
+      "note": "当前为 1.0.0-rc.1 候选版，SQL 与 SQLite 文件兼容均有明确边界，不支持完整 SQLite SQL 或 WAL 文件协议；性能、内存与生产适用性需按实际负载评估。",
+      "command": "dotnet add package PureDb --version 1.0.0-rc.1",
       "owner": "donet-org-cn",
       "repositoryId": 1431901367,
       "nugetPackages": [
@@ -130,26 +130,27 @@
       "category": "infra",
       "icon": "layers",
       "eyebrow": "描绘下一帧",
-      "description": "独立 C# 2D 渲染引擎。连接 CPU SIMD、Vulkan、Direct2D 与 Avalonia 桌面应用。",
+      "description": "独立 C# 2D 渲染引擎，0.1.1 正式版支持 Avalonia 12.1.x 桌面接入，提供 CPU SIMD 与可选 Vulkan / Direct2D 后端。",
       "tags": [
         "2D 渲染",
         "Avalonia",
         "SIMD"
       ],
-      "stars": 13,
+      "stars": 21,
       "fork": false,
       "features": [
-        "C# 绘图、字体、基础排版及图像编解码",
-        "CPU 渲染及可选 Vulkan / Direct2D 后端",
-        "Avalonia 桌面适配与部分 SkiaSharp 源码 API 兼容"
+        "0.1.1 正式版，兼容已验证的 Avalonia 12.1.0–12.1.5",
+        "Windows、Linux X11 与 macOS 桌面接入及 Native AOT 验证",
+        "C# 绘图、字体、图像编解码与可选 Vulkan / Direct2D"
       ],
-      "note": "当前为预览版，完整 API 和整页画质验收尚未全部通过；macOS GPU 尚未实现。",
-      "command": "dotnet add package SimdSkia.Avalonia.Desktop --prerelease",
+      "note": "0.1.1 为已实现功能子集的正式补丁版，不承诺完整 SkiaSharp API、二进制替换或原版画质等价。macOS GPU / Metal 尚未实现；未来 Avalonia 版本仍需回归验证。",
+      "command": "dotnet add package SimdSkia.Avalonia.Desktop --version 0.1.1",
       "owner": "donet-org-cn",
       "repositoryId": 1428164442,
       "nugetPackages": [
         "SimdSkia.Avalonia.Desktop",
-        "SimdSkia"
+        "SimdSkia",
+        "SimdSkia.Avalonia.Gpu"
       ],
       "communityData": true,
       "maintainer": "hnlyf168"
@@ -166,7 +167,7 @@
         "RTSP / RTP",
         "WebSocket"
       ],
-      "stars": 1,
+      "stars": 2,
       "fork": false,
       "features": [
         "RTSP / RTP / MPEG-PS 媒体接入",
@@ -287,7 +288,7 @@
         "多平台 CPU / GPU 原生运行包"
       ],
       "note": "该项目是原生 Paddle Inference 的绑定，需要匹配平台、架构及 CPU/GPU 的运行包，并非无原生依赖的纯 C# 推理引擎。",
-      "stars": 1457,
+      "stars": 1459,
       "fork": false,
       "nugetPackages": [
         "Sdcb.PaddleOCR",
@@ -316,7 +317,7 @@
         "Docker / 原生部署与用户管理"
       ],
       "note": "模型能力、费用和可用性取决于接入的服务商及配置。代码执行等可选工具需要按文档部署相应运行环境。",
-      "stars": 614,
+      "stars": 618,
       "fork": false,
       "nugetPackages": [],
       "command": "git clone https://github.com/sdcb/chats.git",
@@ -342,7 +343,7 @@
         "OpenCvSharp 扩展及 PaddleOCR 组件"
       ],
       "note": "需要与版本、平台和架构匹配的 OpenVINO 原生运行包。支持设备与模型能力以 OpenVINO 和仓库文档为准。",
-      "stars": 457,
+      "stars": 460,
       "fork": false,
       "nugetPackages": [
         "Sdcb.OpenVINO"
@@ -370,7 +371,7 @@
         "过滤器和视频帧处理辅助组件"
       ],
       "note": "需要匹配的 FFmpeg 原生库。项目基于 FFmpeg.AutoGen 的工作演进，实际分发应核对项目及所用 FFmpeg 构建的许可证。",
-      "stars": 408,
+      "stars": 411,
       "fork": false,
       "nugetPackages": [
         "Sdcb.FFmpeg"
@@ -393,17 +394,17 @@
         "SIMD"
       ],
       "features": [
-        "任意精度整数、有理数与二进制浮点",
-        "支持 .NET 泛型数学接口",
-        "可用时使用 SIMD，并提供可移植回退"
+        "任意精度 BigInt、BigRational 与正确舍入 Real",
+        "1.2.2 统一校验 Real 显式精度参数",
+        "修复大指数、RootN 阶数与位移 / 位索引截断问题"
       ],
-      "note": "当前项目为纯托管实现；曾经的 GMP/MPFR 原生绑定已迁往其他仓库。性能与数值行为应结合具体工作负载及文档评估。",
-      "stars": 171,
+      "note": "当前为纯托管实现，1.2.2 已发布；无效的 Real 显式精度现在抛出 ArgumentOutOfRangeException。历史 GMP/MPFR 绑定位于独立仓库，数值行为和性能仍需结合负载评估。",
+      "stars": 188,
       "fork": false,
       "nugetPackages": [
         "Sdcb.Arithmetic"
       ],
-      "command": "dotnet add package Sdcb.Arithmetic",
+      "command": "dotnet add package Sdcb.Arithmetic --version 1.2.2",
       "maintainer": "sdcb"
     }
   ]

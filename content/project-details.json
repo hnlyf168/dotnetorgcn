@@ -18,7 +18,7 @@
     ]
   },
   "SimdYolo": {
-    "overview": "SimdYolo 用纯 C# 实现 YOLO 推理与受支持模型的检测头微调，覆盖目标检测、实例分割和姿态估计。它直接读取支持范围内的 PT 与 ONNX 文件，在 CPU 上使用 SIMD / intrinsics，并提供 Vulkan 与 Metal 后端。仓库包含网页示例、模型说明和可复现的测试记录。",
+    "overview": "SimdYolo 用纯 C# 实现 YOLO 推理与受支持模型的检测头微调，覆盖目标检测、实例分割和姿态估计。它直接读取支持范围内的 PT 与 ONNX 文件，在 CPU 上使用 SIMD / intrinsics，并提供 Vulkan 与 Metal 后端。仓库包含网页示例、模型说明和可复现的测试记录。 仓库当前源码为 0.11.3，正式 Release 为 0.11.2；源码新增加载、首次推理、工作区及 Vulkan 实例复用优化，并提供可选 ReadyToRun 快速启动发布。源码优化不能视为已包含在 0.11.2 下载包中。",
     "scenarios": [
       "在 .NET 图像应用中探索目标检测、分割与姿态估计",
       "研究不依赖 Python 推理运行时的模型加载与执行",
@@ -36,7 +36,7 @@
     ]
   },
   "PureDb": {
-    "overview": "PureDb 是使用 C# 和 .NET 标准库实现的嵌入式文件数据库。它分别提供 KV 与 SQL API，支持参数化查询、JOIN、JSON、事务和 ADO.NET。可选的 SQLite 文件兼容包用于受支持格式的原地读写；项目明确记录 SQL、文件协议与事务能力的边界。",
+    "overview": "PureDb 使用 C# 和 .NET 10 标准库实现嵌入式文件数据库，核心及可选 SQLite 文件兼容库无第三方 NuGet 或原生库依赖。当前 1.0.0-rc.1 提供 KV、SQL、JOIN、JSON、复合索引、外键、CTE、窗口函数、事务和 ADO.NET，重点优化大库主键范围、检查点内存回收、区间增删改与一致快照备份。支持范围和实际性能以仓库 SQL 清单及候选版报告为准。",
     "scenarios": [
       "为本地工具和桌面应用探索嵌入式持久化存储",
       "使用 ADO.NET 或 SQL 查询结构化与 JSON 数据",
@@ -44,31 +44,31 @@
     ],
     "requirements": [
       ".NET 10 开发环境",
-      "接受当前预览版的 SQL 与事务支持范围",
+      "按 1.0.0-rc.1 候选版 SQL 清单核对语法、事务与并发边界",
       "读取 SQLite 文件前先核对兼容清单并备份数据"
     ],
     "steps": [
-      "安装 PureDb 预览包，按文档区分 KV 与 SQL 的独立数据文件。",
-      "从参数化查询、建表和事务示例开始。",
-      "如需 SQLite 文件读写，额外安装兼容包并核对受支持模式。"
+      "安装 PureDb 1.0.0-rc.1，KV 与 SQL 使用独立数据文件。",
+      "从参数化查询、建表和事务示例开始，按需使用 C# 用户函数及备份 API。",
+      "SQLite 文件兼容包使用相同版本；结合 rc.1 报告评估实际数据规模、恢复和内存表现。"
     ]
   },
   "SimdSkia": {
-    "overview": "SimdSkia 是独立的 C# 2D 渲染引擎，提供绘图、字体、基础文字排版和图片编解码能力。它以 CPU 渲染为默认路径，也提供可选的 Vulkan 和 Windows Direct2D 后端。通过 Avalonia 适配包，可以研究纯托管渲染与跨平台桌面应用的结合。",
+    "overview": "SimdSkia 是独立 C# 2D 渲染引擎，提供绘图、字体、基础文字排版和图片编解码。0.1.1 正式补丁版以 Avalonia 12.1.0 为编译基线，同一适配器二进制已验证 12.1.0–12.1.5，桌面包按应用版本选择配套宿主。默认 CPU 渲染，可选 Windows Direct2D 或 Windows / Linux Vulkan；仓库提供三平台真实窗口与 Native AOT 验证记录。",
     "scenarios": [
       "研究 C# 2D 图形、字形与像素合成实现",
       "在 Avalonia 桌面示例中评估不同渲染后端",
       "比较具体场景的启动、分配、内存与画质表现"
     ],
     "requirements": [
-      "按 README 使用匹配的 .NET、Avalonia 和预览包版本",
-      "GPU 后端需要对应系统 API 和驱动",
-      "迁移已有应用前评估 API、字体与整页画质差异"
+      "应用使用 .NET 10；从仓库构建源码需要 SDK 10.0.403+",
+      "Avalonia 家族包保持同一版本；当前已验证 12.1.0–12.1.5，13.x 不在支持范围",
+      "Linux 需要 X11 / XWayland；macOS 使用官方原生窗口宿主，GPU 需对应驱动"
     ],
     "steps": [
-      "新桌面示例优先安装 SimdSkia.Avalonia.Desktop 预览包。",
-      "按 README 配置启动代码，仅安装 NuGet 包还不能完成接入。",
-      "使用自己的实际页面检查画质、性能与内存，再决定是否迁移。"
+      "安装 SimdSkia.Avalonia.Desktop 0.1.1；直接引用的 SimdSkia.* 包统一版本。",
+      "按 README 使用 UseSimdSkiaDesktop() 配置启动代码，并调整原有渲染后端引用。",
+      "按需安装同版本 GPU 包；用实际页面检查字体、画质、性能和内存，参考仓库兼容报告。"
     ]
   },
   "Serein": {
@@ -224,7 +224,7 @@
     ]
   },
   "Arithmetic": {
-    "overview": "Sdcb.Arithmetic 提供 BigInt、BigRational 和 Real 三类数值类型，关注任意精度、正确舍入与可移植执行。仓库包含泛型数学集成、不同硬件路径和运算示例。",
+    "overview": "Sdcb.Arithmetic 提供 BigInt、BigRational 和 Real 三类数值类型，关注任意精度、正确舍入与可移植执行。仓库包含泛型数学集成、不同硬件路径和运算示例。 1.2.2 为所有公开 Real API 统一显式精度校验；0 表示默认精度，其余值必须处于 [2, int.MaxValue / 64]，无效值抛出 ArgumentOutOfRangeException。本轮还包含此前版本的大指数、RootN 阶数及位索引 / 位移截断修复。",
     "scenarios": [
       "研究高精度整数、有理数与浮点运算",
       "在泛型数学代码中使用任意精度类型",

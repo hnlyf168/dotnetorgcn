@@ -45,8 +45,8 @@
       "Object detection, instance segmentation, and pose estimation",
       "CPU SIMD, Vulkan / Metal backends, and detection-head fine-tuning"
     ],
-    "note": "Model and operator support is limited to the repository's compatibility list. Metal has not been validated on real hardware. Training fine-tunes the detection head with a frozen backbone.",
-    "overview": "SimdYolo implements YOLO inference and supported detection-head fine-tuning in pure C#. It reads supported PT and ONNX files, uses SIMD / intrinsics on the CPU, and offers Vulkan and Metal backends. The repository includes a web example, model documentation, and reproducible validation reports.",
+    "note": "Model and operator support is limited to the repository's compatibility list. Metal has not been validated on real hardware. Training fine-tunes the detection head with a frozen backbone. Current source: 0.11.3; formal Release: 0.11.2. Check startup optimizations and deployment instructions against the version you use.",
+    "overview": "SimdYolo implements YOLO inference and supported detection-head fine-tuning in pure C#. It reads supported PT and ONNX files, uses SIMD / intrinsics on the CPU, and offers Vulkan and Metal backends. The repository includes a web example, model documentation, and reproducible validation reports. The current source is 0.11.3 while the formal Release is 0.11.2. Source changes optimize loading, first inference, workspace reuse and Vulkan instance reuse, with an optional ReadyToRun fast-start deployment. These source changes are not part of the 0.11.2 downloads.",
     "scenarios": [
       "Explore detection, segmentation, and pose in .NET image applications",
       "Study model loading and execution without a Python inference runtime",
@@ -65,19 +65,19 @@
   },
   "PureDb": {
     "eyebrow": "Keep data close to your code",
-    "description": "A pure .NET embedded file database with SQL, JOINs, JSON, transactions, and ADO.NET for lightweight applications.",
+    "description": "A pure .NET 10 embedded file database. Candidate 1.0.0-rc.1 adds SQL, JSON, ADO.NET, transactions and consistent backups, with large-database and checkpoint improvements.",
     "tags": [
       "Database",
       "SQL",
       "ADO.NET"
     ],
     "features": [
-      "Separate KV and SQL APIs, parameterized queries, and JOINs",
-      "JSON, transactions, savepoints, and ADO.NET",
-      "An optional managed SQLite file-compatibility library"
+      "KV / SQL, composite indexes, CTEs, window functions and C# user functions",
+      "Transactions, savepoints, multi-threaded writes and consistent backups",
+      "rc.1 large-range access, checkpoint improvements and optional SQLite file compatibility"
     ],
-    "note": "Currently a preview. SQL and SQLite file compatibility have explicit limits. Full SQLite SQL and the WAL file protocol are not supported.",
-    "overview": "PureDb implements an embedded file database in C# and the .NET standard library. Separate KV and SQL APIs provide parameterized queries, JOINs, JSON, transactions, and ADO.NET. An optional compatibility package reads and writes supported SQLite files in place, with documented SQL, transaction, and file-protocol boundaries.",
+    "note": "1.0.0-rc.1 is a release candidate. SQL and SQLite file compatibility have explicit limits; full SQLite SQL and the WAL file protocol are not supported. Assess performance, memory and production suitability with your own workload.",
+    "overview": "PureDb implements an embedded file database with C# and the .NET 10 standard library. Neither its core nor its optional SQLite file-compatibility package needs third-party NuGet or native libraries. Candidate 1.0.0-rc.1 provides KV, SQL, JOINs, JSON, composite indexes, foreign keys, CTEs, window functions, transactions and ADO.NET. This update focuses on large primary-key ranges, checkpoint memory reclamation, range mutations and consistent backups. Consult the SQL support list and candidate reports for limits and measured results.",
     "scenarios": [
       "Explore embedded storage for local tools and desktop apps",
       "Query structured and JSON data through SQL or ADO.NET",
@@ -85,44 +85,44 @@
     ],
     "requirements": [
       "A .NET 10 development environment",
-      "Review the preview's SQL and transaction support",
-      "Check compatibility and back up data before opening SQLite files"
+      "Check SQL, transaction and concurrency boundaries for candidate 1.0.0-rc.1",
+      "Review file-compatibility limits and back up SQLite files before use"
     ],
     "steps": [
-      "Install the preview package and distinguish the separate KV and SQL files.",
-      "Start with parameterized queries, table creation, and transaction examples.",
-      "Install the optional compatibility package only when you need supported SQLite file access."
+      "Install PureDb 1.0.0-rc.1; KV and SQL APIs use separate files.",
+      "Start with parameterized queries and transactions, then explore C# user functions and backups.",
+      "Use the same version for SQLite compatibility and evaluate scale, recovery and memory using the rc.1 reports."
     ]
   },
   "SimdSkia": {
     "eyebrow": "Build the next frame",
-    "description": "An independent C# 2D renderer connecting CPU SIMD, Vulkan, Direct2D, and Avalonia desktop applications.",
+    "description": "An independent C# 2D engine. Stable 0.1.1 integrates with Avalonia 12.1.x desktops, using CPU SIMD and optional Vulkan / Direct2D backends.",
     "tags": [
       "2D rendering",
       "Avalonia",
       "SIMD"
     ],
     "features": [
-      "C# drawing, fonts, basic text layout, and image codecs",
-      "CPU rendering with optional Vulkan / Direct2D backends",
-      "Avalonia integration and partial SkiaSharp source-API compatibility"
+      "Stable 0.1.1, verified with Avalonia 12.1.0–12.1.5",
+      "Windows, Linux X11 and macOS desktop integration with Native AOT validation",
+      "C# drawing, fonts, image codecs and optional Vulkan / Direct2D"
     ],
-    "note": "Currently a preview. Full API and whole-page visual parity have not passed all checks. A macOS GPU backend has not been implemented.",
-    "overview": "SimdSkia is an independent C# 2D engine for drawing, fonts, basic text layout, and image encoding and decoding. CPU rendering is the default, with optional Vulkan and Windows Direct2D backends. Avalonia integration packages make it possible to evaluate managed rendering in cross-platform desktop applications.",
+    "note": "0.1.1 is a stable patch for the documented feature subset. It does not promise complete SkiaSharp APIs, binary replacement or pixel-equivalent output. macOS GPU / Metal is not implemented; future Avalonia versions need further validation.",
+    "overview": "SimdSkia implements 2D drawing, fonts, basic text layout and image codecs in C#. Stable patch 0.1.1 compiles its adapter against Avalonia 12.1.0 and verifies the same binary with 12.1.0–12.1.5. Desktop packages select companion hosts for the application version. CPU rendering is the default, with optional Windows Direct2D or Windows / Linux Vulkan. The repository documents real-window and Native AOT validation across three platforms.",
     "scenarios": [
       "Study C# graphics, glyph rendering, and pixel compositing",
       "Evaluate rendering backends in Avalonia desktop examples",
       "Compare startup, allocation, memory, and visual quality in specific workloads"
     ],
     "requirements": [
-      "Matching .NET, Avalonia, and preview-package versions from the README",
-      "The relevant system APIs and drivers for GPU backends",
-      "Evaluate API, font, and whole-page visual differences before migrating"
+      ".NET 10 for applications; SDK 10.0.403+ to build the repository",
+      "Keep Avalonia packages on one version; 12.1.0–12.1.5 are verified and 13.x is outside the supported range",
+      "Linux needs X11 / XWayland; macOS uses the official native window host; GPU backends need compatible drivers"
     ],
     "steps": [
-      "For a new desktop example, start with the SimdSkia.Avalonia.Desktop preview package.",
-      "Configure startup code as documented; installing the package alone is insufficient.",
-      "Test real application pages for visual quality, performance, and memory before migrating."
+      "Install SimdSkia.Avalonia.Desktop 0.1.1 and align all directly referenced SimdSkia.* packages.",
+      "Configure UseSimdSkiaDesktop() and adjust existing rendering-backend references as documented.",
+      "Optionally install the matching GPU package, then assess real pages for fonts, quality, performance and memory using the compatibility reports."
     ]
   },
   "Serein": {
@@ -405,12 +405,12 @@
       "SIMD"
     ],
     "features": [
-      "Arbitrary-precision integers, rationals, and binary floating point",
-      ".NET generic-math interfaces",
-      "SIMD paths where available and portable fallbacks"
+      "Arbitrary-precision BigInt, BigRational and correctly rounded Real",
+      "1.2.2 validates explicit precision consistently across public Real APIs",
+      "Fixes for large exponents, RootN degrees, bit indices and shift counts"
     ],
-    "note": "This project is managed code; the former native GMP/MPFR bindings moved to another repository. Evaluate numerical behavior and performance for your workload.",
-    "overview": "Sdcb.Arithmetic supplies BigInt, BigRational, and Real types for arbitrary precision, correct rounding, and portable execution. The repository includes generic-math integration and hardware-specific paths.",
+    "note": "Pure managed version 1.2.2 is published. Invalid explicit Real precision now throws ArgumentOutOfRangeException. Historical GMP/MPFR bindings live in a separate repository; assess numerical behavior and performance for your workload.",
+    "overview": "Sdcb.Arithmetic supplies BigInt, BigRational, and Real types for arbitrary precision, correct rounding, and portable execution. The repository includes generic-math integration and hardware-specific paths. Version 1.2.2 validates explicit precision on every public Real API: 0 selects the default; other values must be in [2, int.MaxValue / 64], otherwise ArgumentOutOfRangeException is thrown. It also includes preceding fixes for large exponents, RootN degrees, bit indices and shift-count truncation.",
     "scenarios": [
       "Study high-precision integer, rational, and floating-point arithmetic",
       "Use arbitrary-precision types in generic-math code",
