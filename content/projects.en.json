@@ -472,5 +472,52 @@
         "url": "https://github.com/sdcb/SimdCodecs/releases/tag/v2.0.0"
       }
     ]
+  },
+  "SimdFace": {
+    "eyebrow": "Connect faces and features with C#",
+    "description": "Local .NET 10 face detection and 1:1 verification using YuNet, SFace and 128-dimensional features, with CPU SIMD, Vulkan and browser WASM execution.",
+    "tags": [
+      "Face detection",
+      "Face verification",
+      "SIMD",
+      "WebAssembly"
+    ],
+    "features": [
+      "YuNet boxes, confidence and five landmarks, with 128-dimensional SFace features",
+      "1:1 photo verification, feature JSON export and vector comparison",
+      "CPU SIMD, Vulkan and browser WASM, with CLI and web interfaces"
+    ],
+    "note": "This page provides source-based setup. The README lists a SimdFace 1.0.0 install command, but the public package was unavailable from the official NuGet feed when checked on 2026-11-10. Prepare the fixed YuNet / SFace weights, compare features from matching models and extraction pipelines, and calibrate thresholds using your own samples.",
+    "overview": "SimdFace provides local face detection and 1:1 verification for .NET 10. YuNet locates faces and five landmarks, while SFace extracts normalized 128-dimensional features from aligned faces. The project offers C# CPU SIMD inference, a Vulkan backend and an official .NET WASM AOT browser build. A unified web interface switches execution modes, with C#, CLI and HTTP API integration also available. Managed image decoding handles JPEG, PNG, WebP and EXIF orientation. Exported feature JSON identifies its model and extraction pipeline.",
+    "scenarios": [
+      "Detect faces, annotate landmarks and extract features in .NET applications",
+      "Compare two single-person photos or vectors exported by the same pipeline",
+      "Evaluate browser WASM, backend CPU and Vulkan execution in a unified web interface"
+    ],
+    "requirements": [
+      ".NET 10 SDK and PowerShell 7, with YuNet / SFace models downloaded and verified by the repository script",
+      "64-bit Windows / Linux with compatible Vulkan loader and drivers for the GPU backend",
+      "wasm-tools for the official browser AOT build, deploying models and _framework resources together"
+    ],
+    "steps": [
+      "Clone the repository, enter SimdFace and run pwsh -File ./scripts/Get-Models.ps1.",
+      "Run dotnet restore --locked-mode, then dotnet build SimdFace.slnx -c Release --no-restore.",
+      "Run src/SimdFace.Web for the web interface, or use detect / compare in src/SimdFace.Cli.",
+      "For C# integration, supply contiguous RGB24 pixels to FaceDetector and FaceRecognizer and calibrate verification thresholds."
+    ],
+    "resources": [
+      {
+        "title": "Project documentation, model setup and examples",
+        "url": "https://github.com/donet-org-cn/SimdFace#readme"
+      },
+      {
+        "title": "Core inference project and C# APIs",
+        "url": "https://github.com/donet-org-cn/SimdFace/tree/main/src/SimdFace"
+      },
+      {
+        "title": "Unified web interface and HTTP API examples",
+        "url": "https://github.com/donet-org-cn/SimdFace/tree/main/src/SimdFace.Web"
+      }
+    ]
   }
 }

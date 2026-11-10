@@ -63,6 +63,34 @@
       "spotlightKind": "vision"
     },
     {
+      "name": "SimdFace",
+      "title": "SimdFace",
+      "slug": "simdface",
+      "owner": "donet-org-cn",
+      "repositoryId": 1452266952,
+      "maintainer": "hnlyf168",
+      "category": "ai",
+      "icon": "scan",
+      "eyebrow": "用 C# 连接人脸与特征",
+      "description": "面向 .NET 10 的本地人脸检测与 1:1 比对，使用 YuNet、SFace 和 128 维特征，支持 CPU SIMD、Vulkan 与浏览器 WASM。",
+      "tags": [
+        "人脸检测",
+        "人脸比对",
+        "SIMD",
+        "WebAssembly"
+      ],
+      "features": [
+        "YuNet 检测框、置信度与五个关键点，SFace 提取 128 维特征",
+        "照片 1:1 比对、特征 JSON 导出与向量比较",
+        "CPU SIMD、Vulkan、浏览器 WASM，以及 CLI / Web 测试台"
+      ],
+      "note": "当前官网提供源码接入。README 列出 SimdFace 1.0.0 安装命令，2026-11-10 核对时 NuGet 官方源尚未查到该公开包。运行前需准备固定 YuNet / SFace 权重，特征比较需保持相同模型和提取流程，判定阈值按实际样本校准。",
+      "command": "git clone https://github.com/donet-org-cn/SimdFace.git",
+      "stars": 1,
+      "fork": false,
+      "nugetPackages": []
+    },
+    {
       "name": "SimdPaddleOCR",
       "title": "SimdPaddleOCR",
       "owner": "sdcb",

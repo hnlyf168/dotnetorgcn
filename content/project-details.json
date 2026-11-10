@@ -273,5 +273,38 @@
         "url": "https://github.com/sdcb/SimdCodecs/releases/tag/v2.0.0"
       }
     ]
+  },
+  "SimdFace": {
+    "overview": "SimdFace 是面向 .NET 10 的本地人脸检测与 1:1 比对项目。YuNet 输出人脸框和五个关键点，SFace 从对齐的人脸提取归一化 128 维特征。项目提供纯 C# CPU SIMD 推理、Vulkan 后端和官方 .NET WASM AOT 浏览器构建，支持在同一网页切换执行方式，也可通过 C#、CLI 或 HTTP API 接入。图像组件通过托管解码器处理 JPEG、PNG、WebP 与 EXIF 方向，网页可导出带模型和流程标识的特征 JSON。",
+    "scenarios": [
+      "在 .NET 应用中检测人脸、标注关键点并提取特征",
+      "用两张单人照片或同流程导出的向量进行 1:1 相似度比较",
+      "在统一网页中评估浏览器 WASM、后端 CPU 和 Vulkan 的执行表现"
+    ],
+    "requirements": [
+      ".NET 10 SDK 与 PowerShell 7，按仓库脚本下载并校验 YuNet / SFace 模型",
+      "Vulkan 后端面向 64 位 Windows / Linux，需要兼容的 Vulkan loader 和显卡驱动",
+      "官方浏览器 AOT 构建需要 wasm-tools，部署时包含模型与 _framework 资源"
+    ],
+    "steps": [
+      "克隆源码并进入 SimdFace，执行 pwsh -File ./scripts/Get-Models.ps1 准备模型。",
+      "执行 dotnet restore --locked-mode，再用 dotnet build SimdFace.slnx -c Release --no-restore 构建。",
+      "运行 src/SimdFace.Web 打开网页测试台，或运行 src/SimdFace.Cli 的 detect / compare 命令。",
+      "C# 核心接收连续 RGB24 像素，按文档加载 FaceDetector 和 FaceRecognizer，并校准实际比对阈值。"
+    ],
+    "resources": [
+      {
+        "title": "项目说明、模型准备与完整示例",
+        "url": "https://github.com/donet-org-cn/SimdFace#readme"
+      },
+      {
+        "title": "核心推理项目与 C# 接口",
+        "url": "https://github.com/donet-org-cn/SimdFace/tree/main/src/SimdFace"
+      },
+      {
+        "title": "统一网页与 HTTP API 示例",
+        "url": "https://github.com/donet-org-cn/SimdFace/tree/main/src/SimdFace.Web"
+      }
+    ]
   }
 }
