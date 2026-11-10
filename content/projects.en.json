@@ -1,7 +1,7 @@
 {
   "FunAsrNet": {
     "eyebrow": "Let applications understand speech",
-    "description": "Explore Mandarin speech AI in pure C#: recognition, synthesis, browser transcription, and telephone audio processing.",
+    "description": "Pure C# Mandarin recognition and synthesis with VAD, browser transcription and telephone audio processing, using CPU SIMD and optional Vulkan.",
     "tags": [
       "Speech recognition",
       "Mandarin TTS",
@@ -33,7 +33,7 @@
   },
   "SimdYolo": {
     "eyebrow": "Give your code a new perspective",
-    "description": "Pure C# YOLO inference and detection-head fine-tuning, with object detection, instance segmentation, and pose estimation.",
+    "description": "Pure C# YOLO detection, segmentation and pose, with detection-head fine-tuning and web workflows. Source 0.11.3 improves loading and first inference.",
     "tags": [
       "Computer vision",
       "YOLO",
@@ -65,7 +65,7 @@
   },
   "PureDb": {
     "eyebrow": "Keep data close to your code",
-    "description": "A pure .NET 10 embedded file database. Candidate 1.0.0-rc.1 adds SQL, JSON, ADO.NET, transactions and consistent backups, with large-database and checkpoint improvements.",
+    "description": "A pure .NET 10 embedded database. Candidate 1.0.0-rc.1 covers KV, SQL, JSON, ADO.NET, transactions, snapshot backups and large-range access.",
     "tags": [
       "Database",
       "SQL",
@@ -96,38 +96,38 @@
   },
   "SimdSkia": {
     "eyebrow": "Build the next frame",
-    "description": "An independent C# 2D engine. Stable 0.1.1 integrates with Avalonia 12.1.x desktops, using CPU SIMD and optional Vulkan / Direct2D backends.",
+    "description": "A C# 2D renderer. Version 0.1.4 supports Avalonia desktops and Android CPU rendering, with Direct2D, Vulkan, SIMD and image generation.",
     "tags": [
       "2D rendering",
       "Avalonia",
       "SIMD"
     ],
     "features": [
-      "Stable 0.1.1, verified with Avalonia 12.1.0–12.1.5",
-      "Windows, Linux X11 and macOS desktop integration with Native AOT validation",
-      "C# drawing, fonts, image codecs and optional Vulkan / Direct2D"
+      "Stable 0.1.4 with Avalonia desktop and Android CPU / SIMD integration",
+      "Direct2D preferred on Windows and Vulkan on Linux, with CPU fallback",
+      "SKCanvas image generation, PDF page rendering and desktop NativeAOT"
     ],
-    "note": "0.1.1 is a stable patch for the documented feature subset. It does not promise complete SkiaSharp APIs, binary replacement or pixel-equivalent output. macOS GPU / Metal is not implemented; future Avalonia versions need further validation.",
-    "overview": "SimdSkia implements 2D drawing, fonts, basic text layout and image codecs in C#. Stable patch 0.1.1 compiles its adapter against Avalonia 12.1.0 and verifies the same binary with 12.1.0–12.1.5. Desktop packages select companion hosts for the application version. CPU rendering is the default, with optional Windows Direct2D or Windows / Linux Vulkan. The repository documents real-window and Native AOT validation across three platforms.",
+    "note": "Desktop validation covers Avalonia 12.1.0–12.1.5. Android examples use 12.1.5 and net10.0-android36.0. macOS and Android use CPU rendering. Recompile code using SK* types and assess third-party controls, fonts and rendering compatibility when migrating.",
+    "overview": "SimdSkia implements 2D drawing, fonts, basic layout and image codecs in C#. Use SKCanvas to generate PNG images or integrate with Avalonia while retaining XAML and view models. Stable 0.1.4 adds Android NuGet integration. The desktop entry point prefers Direct2D on Windows and hardware Vulkan on Linux X11 / XWayland, with CPU fallback and explicit CPU selection. macOS and Android render on the CPU. Desktop applications can publish with their target platform NativeAOT toolchain.",
     "scenarios": [
-      "Study C# graphics, glyph rendering, and pixel compositing",
-      "Evaluate rendering backends in Avalonia desktop examples",
-      "Compare startup, allocation, memory, and visual quality in specific workloads"
+      "Generate PNG images with SKCanvas in services or console apps",
+      "Evaluate CPU, Direct2D and Vulkan backends in Avalonia desktop applications",
+      "Integrate CPU / SIMD rendering on Avalonia Android or render PDF pages as images"
     ],
     "requirements": [
-      ".NET 10 for applications; SDK 10.0.403+ to build the repository",
-      "Keep Avalonia packages on one version; 12.1.0–12.1.5 are verified and 13.x is outside the supported range",
-      "Linux needs X11 / XWayland; macOS uses the official native window host; GPU backends need compatible drivers"
+      ".NET 10 applications and SDK 10.0.403 or a compatible version specified by global.json for source builds",
+      "Align directly referenced SimdSkia.* packages to 0.1.4 and keep Avalonia packages on one verified version",
+      "Android uses net10.0-android36.0 and Avalonia 12.1.5, with Activity themes and fonts configured as documented"
     ],
     "steps": [
-      "Install SimdSkia.Avalonia.Desktop 0.1.1 and align all directly referenced SimdSkia.* packages.",
-      "Configure UseSimdSkiaDesktop() and adjust existing rendering-backend references as documented.",
-      "Optionally install the matching GPU package, then assess real pages for fonts, quality, performance and memory using the compatibility reports."
+      "Choose SimdSkia, SimdSkia.Avalonia.Desktop or SimdSkia.Avalonia.Android 0.1.4 for your application.",
+      "Follow the migration guide to configure UseSimdSkiaDesktop() or UseSimdSkiaAndroid().",
+      "Use options.UseCpu() for explicit CPU rendering and validate real windows for fonts, output quality and performance."
     ]
   },
   "Serein": {
     "eyebrow": "Connect every frame",
-    "description": "A pure .NET streaming engine for RTSP/RTP ingestion, media remuxing, live distribution, and recording.",
+    "description": "A managed .NET 10 streaming engine connecting RTSP/RTP and MPEG-PS ingestion to FLV distribution, recording and ASP.NET Core services.",
     "tags": [
       "Media streaming",
       "RTSP / RTP",
@@ -159,7 +159,7 @@
   "yunsevo": {
     "title": "Yunsevo Drive",
     "eyebrow": "Let your files move freely",
-    "description": ".NET cloud file management and cross-platform synchronization, with permissions, version history, resumable transfers, and desktop / Android clients.",
+    "description": "A .NET 10 file cloud with multi-folder sync, permissions, version history, resumable transfers, an Android project camera and web/mobile GLB viewing.",
     "tags": [
       "Private cloud",
       "File sync",
@@ -171,7 +171,7 @@
       "Windows / Linux / macOS and Android clients"
     ],
     "note": "Choose the platform and architecture specified in Releases. No iPhone installation package is currently available.",
-    "overview": "Yunsevo combines a .NET cloud file service with cross-platform sync clients. It covers user and group permissions, quotas, version history, a recycle bin, and auditing. Transfers support resumable chunks; desktop clients handle multiple servers and directories, while Android provides file and photo workflows.",
+    "overview": "Yunsevo combines a .NET cloud file service with cross-platform sync clients. It covers user and group permissions, quotas, version history, a recycle bin, and auditing. Transfers support resumable chunks; desktop clients handle multiple servers and directories, while Android provides file and photo workflows. Web and Android clients view existing GLB models. Android 1.4.0 provides a project camera, watermarks and gallery interactions, with server and client downloads under v2.7.0.",
     "scenarios": [
       "Evaluate privately deployed file management and team-folder permissions",
       "Explore multi-directory synchronization across desktop platforms",
@@ -190,7 +190,7 @@
   },
   "p2pvpn": {
     "eyebrow": "Bring devices together",
-    "description": "An independent virtual-networking project with network and device management, P2P hole punching, clients, and separate relay nodes.",
+    "description": "An independent virtual-network project with a user console, network and device groups, P2P traversal, Windows/Linux clients and separate WSS relays.",
     "tags": [
       "Virtual networking",
       "P2P",
@@ -221,7 +221,7 @@
   },
   "ProtoBus": {
     "eyebrow": "Go beyond protocol boundaries",
-    "description": "A .NET multi-transport, multi-protocol communication framework aimed at industrial, IoT, and vehicle connectivity.",
+    "description": "A .NET communication framework whose repository describes TCP, UDP, serial and CAN transports alongside industrial, IoT and vehicle protocols.",
     "tags": [
       "Industrial IoT",
       "MQTT",
@@ -253,19 +253,19 @@
   "SimdPaddleOCR": {
     "title": "SimdPaddleOCR",
     "eyebrow": "Read the text inside your images",
-    "description": "Pure C# PP-OCRv6 inference with a managed ONNX interpreter and SIMD kernels for detection, orientation, and recognition.",
+    "description": "Pure C# PP-OCRv6 detection, orientation classification and recognition. Current source integrates the independent SimdOnnx engine and SimdCodecs decoding examples.",
     "tags": [
       "OCR",
       "PP-OCRv6",
       "SIMD"
     ],
     "features": [
-      "Text detection, orientation classification, and recognition",
-      "Managed ONNX interpretation and SIMD kernels",
-      "Pixel-memory input and optional GPU backends"
+      "PP-OCRv6 text detection, orientation classification and recognition",
+      "Current main branch integrates Sdcb.SimdOnnx through its public API",
+      "Pixel-memory input, SimdCodecs 2.0 decoding examples and Vulkan / Metal"
     ],
-    "note": "Maintained by sdcb. The core accepts pixel memory rather than decoding images. Optional GPU paths require .NET 10 and compatible Vulkan or Metal drivers; consult the repository for supported models and platforms.",
-    "overview": "SimdPaddleOCR provides managed OCR with a pixel-memory API, allowing callers to choose their image decoder and prepare the documented models. Public NuGet packages provide core functionality and model components.",
+    "note": "The published core package is 2.0.0. Main-branch documentation integrates the public preview Sdcb.SimdOnnx API and SimdCodecs 2.0. Check documentation matching your source or NuGet version. GPU execution uses .NET 10 and compatible drivers, with caller-provided pixel memory as core input.",
+    "overview": "Maintained by sdcb, SimdPaddleOCR implements PP-OCRv6 detection, orientation classification and recognition in C#. The current main branch integrates the independent Sdcb.SimdOnnx inference engine through public APIs and demonstrates image decoding with SimdCodecs 2.0. The core accepts BGR24, RGB24, BGRA32 or RGBA32 memory, explicit stride and embedded model loading. The published core package is 2.0.0, so consult the documentation for your selected source or package version.",
     "scenarios": [
       "Extract text from images and documents in .NET",
       "Study managed ONNX and SIMD inference",
@@ -276,13 +276,14 @@
       "Verify supported formats, models, and GPU backends"
     ],
     "steps": [
-      "Install the core package and documented model packages.",
-      "Supply pixel memory following an example and validate your images."
+      "Install Sdcb.SimdPaddleOCR and a matching model package such as ChineseV6Tiny.",
+      "Load models using your version README and prepare the pixel memory required by the core API.",
+      "Main-branch SimdCodecs 2.0 examples use ImageCodecs.Decode with PixelFormat.Bgr24. Keep the buffer alive while OCR runs."
     ]
   },
   "PaddleSharp": {
     "eyebrow": "Connect .NET to the Paddle ecosystem",
-    "description": ".NET/C# bindings for Paddle Inference and PaddleOCR, with OCR, detection, table recognition, and model tooling.",
+    "description": ".NET/C# bindings for Paddle Inference, with multilingual OCR, table recognition, image orientation detection and supported object-detection models.",
     "tags": [
       "PaddleOCR",
       "Native inference",
@@ -311,7 +312,7 @@
   },
   "chats": {
     "eyebrow": "A workspace for multiple AI models",
-    "description": "A .NET LLM frontend and AI gateway connecting model providers through conversations, multimodal workflows, tools, and administration.",
+    "description": "A .NET LLM frontend and AI gateway for 22+ providers, with multimodal chat, a code interpreter, request tracing and user access management.",
     "tags": [
       "AI gateway",
       "Multi-model",
@@ -323,7 +324,7 @@
       "Docker / native deployment and user management"
     ],
     "note": "Capabilities, pricing, and availability depend on your model providers and configuration. Optional code-execution tools require the documented runtime setup.",
-    "overview": "Sdcb Chats combines a multi-model frontend with an AI gateway. It offers conversation UI, API protocols, storage choices, and management features. Choose Docker or a native package and configure the providers you need.",
+    "overview": "Sdcb Chats combines a multi-model frontend with an AI gateway. It offers conversation UI, API protocols, storage choices, and management features. Choose Docker or a native package and configure the providers you need. Current documentation lists 22+ providers, Chat Completions, Messages, Responses and Gemini protocols, Request Trace observability and management features including Keycloak SSO.",
     "scenarios": [
       "Evaluate conversations and multimodal capabilities across model providers",
       "Explore a self-hosted AI frontend and API gateway",
@@ -340,7 +341,7 @@
   },
   "OpenVINO.NET": {
     "eyebrow": "Bring OpenVINO into .NET",
-    "description": "High-quality .NET bindings for OpenVINO inference, with device selection, OpenCvSharp extensions, and OCR components.",
+    "description": ".NET wrappers for the OpenVINO toolkit, offering device inference, platform runtimes, OpenCvSharp extensions and PaddleOCR components.",
     "tags": [
       "OpenVINO",
       "Model inference",
@@ -369,7 +370,7 @@
   },
   "Sdcb.FFmpeg": {
     "eyebrow": "Connect .NET to the media toolchain",
-    "description": "FFmpeg bindings and higher-level wrappers for C#/.NET, including media contexts, codec interfaces, filters, and frame helpers.",
+    "description": "Low-level FFmpeg interfaces and higher-level C#/.NET wrappers for FormatContext, CodecContext, filters and video-frame processing.",
     "tags": [
       "FFmpeg",
       "Media processing",
@@ -398,62 +399,64 @@
   },
   "Arithmetic": {
     "eyebrow": "Explore arbitrary precision in C#",
-    "description": "A pure managed C# arithmetic library with BigInt, BigRational, correctly rounded Real, and .NET generic-math integration.",
+    "description": "A pure managed precision library. Version 2.0.0 offers BigInt, BigRational and BigFloat, plus fixed-width Float128, DoubleDouble and QuadDouble.",
     "tags": [
       "Arbitrary precision",
       "Generic math",
       "SIMD"
     ],
     "features": [
-      "Arbitrary-precision BigInt, BigRational and correctly rounded Real",
-      "1.2.2 validates explicit precision consistently across public Real APIs",
-      "Fixes for large exponents, RootN degrees, bit indices and shift counts"
+      "BigInt, BigRational and correctly rounded arbitrary-precision BigFloat",
+      "New fixed-width Float128, DoubleDouble and QuadDouble types",
+      "Generic math, RoundingMode and conversions between numerical types"
     ],
-    "note": "Pure managed version 1.2.2 is published. Invalid explicit Real precision now throws ArgumentOutOfRangeException. Historical GMP/MPFR bindings live in a separate repository; assess numerical behavior and performance for your workload.",
-    "overview": "Sdcb.Arithmetic supplies BigInt, BigRational, and Real types for arbitrary precision, correct rounding, and portable execution. The repository includes generic-math integration and hardware-specific paths. Version 1.2.2 validates explicit precision on every public Real API: 0 selects the default; other values must be in [2, int.MaxValue / 64], otherwise ArgumentOutOfRangeException is thrown. It also includes preceding fixes for large exponents, RootN degrees, bit indices and shift-count truncation.",
+    "note": "2.0.0 renames Real to BigFloat and RealRounding to RoundingMode. Float128 provides correct rounding, while DoubleDouble / QuadDouble target fast calculations at roughly 106 / 212 bits. Select types using their documented precision and error bounds.",
+    "overview": "Sdcb.Arithmetic 2.0.0 provides arbitrary-precision BigInt, BigRational and BigFloat alongside allocation-free fixed-width Float128, DoubleDouble and QuadDouble. Float128 implements IEEE 754 binary128 with 113-bit precision and correct rounding. DoubleDouble and QuadDouble target fast calculations at roughly 106 and 212 bits. This release renames Real / RealRounding to BigFloat / RoundingMode, and adds conversions and generic-math integration.",
     "scenarios": [
       "Study high-precision integer, rational, and floating-point arithmetic",
       "Use arbitrary-precision types in generic-math code",
       "Compare precision and hardware execution paths"
     ],
     "requirements": [
-      "A compatible .NET environment as specified in the README",
-      "Appropriate number types, precision, and rounding modes"
+      "A .NET 10 environment with numerical types selected for your workload",
+      "Follow the migration guide for BigFloat and RoundingMode names when upgrading from 1.x",
+      "Choose precision, rounding and error bounds from the type documentation"
     ],
     "steps": [
-      "Install Sdcb.Arithmetic and read the type documentation.",
-      "Validate precision, boundaries, and resource needs with small examples."
+      "Install Sdcb.Arithmetic 2.0.0 and select an arbitrary-precision or fixed-width type.",
+      "Start with BigFloat.DefaultPrecision, BigFloat.Pi() and RoundingMode examples.",
+      "Assess the precision and performance of Float128, DoubleDouble and QuadDouble using their documentation."
     ]
   },
   "SimdCodecs": {
     "eyebrow": "Decode every frame in managed .NET",
-    "description": "Pure managed .NET image codecs by sdcb, covering JPEG, PNG, WebP, TIFF, GIF and more, with SIMD acceleration and NativeAOT support.",
+    "description": "Pure managed .NET image codecs. Version 2.0.0 adds the unified ImageCodecs API, pixel buffers, orientation handling and multi-frame processing, with SIMD and NativeAOT.",
     "tags": [
       "Image codecs",
       "SIMD",
       "NativeAOT"
     ],
     "features": [
-      "Multi-format image I/O including JPEG, PNG, WebP, TIFF and GIF",
-      "AVX2, SSE, ARM AdvSimd and scalar fallback, without native codec libraries",
-      "Optional HEIF / HEIC decoding in 1.4.0, plus EXIF / ICC processing"
+      "Unified ImageCodecs APIs in 2.0.0 for multiple formats and frames",
+      "PixelBuffer, explicit pixel layouts, EXIF orientation and metadata propagation",
+      "SIMD / NativeAOT, 16-bit output and optional HEIF / HEIC decoding"
     ],
-    "note": "The published NuGet version is 1.4.0; encoding and decoding support varies by format. HEIF / HEIC requires a separately installed and registered extension; MIT does not grant HEVC patent rights. Version 1.x outputs 10-bit HEIC as 8-bit samples and does not support AVIF. Main-branch 2.0 APIs differ from 1.x.",
-    "overview": "Maintained by sdcb, SimdCodecs implements image codecs in pure C# for .NET 10, without native codec dependencies and with NativeAOT compatibility. Its facade identifies formats from file headers and decodes pixels into caller-owned buffers. Individual codecs support formats including JPEG, PNG, WebP, TIFF and GIF, with EXIF / ICC processing; JPEG 2000 and JBIG2 provide decoding. Version 1.4.0 adds separately installed and registered HEIF / HEIC support. Benchmark results depend on the hardware, corpus and measurement conditions documented in the repository.",
+    "note": "Upgrade 1.x callers using the migration guide for ImageCodecs and PixelFormat, and dispose IDisposable images. Format capabilities depend on the encoder and decoder. HEIF / HEIC requires a separately installed and registered extension and assessment of HEVC patent obligations.",
+    "overview": "Maintained by sdcb, SimdCodecs supplies managed .NET 10 image codecs. Stable 2.0.0 unifies encoding and decoding under ImageCodecs, with pixel layout selection, regions, scaling and EXIF orientation handling. PixelBuffer manages pixels and metadata. Formats include JPEG, PNG, WebP, TIFF, GIF, BMP, ICO, QOI and Netpbm, with JPEG 2000 / JBIG2 decoding and an optional HEIF / HEIC extension. It supports frame readers, 16-bit samples, SIMD and NativeAOT.",
     "scenarios": [
       "Build image-loading, conversion and thumbnail workflows in .NET services",
       "Provide RGB / BGRA / grayscale buffers to OCR, computer vision or desktop rendering",
       "Evaluate managed decoding in NativeAOT or WebAssembly environments"
     ],
     "requirements": [
-      "A .NET 10 environment and the APIs documented for published version 1.4.0",
-      "SIMD selects AVX2 / SSE / AdvSimd where available, with a scalar fallback",
-      "HEIF / HEIC needs Sdcb.SimdCodecs.Heif and explicit registration; review format and patent notes"
+      ".NET 10 with version 2.0.0 documentation and PixelFormat APIs",
+      "Check encoding, decoding, bit-depth and animation support per format, with hardware-selected SIMD and scalar fallback",
+      "Install Sdcb.SimdCodecs.Heif and call ImageCodecs.Register for HEIF / HEIC"
     ],
     "steps": [
-      "Install Sdcb.SimdCodecs 1.4.0 and inspect image headers with TryReadInfo.",
-      "Follow the 1.4.0 README to allocate a buffer and call TryDecodeIntoRgba8 or an explicit pixel-format API.",
-      "Choose the encoder for your format; for HEIC, install the extension and call SimdCodecs.Register(HeifImageDecoder.Registration)."
+      "Install Sdcb.SimdCodecs 2.0.0 and inspect headers with ImageCodecs.TryReadInfo.",
+      "Use ImageCodecs.Decode(data, PixelFormat.Rgba32, options) to obtain a PixelBuffer and dispose it with using.",
+      "Use TryDecodeInto for caller-owned buffers, pass layout, stride and metadata when encoding, and follow the migration table for 1.x callers."
     ],
     "resources": [
       {
@@ -461,12 +464,12 @@
         "url": "https://www.cnblogs.com/sdcb/p/23486182/20261029-simdcodecs-intro"
       },
       {
-        "title": "Version 1.4.0 documentation and examples",
-        "url": "https://github.com/sdcb/SimdCodecs/tree/v1.4.0"
+        "title": "Version 2.0.0 documentation and examples",
+        "url": "https://github.com/sdcb/SimdCodecs/tree/v2.0.0"
       },
       {
-        "title": "Version 1.4.0 release notes and format boundaries",
-        "url": "https://github.com/sdcb/SimdCodecs/releases/tag/v1.4.0"
+        "title": "Version 2.0.0 release notes and format boundaries",
+        "url": "https://github.com/sdcb/SimdCodecs/releases/tag/v2.0.0"
       }
     ]
   }

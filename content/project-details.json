@@ -54,21 +54,21 @@
     ]
   },
   "SimdSkia": {
-    "overview": "SimdSkia 是独立 C# 2D 渲染引擎，提供绘图、字体、基础文字排版和图片编解码。0.1.1 正式补丁版以 Avalonia 12.1.0 为编译基线，同一适配器二进制已验证 12.1.0–12.1.5，桌面包按应用版本选择配套宿主。默认 CPU 渲染，可选 Windows Direct2D 或 Windows / Linux Vulkan；仓库提供三平台真实窗口与 Native AOT 验证记录。",
+    "overview": "SimdSkia 使用 C# 实现 2D 绘图、字体、基础排版和图像编解码，可通过 SKCanvas 生成 PNG，也可接入 Avalonia 并沿用 XAML 与视图模型。0.1.4 正式版增加 Android NuGet 集成。桌面入口在 Windows 优先选择 Direct2D，在 Linux X11 / XWayland 优先选择硬件 Vulkan，并提供 CPU 回退与显式 CPU 选项。macOS 与 Android 使用 CPU 渲染，桌面应用可按目标平台发布 NativeAOT。",
     "scenarios": [
-      "研究 C# 2D 图形、字形与像素合成实现",
-      "在 Avalonia 桌面示例中评估不同渲染后端",
-      "比较具体场景的启动、分配、内存与画质表现"
+      "在服务端或控制台用 SKCanvas 绘图并生成 PNG",
+      "为 Avalonia 桌面应用评估 CPU、Direct2D 与 Vulkan 后端",
+      "为 Avalonia Android 应用接入 CPU / SIMD 渲染，或将 PDF 页面转成图片"
     ],
     "requirements": [
-      "应用使用 .NET 10；从仓库构建源码需要 SDK 10.0.403+",
-      "Avalonia 家族包保持同一版本；当前已验证 12.1.0–12.1.5，13.x 不在支持范围",
-      "Linux 需要 X11 / XWayland；macOS 使用官方原生窗口宿主，GPU 需对应驱动"
+      "应用使用 .NET 10，源码构建按 global.json 使用 SDK 10.0.403 或兼容版本",
+      "直接引用的 SimdSkia.* 包统一为 0.1.4，Avalonia 包使用同一已验证版本",
+      "Android 启动项目使用 net10.0-android36.0 与 Avalonia 12.1.5，按文档配置 Activity 主题和字体"
     ],
     "steps": [
-      "安装 SimdSkia.Avalonia.Desktop 0.1.1；直接引用的 SimdSkia.* 包统一版本。",
-      "按 README 使用 UseSimdSkiaDesktop() 配置启动代码，并调整原有渲染后端引用。",
-      "按需安装同版本 GPU 包；用实际页面检查字体、画质、性能和内存，参考仓库兼容报告。"
+      "按用途安装 SimdSkia、SimdSkia.Avalonia.Desktop 或 SimdSkia.Avalonia.Android 0.1.4。",
+      "桌面按迁移指南配置 UseSimdSkiaDesktop()，Android 配置 UseSimdSkiaAndroid()。",
+      "需要显式 CPU 时使用 options.UseCpu()，用实际窗口和图像验证字体、渲染质量与性能。"
     ]
   },
   "Serein": {
@@ -90,7 +90,7 @@
     ]
   },
   "yunsevo": {
-    "overview": "沄序 Yunsevo 将 .NET 云文件服务与跨平台同步客户端组合在一起，覆盖用户和用户组权限、配额、版本历史、回收站及审计。文件传输支持大文件分块续传，客户端支持多服务器与多同步目录；Android 端提供文件与相册相关功能。",
+    "overview": "沄序 Yunsevo 将 .NET 云文件服务与跨平台同步客户端组合在一起，覆盖用户和用户组权限、配额、版本历史、回收站及审计。文件传输支持大文件分块续传，客户端支持多服务器与多同步目录；Android 端提供文件与相册相关功能。 网页与 Android 提供已有 GLB 模型查看，手机端 1.4.0 提供工程相机、水印及相册交互，服务端和客户端发布入口为 v2.7.0。",
     "scenarios": [
       "评估私有部署的文件管理与团队目录授权",
       "在不同桌面平台间探索多目录文件同步",
@@ -144,7 +144,7 @@
     ]
   },
   "SimdPaddleOCR": {
-    "overview": "SimdPaddleOCR 是 sdcb 维护的纯 C# PP-OCRv6 推理库，使用托管 ONNX 解释器和 SIMD 内核实现文字检测、方向分类与识别。核心接收像素内存，由调用方选择图片解码方式；NuGet 包提供核心与模型组件。",
+    "overview": "SimdPaddleOCR 由 sdcb 维护，实现纯 C# PP-OCRv6 文字检测、方向分类和识别。当前主分支将推理交给独立的 Sdcb.SimdOnnx 引擎，通过公开 API 集成，并提供以 SimdCodecs 2.0 解码图像的示例。核心可直接接收 BGR24、RGB24、BGRA32 或 RGBA32 像素内存，支持显式 stride 和嵌入式模型加载。已发布核心包为 2.0.0，当前源码与包使用方式应分别核对。",
     "scenarios": [
       "在 .NET 应用中提取图片与文档文字",
       "研究托管 ONNX 与 SIMD 推理实现",
@@ -155,8 +155,9 @@
       "核对像素格式、模型与 GPU 后端支持范围"
     ],
     "steps": [
-      "安装核心包和文档列出的模型包。",
-      "按示例提供像素内存，使用自己的图片验证识别。"
+      "安装 Sdcb.SimdPaddleOCR 与匹配的 ChineseV6Tiny 等模型包。",
+      "按所选版本的 README 加载模型，使用图像组件生成核心 API 所需的像素内存。",
+      "主分支的 SimdCodecs 2.0 示例使用 ImageCodecs.Decode 与 PixelFormat.Bgr24，运行 OCR 期间保持像素缓冲区有效。"
     ]
   },
   "PaddleSharp": {
@@ -176,7 +177,7 @@
     ]
   },
   "chats": {
-    "overview": "Sdcb Chats 是面向多模型服务的前端和 AI 网关，提供对话界面、API 协议接入、存储选择和管理功能。可根据部署需求选择 Docker 或发布包，再配置所需模型服务。",
+    "overview": "Sdcb Chats 是面向多模型服务的前端和 AI 网关，提供对话界面、API 协议接入、存储选择和管理功能。可根据部署需求选择 Docker 或发布包，再配置所需模型服务。 当前文档列出 22+ 模型服务商，支持 Chat Completions、Messages、Responses 与 Gemini 协议、Request Trace 请求追踪，以及 Keycloak SSO 等管理能力。",
     "scenarios": [
       "统一体验不同模型服务的对话与多模态能力",
       "研究自托管 AI 前端与 API 网关集成",
@@ -224,37 +225,39 @@
     ]
   },
   "Arithmetic": {
-    "overview": "Sdcb.Arithmetic 提供 BigInt、BigRational 和 Real 三类数值类型，关注任意精度、正确舍入与可移植执行。仓库包含泛型数学集成、不同硬件路径和运算示例。 1.2.2 为所有公开 Real API 统一显式精度校验；0 表示默认精度，其余值必须处于 [2, int.MaxValue / 64]，无效值抛出 ArgumentOutOfRangeException。本轮还包含此前版本的大指数、RootN 阶数及位索引 / 位移截断修复。",
+    "overview": "Sdcb.Arithmetic 2.0.0 提供 BigInt、BigRational、BigFloat 任意精度数值，以及 Float128、DoubleDouble、QuadDouble 三种零分配定宽浮点类型。Float128 提供 IEEE 754 binary128 的 113 位精度与正确舍入，DoubleDouble 和 QuadDouble 分别面向约 106 位与 212 位的快速计算。新版本将 Real / RealRounding 更名为 BigFloat / RoundingMode，并提供类型间转换及泛型数学集成。",
     "scenarios": [
       "研究高精度整数、有理数与浮点运算",
       "在泛型数学代码中使用任意精度类型",
       "比较不同精度与硬件下的计算行为"
     ],
     "requirements": [
-      "按 README 使用兼容的 .NET 开发环境",
-      "依据任务选择数值类型、精度与舍入模式"
+      ".NET 10 开发环境，按任务选择任意精度或定宽类型",
+      "从 1.x 升级时按迁移指南调整 BigFloat 与 RoundingMode 名称",
+      "依据类型文档选择精度、舍入方式与误差范围"
     ],
     "steps": [
-      "安装 Sdcb.Arithmetic 包并阅读类型说明。",
-      "从小型运算示例开始，验证精度、边界和资源需求。"
+      "安装 Sdcb.Arithmetic 2.0.0，先选择 BigInt、BigRational、BigFloat 或定宽浮点类型。",
+      "从 BigFloat.DefaultPrecision、BigFloat.Pi() 和 RoundingMode 示例开始验证计算。",
+      "参考定宽类型文档评估 Float128、DoubleDouble 与 QuadDouble 的精度和性能。"
     ]
   },
   "SimdCodecs": {
-    "overview": "SimdCodecs 由 sdcb 维护，以纯 C# 实现图像编解码，面向 .NET 10，无原生编解码库依赖，兼容 NativeAOT。门面 API 可根据文件头识别格式，将像素解码到调用方提供的缓冲区，按格式支持 JPEG、PNG、WebP、TIFF、GIF 等图像以及 EXIF / ICC 元数据处理；JPEG 2000、JBIG2 提供解码能力。1.4.0 新增需单独安装并注册的 HEIF / HEIC 扩展。性能比较以仓库公布的硬件、样本与测试口径为准。",
+    "overview": "SimdCodecs 是 sdcb 维护的 .NET 10 纯托管图像编解码库。2.0.0 正式版以 ImageCodecs 统一解码和编码入口，可指定像素布局、区域、缩放与 EXIF 方向校正，并通过 PixelBuffer 管理像素及元数据。它覆盖 JPEG、PNG、WebP、TIFF、GIF、BMP、ICO、QOI、Netpbm 等格式，提供 JPEG 2000 / JBIG2 解码和可选 HEIF / HEIC 扩展，支持多帧读取、16 位样本、SIMD 与 NativeAOT。",
     "scenarios": [
       "为 .NET 服务构建图像读取、格式转换与缩略图处理流程",
       "向 OCR、计算机视觉或桌面渲染提供 RGB / BGRA / 灰度像素缓冲区",
       "在 NativeAOT 或 WebAssembly 场景评估纯托管图像解码"
     ],
     "requirements": [
-      ".NET 10 开发环境，按正式版文档选择 1.4.0 API",
-      "SIMD 根据硬件选择 AVX2 / SSE / AdvSimd，不支持时回退标量实现",
-      "HEIF / HEIC 需安装 Sdcb.SimdCodecs.Heif 并注册；核对格式支持范围与专利说明"
+      ".NET 10 环境，使用 2.0.0 文档和 PixelFormat API",
+      "按格式核对编码、解码、位深及动画支持，SIMD 按硬件选择并提供标量回退",
+      "HEIF / HEIC 需安装 Sdcb.SimdCodecs.Heif 并通过 ImageCodecs.Register 注册"
     ],
     "steps": [
-      "安装 Sdcb.SimdCodecs 1.4.0，先用 TryReadInfo 检查图像信息。",
-      "按 1.4.0 README 准备像素缓冲区，使用 TryDecodeIntoRgba8 或指定像素格式的入口。",
-      "按格式选择编码 API；需要 HEIC 时单独安装扩展并调用 SimdCodecs.Register(HeifImageDecoder.Registration)。"
+      "安装 Sdcb.SimdCodecs 2.0.0，从 ImageCodecs.TryReadInfo 检查文件信息开始。",
+      "使用 ImageCodecs.Decode(data, PixelFormat.Rgba32, options) 获取 PixelBuffer，并用 using 管理生命周期。",
+      "自有缓冲区使用 TryDecodeInto，编码时传递像素格式、stride 与元数据，1.x 用户按迁移表更新入口。"
     ],
     "resources": [
       {
@@ -262,12 +265,12 @@
         "url": "https://www.cnblogs.com/sdcb/p/23486182/20261029-simdcodecs-intro"
       },
       {
-        "title": "1.4.0 文档与使用示例",
-        "url": "https://github.com/sdcb/SimdCodecs/tree/v1.4.0"
+        "title": "2.0.0 文档与使用示例",
+        "url": "https://github.com/sdcb/SimdCodecs/tree/v2.0.0"
       },
       {
-        "title": "1.4.0 发布说明与格式边界",
-        "url": "https://github.com/sdcb/SimdCodecs/releases/tag/v1.4.0"
+        "title": "2.0.0 发布说明与格式边界",
+        "url": "https://github.com/sdcb/SimdCodecs/releases/tag/v2.0.0"
       }
     ]
   }

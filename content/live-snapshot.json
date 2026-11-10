@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-11-04T13:56:19.830Z",
+  "generatedAt": "2026-11-10T03:36:18.578Z",
   "projects": {
     "funasrnet": {
       "slug": "funasrnet",
       "name": "FunASR.NET",
       "owner": "donet-org-cn",
       "repository": "https://github.com/donet-org-cn/FunAsrNet",
-      "stars": 60,
-      "forks": 14,
+      "stars": 65,
+      "forks": 15,
       "issues": 1,
-      "pushedAt": "2026-11-04T08:13:36Z",
+      "pushedAt": "2026-11-09T22:27:11Z",
       "packages": [],
       "stargazers": {
         "users": [
@@ -213,7 +213,7 @@
         "source": "snapshot"
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:47:32.175Z",
+      "updatedAt": "2026-11-10T03:36:18.578Z",
       "license": "Apache-2.0"
     },
     "simdyolo": {
@@ -221,10 +221,10 @@
       "name": "SimdYolo",
       "owner": "donet-org-cn",
       "repository": "https://github.com/donet-org-cn/SimdYolo",
-      "stars": 32,
+      "stars": 33,
       "forks": 6,
       "issues": 0,
-      "pushedAt": "2026-11-04T06:35:02Z",
+      "pushedAt": "2026-11-09T22:27:05Z",
       "packages": [],
       "stargazers": {
         "users": [
@@ -428,7 +428,7 @@
         "source": "snapshot"
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:47:32.175Z",
+      "updatedAt": "2026-11-10T03:36:18.578Z",
       "license": null
     },
     "puredb": {
@@ -439,16 +439,16 @@
       "stars": 15,
       "forks": 4,
       "issues": 0,
-      "pushedAt": "2026-11-04T06:40:35Z",
+      "pushedAt": "2026-11-09T22:30:35Z",
       "packages": [
         {
           "id": "PureDb",
           "available": true,
           "version": "1.0.0-rc.1",
-          "downloads": 263,
+          "downloads": 280,
           "url": "https://www.nuget.org/packages/PureDb",
           "prerelease": true,
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependencies": [],
           "dependenciesAvailable": false
         },
@@ -456,10 +456,10 @@
           "id": "PureDb.SqliteCompatibility",
           "available": true,
           "version": "1.0.0-rc.1",
-          "downloads": 249,
+          "downloads": 261,
           "url": "https://www.nuget.org/packages/PureDb.SqliteCompatibility",
           "prerelease": true,
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependencies": [],
           "dependenciesAvailable": false
         }
@@ -578,7 +578,7 @@
         "source": "snapshot"
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:47:32.175Z",
+      "updatedAt": "2026-11-10T03:36:18.578Z",
       "license": "MIT"
     },
     "yunsevo": {
@@ -587,9 +587,9 @@
       "owner": "donet-org-cn",
       "repository": "https://github.com/donet-org-cn/yunsevo",
       "stars": 2,
-      "forks": 0,
+      "forks": 1,
       "issues": 0,
-      "pushedAt": "2026-11-04T06:40:58Z",
+      "pushedAt": "2026-11-09T22:30:19Z",
       "packages": [],
       "stargazers": {
         "users": [
@@ -617,7 +617,7 @@
         "source": "snapshot"
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:47:32.175Z",
+      "updatedAt": "2026-11-10T03:36:18.578Z",
       "license": null
     },
     "simdskia": {
@@ -625,41 +625,41 @@
       "name": "SimdSkia",
       "owner": "donet-org-cn",
       "repository": "https://github.com/donet-org-cn/SimdSkia",
-      "stars": 21,
+      "stars": 28,
       "forks": 4,
-      "issues": 0,
-      "pushedAt": "2026-11-04T13:06:38Z",
+      "issues": 1,
+      "pushedAt": "2026-11-10T03:27:29Z",
       "packages": [
         {
           "id": "SimdSkia.Avalonia.Desktop",
           "available": true,
-          "version": "0.1.1",
-          "downloads": 544,
+          "version": "0.1.4",
+          "downloads": 870,
           "url": "https://www.nuget.org/packages/SimdSkia.Avalonia.Desktop",
           "prerelease": false,
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependencies": [],
           "dependenciesAvailable": false
         },
         {
           "id": "SimdSkia",
           "available": true,
-          "version": "0.1.1",
-          "downloads": 662,
+          "version": "0.1.4",
+          "downloads": 1013,
           "url": "https://www.nuget.org/packages/SimdSkia",
           "prerelease": false,
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependencies": [],
           "dependenciesAvailable": false
         },
         {
           "id": "SimdSkia.Avalonia.Gpu",
           "available": true,
-          "version": "0.1.1",
-          "downloads": 556,
+          "version": "0.1.4",
+          "downloads": 854,
           "url": "https://www.nuget.org/packages/SimdSkia.Avalonia.Gpu",
           "prerelease": false,
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependencies": [],
           "dependenciesAvailable": false
         }
@@ -778,7 +778,7 @@
         "source": "snapshot"
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:47:32.175Z",
+      "updatedAt": "2026-11-10T03:36:18.578Z",
       "license": "MIT"
     },
     "serein": {
@@ -789,13 +789,13 @@
       "stars": 2,
       "forks": 2,
       "issues": 0,
-      "pushedAt": "2026-11-04T06:42:49Z",
+      "pushedAt": "2026-11-09T22:31:58Z",
       "packages": [
         {
           "id": "Serein.AspNetCore",
           "available": true,
           "version": "0.1.0-preview.1",
-          "downloads": 69,
+          "downloads": 77,
           "url": "https://www.nuget.org/packages/Serein.AspNetCore",
           "prerelease": true,
           "dependencies": [
@@ -810,17 +810,17 @@
               "framework": "net10.0"
             }
           ],
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependenciesAvailable": true
         },
         {
           "id": "Serein.Media",
           "available": true,
           "version": "0.1.0-preview.1",
-          "downloads": 79,
+          "downloads": 83,
           "url": "https://www.nuget.org/packages/Serein.Media",
           "prerelease": true,
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependencies": [],
           "dependenciesAvailable": false
         },
@@ -828,10 +828,10 @@
           "id": "Serein.Rtsp",
           "available": true,
           "version": "0.1.0-preview.1",
-          "downloads": 73,
+          "downloads": 77,
           "url": "https://www.nuget.org/packages/Serein.Rtsp",
           "prerelease": true,
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependencies": [],
           "dependenciesAvailable": false
         },
@@ -839,10 +839,10 @@
           "id": "Serein.Hosting",
           "available": true,
           "version": "0.1.0-preview.1",
-          "downloads": 70,
+          "downloads": 75,
           "url": "https://www.nuget.org/packages/Serein.Hosting",
           "prerelease": true,
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependencies": [],
           "dependenciesAvailable": false
         }
@@ -865,7 +865,7 @@
         "source": "snapshot"
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:47:32.175Z",
+      "updatedAt": "2026-11-10T03:36:18.578Z",
       "license": "MIT"
     },
     "simdpaddleocr": {
@@ -873,16 +873,16 @@
       "name": "SimdPaddleOCR",
       "owner": "sdcb",
       "repository": "https://github.com/sdcb/SimdPaddleOCR",
-      "stars": 531,
-      "forks": 73,
-      "issues": 8,
-      "pushedAt": "2026-10-28T01:20:50Z",
+      "stars": 542,
+      "forks": 75,
+      "issues": 10,
+      "pushedAt": "2026-11-09T15:48:15Z",
       "packages": [
         {
           "id": "Sdcb.SimdPaddleOCR",
           "available": true,
           "version": "2.0.0",
-          "downloads": 4448,
+          "downloads": 4908,
           "url": "https://www.nuget.org/packages/Sdcb.SimdPaddleOCR",
           "prerelease": false,
           "dependencies": [
@@ -917,7 +917,7 @@
               "framework": ".NETStandard2.0"
             }
           ],
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependenciesAvailable": true
         }
       ],
@@ -931,7 +931,7 @@
         "requiresAuthorization": true
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:47:32.175Z",
+      "updatedAt": "2026-11-10T03:36:18.578Z",
       "license": "Apache-2.0"
     },
     "p2pvpn": {
@@ -942,7 +942,7 @@
       "stars": 1,
       "forks": 0,
       "issues": 0,
-      "pushedAt": "2026-11-04T06:39:04Z",
+      "pushedAt": "2026-11-09T22:29:14Z",
       "packages": [],
       "stargazers": {
         "users": [
@@ -962,7 +962,7 @@
         "source": "snapshot"
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:47:32.175Z",
+      "updatedAt": "2026-11-10T03:36:18.578Z",
       "license": null
     },
     "protobus": {
@@ -973,7 +973,7 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "pushedAt": "2026-11-04T06:32:54Z",
+      "pushedAt": "2026-11-09T22:26:01Z",
       "packages": [],
       "stargazers": {
         "users": [],
@@ -984,7 +984,7 @@
         "source": "snapshot"
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:47:32.175Z",
+      "updatedAt": "2026-11-10T03:36:18.578Z",
       "license": "MIT"
     },
     "paddlesharp": {
@@ -992,7 +992,7 @@
       "name": "PaddleSharp",
       "owner": "sdcb",
       "repository": "https://github.com/sdcb/PaddleSharp",
-      "stars": 1459,
+      "stars": 1460,
       "forks": 250,
       "issues": 86,
       "pushedAt": "2026-08-30T02:28:37Z",
@@ -1001,7 +1001,7 @@
           "id": "Sdcb.PaddleOCR",
           "available": true,
           "version": "3.3.1",
-          "downloads": 328344,
+          "downloads": 338836,
           "url": "https://www.nuget.org/packages/Sdcb.PaddleOCR",
           "prerelease": false,
           "dependencies": [
@@ -1021,17 +1021,17 @@
               "framework": ".NETStandard2.0"
             }
           ],
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependenciesAvailable": true
         },
         {
           "id": "Sdcb.PaddleInference",
           "available": true,
           "version": "3.3.1",
-          "downloads": 264285,
+          "downloads": 270991,
           "url": "https://www.nuget.org/packages/Sdcb.PaddleInference",
           "prerelease": false,
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependencies": [],
           "dependenciesAvailable": false
         }
@@ -1046,7 +1046,7 @@
         "requiresAuthorization": true
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:47:32.175Z",
+      "updatedAt": "2026-11-10T03:36:18.578Z",
       "license": "Apache-2.0"
     },
     "chats": {
@@ -1069,7 +1069,7 @@
         "requiresAuthorization": true
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:47:32.175Z",
+      "updatedAt": "2026-11-10T03:36:18.578Z",
       "license": "Apache-2.0"
     },
     "arithmetic": {
@@ -1077,19 +1077,19 @@
       "name": "Sdcb.Arithmetic",
       "owner": "sdcb",
       "repository": "https://github.com/sdcb/Arithmetic",
-      "stars": 188,
+      "stars": 191,
       "forks": 27,
       "issues": 0,
-      "pushedAt": "2026-10-29T13:52:39Z",
+      "pushedAt": "2026-11-09T10:01:11Z",
       "packages": [
         {
           "id": "Sdcb.Arithmetic",
           "available": true,
-          "version": "1.2.2",
-          "downloads": 391,
+          "version": "2.0.0",
+          "downloads": 519,
           "url": "https://www.nuget.org/packages/Sdcb.Arithmetic",
           "prerelease": false,
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependencies": [],
           "dependenciesAvailable": false
         }
@@ -1104,7 +1104,7 @@
         "requiresAuthorization": true
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:47:32.175Z",
+      "updatedAt": "2026-11-10T03:36:18.578Z",
       "license": "MIT"
     },
     "openvino.net": {
@@ -1112,7 +1112,7 @@
       "name": "OpenVINO.NET",
       "owner": "sdcb",
       "repository": "https://github.com/sdcb/OpenVINO.NET",
-      "stars": 460,
+      "stars": 461,
       "forks": 47,
       "issues": 5,
       "pushedAt": "2026-06-16T02:49:08Z",
@@ -1121,7 +1121,7 @@
           "id": "Sdcb.OpenVINO",
           "available": true,
           "version": "0.8.1",
-          "downloads": 33030,
+          "downloads": 33663,
           "url": "https://www.nuget.org/packages/Sdcb.OpenVINO",
           "prerelease": false,
           "dependencies": [
@@ -1141,7 +1141,7 @@
               "framework": ".NETFramework4.6.2"
             }
           ],
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependenciesAvailable": true
         }
       ],
@@ -1155,7 +1155,7 @@
         "requiresAuthorization": true
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:47:32.175Z",
+      "updatedAt": "2026-11-10T03:36:18.578Z",
       "license": "Apache-2.0"
     },
     "sdcb.ffmpeg": {
@@ -1172,7 +1172,7 @@
           "id": "Sdcb.FFmpeg",
           "available": true,
           "version": "7.0.0",
-          "downloads": 66443,
+          "downloads": 66844,
           "url": "https://www.nuget.org/packages/Sdcb.FFmpeg",
           "prerelease": false,
           "dependencies": [
@@ -1192,7 +1192,7 @@
               "framework": ".NETFramework4.8"
             }
           ],
-          "updatedAt": "2026-11-04T13:47:32.175Z",
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependenciesAvailable": true
         }
       ],
@@ -1206,7 +1206,7 @@
         "requiresAuthorization": true
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:47:32.175Z",
+      "updatedAt": "2026-11-10T03:36:18.578Z",
       "license": "LGPL-3.0"
     },
     "simdcodecs": {
@@ -1214,22 +1214,22 @@
       "name": "SimdCodecs",
       "owner": "sdcb",
       "repository": "https://github.com/sdcb/SimdCodecs",
-      "stars": 86,
-      "forks": 10,
-      "issues": 1,
-      "pushedAt": "2026-11-04T12:12:10Z",
+      "stars": 115,
+      "forks": 13,
+      "issues": 0,
+      "pushedAt": "2026-11-09T15:16:08Z",
       "license": "MIT",
       "packages": [
         {
           "id": "Sdcb.SimdCodecs",
           "available": true,
-          "version": "1.4.0",
-          "downloads": 652,
+          "version": "2.0.0",
+          "downloads": 1229,
           "url": "https://www.nuget.org/packages/Sdcb.SimdCodecs",
           "prerelease": false,
+          "updatedAt": "2026-11-10T03:36:18.578Z",
           "dependencies": [],
-          "dependenciesAvailable": false,
-          "updatedAt": "2026-11-04T13:56:19.830Z"
+          "dependenciesAvailable": false
         }
       ],
       "stargazers": {
@@ -1239,7 +1239,7 @@
         "page": 1
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-04T13:56:19.830Z"
+      "updatedAt": "2026-11-10T03:36:18.578Z"
     }
   },
   "members": [

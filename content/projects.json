@@ -1,6 +1,6 @@
 {
   "owner": "hnlyf168",
-  "syncedAt": "2026-11-04",
+  "syncedAt": "2026-11-10",
   "projects": [
     {
       "name": "FunAsrNet",
@@ -8,14 +8,14 @@
       "category": "ai",
       "icon": "wave",
       "eyebrow": "让应用听懂世界",
-      "description": "用纯 C# 探索中文语音 AI。从普通话识别、语音合成，到浏览器实时转写与电话音频处理。",
+      "description": "纯 C# 普通话语音识别与合成，连接 VAD 切句、浏览器实时转写和电话音频处理，支持 CPU SIMD 与可选 Vulkan。",
       "tags": [
         "语音识别",
         "中文 TTS",
         "SIMD",
         "Vulkan"
       ],
-      "stars": 60,
+      "stars": 65,
       "fork": false,
       "features": [
         "普通话 ASR、VAD 切句与 WebSocket 转写",
@@ -38,14 +38,14 @@
       "category": "ai",
       "icon": "scan",
       "eyebrow": "让代码看见更多",
-      "description": "纯 C# YOLO 推理与检测头微调。支持目标检测、实例分割和姿态估计，探索 CPU 与 GPU 的更多可能。",
+      "description": "纯 C# YOLO 检测、分割与姿态估计，提供检测头微调和网页工作流，0.11.3 源码优化模型加载及首次推理。",
       "tags": [
         "计算机视觉",
         "YOLO",
         "Vulkan",
         "Metal"
       ],
-      "stars": 32,
+      "stars": 33,
       "fork": false,
       "features": [
         "支持范围内的 PT / ONNX 模型直接加载",
@@ -70,19 +70,19 @@
       "category": "ai",
       "icon": "text",
       "eyebrow": "纯 C#，读懂图片中的文字",
-      "description": "纯 C# PP-OCRv6 推理库，使用托管 ONNX 解释器与 SIMD 内核完成文字检测、方向分类与识别。",
+      "description": "纯 C# PP-OCRv6 文字检测、方向分类与识别。当前源码接入独立 SimdOnnx 引擎，提供 SimdCodecs 图像解码示例。",
       "tags": [
         "OCR",
         "PP-OCRv6",
         "SIMD"
       ],
       "features": [
-        "文字检测、方向分类与识别",
-        "托管 ONNX 解释器与 SIMD 内核",
-        "支持像素内存输入与可选 GPU 后端"
+        "PP-OCRv6 文字检测、方向分类与识别",
+        "当前主分支通过公开 API 接入 Sdcb.SimdOnnx 引擎",
+        "像素内存输入、SimdCodecs 2.0 解码示例及 Vulkan / Metal"
       ],
-      "note": "由 sdcb 维护的纯 C# OCR 项目。核心 API 接收像素内存，不负责图片解码；可选 GPU 路径需要 .NET 10 和兼容的 Vulkan / Metal 驱动。模型与平台支持范围以项目文档为准。",
-      "stars": 531,
+      "note": "已发布的核心包为 2.0.0。主分支文档已接入 Sdcb.SimdOnnx 公开预览 API 与 SimdCodecs 2.0，选用源码或 NuGet 时应核对对应版本文档。GPU 路径使用 .NET 10 与兼容驱动，核心接收由调用方提供的像素内存。",
+      "stars": 542,
       "fork": false,
       "nugetPackages": [
         "Sdcb.SimdPaddleOCR"
@@ -98,7 +98,7 @@
       "category": "infra",
       "icon": "database",
       "eyebrow": "数据，回归纯粹",
-      "description": "纯 .NET 10 嵌入式文件数据库。1.0.0-rc.1 提供 SQL、JSON、ADO.NET、事务与一致快照备份，优化大库访问及检查点内存。",
+      "description": "纯 .NET 10 嵌入式数据库，1.0.0-rc.1 覆盖 KV、SQL、JSON、ADO.NET、事务、快照备份与大库范围读写。",
       "tags": [
         "数据库",
         "SQL",
@@ -130,21 +130,21 @@
       "category": "infra",
       "icon": "layers",
       "eyebrow": "描绘下一帧",
-      "description": "独立 C# 2D 渲染引擎，0.1.1 正式版支持 Avalonia 12.1.x 桌面接入，提供 CPU SIMD 与可选 Vulkan / Direct2D 后端。",
+      "description": "C# 2D 渲染引擎，0.1.4 支持 Avalonia 桌面和 Android CPU 接入，提供 Direct2D、Vulkan、SIMD 与图片生成能力。",
       "tags": [
         "2D 渲染",
         "Avalonia",
         "SIMD"
       ],
-      "stars": 21,
+      "stars": 28,
       "fork": false,
       "features": [
-        "0.1.1 正式版，兼容已验证的 Avalonia 12.1.0–12.1.5",
-        "Windows、Linux X11 与 macOS 桌面接入及 Native AOT 验证",
-        "C# 绘图、字体、图像编解码与可选 Vulkan / Direct2D"
+        "0.1.4 正式版，Avalonia 桌面与 Android CPU / SIMD 接入",
+        "Windows 默认优先 Direct2D，Linux 默认优先 Vulkan，支持 CPU 回退",
+        "SKCanvas 图片生成、PDF 页面渲染与桌面 NativeAOT"
       ],
-      "note": "0.1.1 为已实现功能子集的正式补丁版，不承诺完整 SkiaSharp API、二进制替换或原版画质等价。macOS GPU / Metal 尚未实现；未来 Avalonia 版本仍需回归验证。",
-      "command": "dotnet add package SimdSkia.Avalonia.Desktop --version 0.1.1",
+      "note": "桌面已验证 Avalonia 12.1.0–12.1.5，Android 示例使用 12.1.5 与 net10.0-android36.0。macOS 和 Android 使用 CPU 渲染。迁移时需重新编译依赖 SK* 类型的代码，并评估第三方控件、字体与画质兼容范围。",
+      "command": "dotnet add package SimdSkia.Avalonia.Desktop --version 0.1.4",
       "owner": "donet-org-cn",
       "repositoryId": 1428164442,
       "nugetPackages": [
@@ -164,24 +164,24 @@
       "category": "infra",
       "icon": "layers",
       "eyebrow": "用纯 .NET 读写每一帧",
-      "description": "sdcb 的纯托管 .NET 图像编解码库，覆盖 JPEG、PNG、WebP、TIFF、GIF 等格式，支持 SIMD 加速与 NativeAOT。",
+      "description": "纯托管 .NET 图像编解码库，2.0.0 提供统一 ImageCodecs API、像素缓冲区、方向校正和多帧处理，支持 SIMD 与 NativeAOT。",
       "tags": [
         "图像编解码",
         "SIMD",
         "NativeAOT"
       ],
       "features": [
-        "JPEG / PNG / WebP / TIFF / GIF 等多格式图像读写",
-        "AVX2、SSE、ARM AdvSimd 与标量回退，无原生编解码库依赖",
-        "1.4.0 可选 HEIF / HEIC 解码扩展，支持 EXIF / ICC 处理"
+        "2.0.0 统一 ImageCodecs API，支持多格式与多帧图像",
+        "PixelBuffer、指定像素布局、EXIF 方向校正与元数据传递",
+        "SIMD / NativeAOT，支持 16 位输出及可选 HEIF / HEIC 扩展"
       ],
-      "note": "正式 NuGet 版本为 1.4.0，具体编码 / 解码能力按格式区分。HEIF / HEIC 需单独安装并注册扩展，MIT 许可证不授予 HEVC 专利许可；1.x 将 10 位 HEIC 输出为 8 位样本，不支持 AVIF。主分支 2.0 API 与 1.x 不完全相同。",
-      "stars": 86,
+      "note": "从 1.x 升级需按迁移文档改用 ImageCodecs 与 PixelFormat，并释放 IDisposable 图像。格式能力按编码器与解码器区分。HEIF / HEIC 扩展需单独安装并注册，HEVC 专利许可需另行评估。",
+      "stars": 115,
       "fork": false,
       "nugetPackages": [
         "Sdcb.SimdCodecs"
       ],
-      "command": "dotnet add package Sdcb.SimdCodecs --version 1.4.0",
+      "command": "dotnet add package Sdcb.SimdCodecs --version 2.0.0",
       "maintainer": "sdcb"
     },
     {
@@ -190,7 +190,7 @@
       "category": "connect",
       "icon": "play",
       "eyebrow": "连接每一帧",
-      "description": "纯 .NET 流媒体引擎，专注 RTSP/RTP 接入、媒体转封装、实时分发与录制。",
+      "description": "纯 .NET 10 流媒体引擎，连接 RTSP/RTP 与 MPEG-PS 接入、FLV 分发、媒体录制和 ASP.NET Core 服务。",
       "tags": [
         "流媒体",
         "RTSP / RTP",
@@ -222,7 +222,7 @@
       "category": "apps",
       "icon": "cloud",
       "eyebrow": "文件，自在流动",
-      "description": ".NET 云文件管理与跨平台同步。覆盖权限、版本历史、断点续传，以及桌面和 Android 客户端。",
+      "description": ".NET 10 文件云与多目录同步，覆盖权限、版本历史、断点续传、Android 工程相机及网页和手机 GLB 模型查看。",
       "tags": [
         "私有云",
         "文件同步",
@@ -249,7 +249,7 @@
       "category": "connect",
       "icon": "network",
       "eyebrow": "让设备彼此相连",
-      "description": "独立虚拟组网项目。提供网络与设备管理、P2P 打洞、客户端及独立中继节点。",
+      "description": "独立虚拟组网项目，提供用户控制台、网络与设备分组、P2P 打洞、Windows/Linux 客户端及独立 WSS 中继。",
       "tags": [
         "虚拟组网",
         "P2P",
@@ -276,7 +276,7 @@
       "category": "connect",
       "icon": "terminal",
       "eyebrow": "跨越协议的边界",
-      "description": "面向 .NET 的统一多传输、多协议通信框架，探索工业、物联网与车载设备互联。",
+      "description": "面向 .NET 的多传输、多协议通信框架，仓库声明覆盖 TCP、UDP、串口、CAN 与工业、物联网及车载协议。",
       "tags": [
         "工业物联",
         "MQTT",
@@ -305,7 +305,7 @@
       "category": "ai",
       "icon": "scan",
       "eyebrow": "让 .NET 接入 Paddle 生态",
-      "description": "Paddle Inference 与 PaddleOCR 的 .NET/C# 绑定，连接文字识别、目标检测、表格识别与模型工具。",
+      "description": "Paddle Inference 的 .NET/C# 绑定，提供多语言 OCR、表格识别、图像方向检测和受支持的目标检测模型。",
       "tags": [
         "PaddleOCR",
         "原生推理绑定",
@@ -317,7 +317,7 @@
         "多平台 CPU / GPU 原生运行包"
       ],
       "note": "该项目是原生 Paddle Inference 的绑定，需要匹配平台、架构及 CPU/GPU 的运行包，并非无原生依赖的纯 C# 推理引擎。",
-      "stars": 1459,
+      "stars": 1460,
       "fork": false,
       "nugetPackages": [
         "Sdcb.PaddleOCR",
@@ -334,7 +334,7 @@
       "category": "apps",
       "icon": "message",
       "eyebrow": "连接多模型的 AI 工作台",
-      "description": "基于 .NET 的大模型前端与 AI 网关，统一连接多家模型服务，提供对话、多模态、工具与管理能力。",
+      "description": ".NET 大模型前端与 AI 网关，连接 22+ 模型服务商，提供多模态对话、代码解释器、请求追踪与用户权限管理。",
       "tags": [
         "AI 网关",
         "多模型",
@@ -360,7 +360,7 @@
       "category": "ai",
       "icon": "layers",
       "eyebrow": "把 OpenVINO 带入 .NET",
-      "description": "高质量 OpenVINO .NET 封装，连接模型推理、设备选择、OpenCvSharp 扩展与 OCR 相关组件。",
+      "description": "OpenVINO 工具链的 .NET 封装，提供设备推理、平台运行包、OpenCvSharp 扩展及 PaddleOCR 组件。",
       "tags": [
         "OpenVINO",
         "模型推理",
@@ -372,7 +372,7 @@
         "OpenCvSharp 扩展及 PaddleOCR 组件"
       ],
       "note": "需要与版本、平台和架构匹配的 OpenVINO 原生运行包。支持设备与模型能力以 OpenVINO 和仓库文档为准。",
-      "stars": 460,
+      "stars": 461,
       "fork": false,
       "nugetPackages": [
         "Sdcb.OpenVINO"
@@ -388,7 +388,7 @@
       "category": "connect",
       "icon": "play",
       "eyebrow": "连接 .NET 与音视频工具链",
-      "description": "面向 C#/.NET 的 FFmpeg 接口与高层封装，覆盖媒体上下文、编解码接口、过滤器与帧处理辅助能力。",
+      "description": "FFmpeg 的 C#/.NET 底层接口与高层封装，连接 FormatContext、CodecContext、过滤器和视频帧处理。",
       "tags": [
         "FFmpeg",
         "音视频",
@@ -416,24 +416,24 @@
       "category": "infra",
       "icon": "code",
       "eyebrow": "以 C# 探索任意精度计算",
-      "description": "纯托管 C# 任意精度运算库，提供 BigInt、BigRational 与正确舍入的 Real，并接入 .NET 泛型数学。",
+      "description": "纯托管高精度计算库，2.0.0 提供 BigInt、BigRational、BigFloat，以及 Float128、DoubleDouble、QuadDouble 定宽浮点。",
       "tags": [
         "任意精度",
         "泛型数学",
         "SIMD"
       ],
       "features": [
-        "任意精度 BigInt、BigRational 与正确舍入 Real",
-        "1.2.2 统一校验 Real 显式精度参数",
-        "修复大指数、RootN 阶数与位移 / 位索引截断问题"
+        "BigInt、BigRational 与正确舍入的任意精度 BigFloat",
+        "新增 Float128、DoubleDouble 与 QuadDouble 定宽浮点",
+        "泛型数学、RoundingMode 与数值类型间转换"
       ],
-      "note": "当前为纯托管实现，1.2.2 已发布；无效的 Real 显式精度现在抛出 ArgumentOutOfRangeException。历史 GMP/MPFR 绑定位于独立仓库，数值行为和性能仍需结合负载评估。",
-      "stars": 188,
+      "note": "2.0.0 将 Real 更名为 BigFloat、RealRounding 更名为 RoundingMode。Float128 提供正确舍入语义，DoubleDouble / QuadDouble 提供约 106 / 212 位快速运算，需按各类型精度与误差边界选择。",
+      "stars": 191,
       "fork": false,
       "nugetPackages": [
         "Sdcb.Arithmetic"
       ],
-      "command": "dotnet add package Sdcb.Arithmetic --version 1.2.2",
+      "command": "dotnet add package Sdcb.Arithmetic --version 2.0.0",
       "maintainer": "sdcb"
     }
   ]
