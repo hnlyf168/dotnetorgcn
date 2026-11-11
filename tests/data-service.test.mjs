@@ -50,6 +50,21 @@ test('NuGet does not fetch catalog URLs outside the NuGet service',async()=>{
   const info=await service.packageInfo('Example',{dependencies:true});assert.equal(info.dependenciesAvailable,false);assert.equal(info.downloads,3);
 });
 
+test('NuGet finds newly indexed packages on the alternate official search node',async()=>{
+  for(const primaryStatus of [200,503]){
+    const hosts=[];
+    const service=createDataService({projects:[],members,fetcher:async url=>{
+      const host=new URL(url).hostname;hosts.push(host);
+      if(host==='azuresearch-ea.nuget.org')return primaryStatus===200?reply({data:[{id:'SimdYolo.Other',version:'99.0'}]}):new Response(null,{status:503});
+      assert.equal(host,'azuresearch-usnc.nuget.org');
+      return reply({data:[{id:'SimdYolo',version:'0.11.3',totalDownloads:0}]});
+    }});
+    const info=await service.packageInfo('SimdYolo');
+    assert.equal(info.available,true);assert.equal(info.version,'0.11.3');
+    assert.deepEqual(hosts,['azuresearch-ea.nuget.org','azuresearch-usnc.nuget.org']);
+  }
+});
+
 test('member discovery merges public memberships with curated introductions without revealing membership roles',async()=>{
   const service=createDataService({projects:[],members,fetcher:async url=>{
     if(url.includes('/public_members?'))return reply([{id:1,login:'maintainer',role:'admin'},{id:2,login:'public-developer',email:'hidden@example.com'}]);

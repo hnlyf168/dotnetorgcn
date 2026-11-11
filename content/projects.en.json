@@ -1,7 +1,7 @@
 {
   "FunAsrNet": {
     "eyebrow": "Let applications understand speech",
-    "description": "Pure C# Mandarin recognition and synthesis with VAD, browser transcription and telephone audio processing, using CPU SIMD and optional Vulkan.",
+    "description": "Pure C# Mandarin ASR and TTS. Version 1.0.1 publishes core and Vulkan NuGet packages, covering live transcription, 175 voices and telephone audio processing.",
     "tags": [
       "Speech recognition",
       "Mandarin TTS",
@@ -9,31 +9,42 @@
       "Vulkan"
     ],
     "features": [
-      "Mandarin ASR, VAD segmentation, and WebSocket transcription",
-      "Chinese speech synthesis and browser demos",
-      "CPU SIMD and an explicitly enabled Vulkan hybrid backend"
+      "Core and Vulkan NuGet packages in 1.0.1, with CPU SIMD / GPU kernel improvements",
+      "Mandarin ASR, VAD, WebSocket previews and Chinese TTS",
+      "Fixed BF16 / FP32 weight expansion and telephone audio processing"
     ],
-    "note": "An independent community implementation, not an official FunASR SDK. Compatible model weights must be prepared separately. No NuGet package has been published.",
-    "overview": "FunASR.NET brings model loading, audio features, neural-network operators, VAD, and Mandarin synthesis into a familiar .NET stack. CLI tools, a web service, and browser demos offer a path from transcribing one recording to experimenting with interactive speech applications.",
+    "note": "The core targets .NET 10+. Prepare weights, lexicons and phoneme assets using the documentation. Supported configurations use fixed Fun-ASR, FSMN VAD and Chinese VITS models. Enable Vulkan explicitly through the library API with compatible drivers. The web example defaults to CPU.",
+    "overview": "FunAsrNet 1.0.1 publishes core and Vulkan extension NuGet packages for Mandarin recognition, Chinese VITS synthesis, FSMN VAD and telephone audio on .NET 10+. CPU improvements cover SIMD feature extraction, FFT, RoPE, vocabulary scanning, FP32 blocked matrices and Q8 integer reductions. The Vulkan extension adds FP32 matrix pipelines, grouped projections and long-sequence attention. Tools expand supported BF16 / FP32 weights losslessly into FP32 GGUF, with C#, CLI, HTTP / WebSocket and browser examples.",
     "scenarios": [
       "Explore Mandarin transcription and speech output in .NET apps",
       "Experiment with browser microphones, WebSockets, and VAD segmentation",
       "Work with PCM, G.711, and resampling in telephone-audio experiments"
     ],
     "requirements": [
-      "Install the matching .NET 10 SDK specified in the README",
-      "Prepare and verify compatible model weights separately",
-      "The optional Vulkan backend requires a compatible system driver"
+      ".NET 10 or later, with the SDK specified by global.json for source builds",
+      "Prepare and SHA-256 verify model weights, lexicons and phoneme assets",
+      "Optional Vulkan needs the matching extension, system loader and compatible drivers"
     ],
     "steps": [
-      "Clone the source, build the solution, and run the checks that do not require models.",
-      "Prepare the ASR / VAD or Mandarin TTS weights using the model documentation.",
-      "Choose the CLI or web-service example and validate it with your own audio."
+      "Install FunAsrNet 1.0.1 and prepare ASR / VAD or Chinese TTS models and assets.",
+      "Validate your audio with FunAsr.Transcribe or MandarinTts.Synthesize.",
+      "For GPU use, install FunAsrNet.Vulkan 1.0.1, set FloatBackend before inference and manage its lifetime.",
+      "Build the source service for WebSocket and browser demos, following model, queue and concurrency settings."
+    ],
+    "resources": [
+      {
+        "title": "Version 1.0.1 release notes and validation",
+        "url": "https://github.com/donet-org-cn/FunAsrNet/releases/tag/v1.0.1"
+      },
+      {
+        "title": "Model setup and verification",
+        "url": "https://github.com/donet-org-cn/FunAsrNet/blob/main/doc/models.md"
+      }
     ]
   },
   "SimdYolo": {
     "eyebrow": "Give your code a new perspective",
-    "description": "Pure C# YOLO detection, segmentation and pose, with detection-head fine-tuning and web workflows. Source 0.11.3 improves loading and first inference.",
+    "description": "Pure C# YOLO detection, segmentation and pose. Version 0.11.3 provides inference and training NuGet packages with CPU pooling, resizing and Vulkan transfer improvements.",
     "tags": [
       "Computer vision",
       "YOLO",
@@ -41,26 +52,37 @@
       "Metal"
     ],
     "features": [
-      "Load supported PT and ONNX model files directly",
-      "Object detection, instance segmentation, and pose estimation",
-      "CPU SIMD, Vulkan / Metal backends, and detection-head fine-tuning"
+      "0.11.3 inference and training packages with RGB24 / BGR24 inputs",
+      "CPU max-pooling, nearest-neighbor resizing and Vulkan concatenation-transfer improvements",
+      "Detection-head fine-tuning, validation, early stopping, ONNX export and web labeling"
     ],
-    "note": "Model and operator support is limited to the repository's compatibility list. Metal has not been validated on real hardware. Training fine-tunes the detection head with a frozen backbone. Current source: 0.11.3; formal Release: 0.11.2. Check startup optimizations and deployment instructions against the version you use.",
-    "overview": "SimdYolo implements YOLO inference and supported detection-head fine-tuning in pure C#. It reads supported PT and ONNX files, uses SIMD / intrinsics on the CPU, and offers Vulkan and Metal backends. The repository includes a web example, model documentation, and reproducible validation reports. The current source is 0.11.3 while the formal Release is 0.11.2. Source changes optimize loading, first inference, workspace reuse and Vulkan instance reuse, with an optional ReadyToRun fast-start deployment. These source changes are not part of the 0.11.2 downloads.",
+    "note": "Targets .NET 10 with supported models and operators. Training fine-tunes detection heads with frozen backbone / FPN. FP32 is the default. GPU execution needs compatible drivers, and generic ONNX TopK defaults to CPU. Consult the 0.11.3 report for measured performance and numerical differences.",
+    "overview": "SimdYolo provides C# YOLO inference and detection-head fine-tuning for .NET 10, covering detection, segmentation and pose with supported PT / PTH, ONNX and SYTRAIN models. Version 0.11.3 improves CPU max-pooling boundaries, allocations in 2x nearest-neighbor resizing, and Vulkan concatenation uploads and copies. It retains model-loading and first-inference improvements. A unified API accepts RGB24 / BGR24 pixels, and the web example supports person / vehicle separation, background removal, labeling and fine-tuning.",
     "scenarios": [
       "Explore detection, segmentation, and pose in .NET image applications",
       "Study model loading and execution without a Python inference runtime",
       "Experiment with labeling, pre-labeling, and supported detection-head fine-tuning"
     ],
     "requirements": [
-      "A .NET 10 SDK or a matching runtime",
-      "Supported weights and tasks, with model licenses reviewed",
-      "Compatible GPU drivers when using a GPU backend; validation differs by backend"
+      "A .NET 10 SDK or matching runtime",
+      "Supported weights from the model list, using Git LFS for source examples",
+      "Platform drivers for Vulkan / Metal and validation appropriate to your model and backend"
     ],
     "steps": [
-      "Install the inference package or build from source.",
-      "Prepare weights from the supported model list and read the inference examples.",
-      "Validate a single image before exploring the web demo or fine-tuning workflow."
+      "Install SimdYolo 0.11.3 and prepare a supported model such as YOLOv8n.",
+      "Decode images to RGB24 / BGR24 and run YoloDetector.Predict, reusing the detector for successive frames.",
+      "Install SimdYolo.Training 0.11.3 for fine-tuning and prepare labels, validation data and configuration.",
+      "For the web example, run git lfs pull before launching examples/SimdYolo.Web."
+    ],
+    "resources": [
+      {
+        "title": "Version 0.11.3 changes, performance and output validation",
+        "url": "https://github.com/donet-org-cn/SimdYolo/blob/main/docs/releases/v0.11.3.md"
+      },
+      {
+        "title": "Inference APIs and supported models",
+        "url": "https://github.com/donet-org-cn/SimdYolo/blob/main/docs/inference.md"
+      }
     ]
   },
   "PureDb": {
@@ -108,7 +130,7 @@
       "SKCanvas image generation, PDF page rendering and desktop NativeAOT"
     ],
     "note": "Desktop validation covers Avalonia 12.1.0–12.1.5. Android examples use 12.1.5 and net10.0-android36.0. macOS and Android use CPU rendering. Recompile code using SK* types and assess third-party controls, fonts and rendering compatibility when migrating.",
-    "overview": "SimdSkia implements 2D drawing, fonts, basic layout and image codecs in C#. Use SKCanvas to generate PNG images or integrate with Avalonia while retaining XAML and view models. Stable 0.1.4 adds Android NuGet integration. The desktop entry point prefers Direct2D on Windows and hardware Vulkan on Linux X11 / XWayland, with CPU fallback and explicit CPU selection. macOS and Android render on the CPU. Desktop applications can publish with their target platform NativeAOT toolchain.",
+    "overview": "SimdSkia implements 2D drawing, fonts, basic layout and image codecs in C#. Use SKCanvas to generate PNG images or integrate with Avalonia while retaining XAML and view models. Stable 0.1.4 adds Android NuGet integration. The desktop entry point prefers Direct2D on Windows and hardware Vulkan on Linux X11 / XWayland, with CPU fallback and explicit CPU selection. macOS and Android render on the CPU. Desktop applications can publish with their target platform NativeAOT toolchain. Current main-branch work on the 0.1.4 codebase further optimizes runtime-effect execution plans, mesh / texture sampling, Avalonia scope records and font caches. See the November 10 second-round report for source changes and measurements.",
     "scenarios": [
       "Generate PNG images with SKCanvas in services or console apps",
       "Evaluate CPU, Direct2D and Vulkan backends in Avalonia desktop applications",
@@ -123,6 +145,12 @@
       "Choose SimdSkia, SimdSkia.Avalonia.Desktop or SimdSkia.Avalonia.Android 0.1.4 for your application.",
       "Follow the migration guide to configure UseSimdSkiaDesktop() or UseSimdSkiaAndroid().",
       "Use options.UseCpu() for explicit CPU rendering and validate real windows for fonts, output quality and performance."
+    ],
+    "resources": [
+      {
+        "title": "Latest source optimization, performance and memory report",
+        "url": "https://github.com/donet-org-cn/SimdSkia/blob/main/docs/PERFORMANCE-2026-11-10-ROUND2.md"
+      }
     ]
   },
   "Serein": {
@@ -487,7 +515,7 @@
       "1:1 photo verification, feature JSON export and vector comparison",
       "CPU SIMD, Vulkan and browser WASM, with CLI and web interfaces"
     ],
-    "note": "This page provides source-based setup. The README lists a SimdFace 1.0.0 install command, but the public package was unavailable from the official NuGet feed when checked on 2026-11-10. Prepare the fixed YuNet / SFace weights, compare features from matching models and extraction pipelines, and calibrate thresholds using your own samples.",
+    "note": "Core package 1.0.0 accepts contiguous RGB24 pixels. Build image decoding, CLI and web examples from source. The repository includes fixed YuNet / SFace weights, with a verification script to restore missing or damaged files. Compare features from matching models and extraction pipelines, and calibrate thresholds for your samples.",
     "overview": "SimdFace provides local face detection and 1:1 verification for .NET 10. YuNet locates faces and five landmarks, while SFace extracts normalized 128-dimensional features from aligned faces. The project offers C# CPU SIMD inference, a Vulkan backend and an official .NET WASM AOT browser build. A unified web interface switches execution modes, with C#, CLI and HTTP API integration also available. Managed image decoding handles JPEG, PNG, WebP and EXIF orientation. Exported feature JSON identifies its model and extraction pipeline.",
     "scenarios": [
       "Detect faces, annotate landmarks and extract features in .NET applications",
@@ -495,13 +523,13 @@
       "Evaluate browser WASM, backend CPU and Vulkan execution in a unified web interface"
     ],
     "requirements": [
-      ".NET 10 SDK and PowerShell 7, with YuNet / SFace models downloaded and verified by the repository script",
+      ".NET 10 SDK and PowerShell 7, with bundled fixed YuNet / SFace weights verified by the script",
       "64-bit Windows / Linux with compatible Vulkan loader and drivers for the GPU backend",
       "wasm-tools for the official browser AOT build, deploying models and _framework resources together"
     ],
     "steps": [
-      "Clone the repository, enter SimdFace and run pwsh -File ./scripts/Get-Models.ps1.",
-      "Run dotnet restore --locked-mode, then dotnet build SimdFace.slnx -c Release --no-restore.",
+      "Install SimdFace 1.0.0 for core inference, or clone the source for image decoding, CLI and web examples.",
+      "Verify the bundled weights with Get-Models.ps1, run dotnet restore --locked-mode, then build in Release mode.",
       "Run src/SimdFace.Web for the web interface, or use detect / compare in src/SimdFace.Cli.",
       "For C# integration, supply contiguous RGB24 pixels to FaceDetector and FaceRecognizer and calibrate verification thresholds."
     ],

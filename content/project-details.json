@@ -1,38 +1,60 @@
 {
   "FunAsrNet": {
-    "overview": "FunASR.NET 围绕中文语音场景构建独立的 C# 推理实现，将模型读取、音频特征、神经网络算子、VAD 与中文语音合成放在熟悉的 .NET 技术栈中。项目同时提供命令行、Web 服务和浏览器演示，方便从单段音频转写逐步探索实时语音交互。",
+    "overview": "FunAsrNet 1.0.1 已发布核心与 Vulkan 扩展 NuGet 包，将普通话识别、中文 VITS 合成、FSMN VAD 和电话音频处理集成到 .NET 10+。CPU 使用 SIMD，新增特征提取、FFT、RoPE、词表扫描、FP32 分块矩阵与 Q8 整数归约优化。Vulkan 扩展提供 FP32 矩阵管线、分组投影及长序列注意力。项目提供固定 BF16 / FP32 权重无损展开为 FP32 GGUF 的工具，以及 C#、CLI、HTTP / WebSocket 和浏览器示例。",
     "scenarios": [
       "为 .NET 应用探索普通话音频转写与语音播报",
       "研究浏览器麦克风、WebSocket 与 VAD 切句的组合",
       "将 PCM、G.711 与重采样接入电话音频实验"
     ],
     "requirements": [
-      "按 README 安装匹配的 .NET 10 SDK",
-      "模型权重不包含在源码中，需按模型清单准备并校验",
-      "可选 Vulkan 后端需要兼容的系统驱动"
+      ".NET 10 或更高运行环境，源码构建按 global.json 安装 SDK",
+      "按模型清单准备权重、词典与音素资产并校验 SHA-256",
+      "可选 Vulkan 需要匹配版本的扩展包、系统 loader 和兼容驱动"
     ],
     "steps": [
-      "克隆源码，先构建解决方案并运行无模型检查。",
-      "按模型文档准备 ASR / VAD 或中文 TTS 所需权重。",
-      "选择 CLI 或 Web 服务示例，使用自己的音频验证结果。"
+      "安装 FunAsrNet 1.0.1，按模型清单准备 ASR / VAD 或中文 TTS 权重和资产。",
+      "从 FunAsr.Transcribe 或 MandarinTts.Synthesize 示例开始，验证自己的音频。",
+      "需要 GPU 时安装 FunAsrNet.Vulkan 1.0.1，在首次推理前设置 FloatBackend 并管理后端生命周期。",
+      "需要 WebSocket 与浏览器演示时构建源码服务，按文档检查模型配置、队列与并发。"
+    ],
+    "resources": [
+      {
+        "title": "1.0.1 发布说明与性能验证",
+        "url": "https://github.com/donet-org-cn/FunAsrNet/releases/tag/v1.0.1"
+      },
+      {
+        "title": "模型准备与校验清单",
+        "url": "https://github.com/donet-org-cn/FunAsrNet/blob/main/doc/models.md"
+      }
     ]
   },
   "SimdYolo": {
-    "overview": "SimdYolo 用纯 C# 实现 YOLO 推理与受支持模型的检测头微调，覆盖目标检测、实例分割和姿态估计。它直接读取支持范围内的 PT 与 ONNX 文件，在 CPU 上使用 SIMD / intrinsics，并提供 Vulkan 与 Metal 后端。仓库包含网页示例、模型说明和可复现的测试记录。 仓库当前源码为 0.11.3，正式 Release 为 0.11.2；源码新增加载、首次推理、工作区及 Vulkan 实例复用优化，并提供可选 ReadyToRun 快速启动发布。源码优化不能视为已包含在 0.11.2 下载包中。",
+    "overview": "SimdYolo 面向 .NET 10 提供纯 C# YOLO 推理和检测头微调，支持目标检测、实例分割、姿态估计及支持范围内的 PT / PTH、ONNX、SYTRAIN 模型。0.11.3 优化 CPU 最大池化边界计算、2 倍最近邻上采样分配，以及 Vulkan 张量拼接批量上传与拷贝，保留模型加载和首次推理优化。统一 C# API 接收 RGB24 / BGR24 像素，网页示例提供人物 / 车辆分离、背景去除、标注和微调。",
     "scenarios": [
       "在 .NET 图像应用中探索目标检测、分割与姿态估计",
       "研究不依赖 Python 推理运行时的模型加载与执行",
       "使用受支持的检测模型探索标注、预标注及检测头微调"
     ],
     "requirements": [
-      ".NET 10 SDK 或对应版本的运行环境",
-      "按模型清单选择支持的权重与任务，核对模型许可证",
-      "GPU 运行需兼容驱动；各后端验证范围不同"
+      ".NET 10 SDK 或相应运行环境",
+      "按模型清单准备权重，源码示例使用 Git LFS 获取模型",
+      "Vulkan / Metal 需要对应平台驱动，按模型与后端核对验证范围"
     ],
     "steps": [
-      "安装推理包，或从源码构建项目。",
-      "按仓库模型清单准备权重，阅读对应推理 API 示例。",
-      "先验证单张图片，再按需求探索网页演示或检测头微调。"
+      "安装 SimdYolo 0.11.3，按文档准备 YOLOv8n 等受支持模型。",
+      "将图像解码为 RGB24 / BGR24，用 YoloDetector.Predict 运行推理，连续帧复用检测器。",
+      "需要微调时安装 SimdYolo.Training 0.11.3，并准备标注、验证集及训练配置。",
+      "运行源码网页时先 git lfs pull，再启动 examples/SimdYolo.Web。"
+    ],
+    "resources": [
+      {
+        "title": "0.11.3 更新、性能与输出校验",
+        "url": "https://github.com/donet-org-cn/SimdYolo/blob/main/docs/releases/v0.11.3.md"
+      },
+      {
+        "title": "推理 API 与模型兼容范围",
+        "url": "https://github.com/donet-org-cn/SimdYolo/blob/main/docs/inference.md"
+      }
     ]
   },
   "PureDb": {
@@ -54,7 +76,7 @@
     ]
   },
   "SimdSkia": {
-    "overview": "SimdSkia 使用 C# 实现 2D 绘图、字体、基础排版和图像编解码，可通过 SKCanvas 生成 PNG，也可接入 Avalonia 并沿用 XAML 与视图模型。0.1.4 正式版增加 Android NuGet 集成。桌面入口在 Windows 优先选择 Direct2D，在 Linux X11 / XWayland 优先选择硬件 Vulkan，并提供 CPU 回退与显式 CPU 选项。macOS 与 Android 使用 CPU 渲染，桌面应用可按目标平台发布 NativeAOT。",
+    "overview": "SimdSkia 使用 C# 实现 2D 绘图、字体、基础排版和图像编解码，可通过 SKCanvas 生成 PNG，也可接入 Avalonia 并沿用 XAML 与视图模型。0.1.4 正式版增加 Android NuGet 集成。桌面入口在 Windows 优先选择 Direct2D，在 Linux X11 / XWayland 优先选择硬件 Vulkan，并提供 CPU 回退与显式 CPU 选项。macOS 与 Android 使用 CPU 渲染，桌面应用可按目标平台发布 NativeAOT。 最新主分支在 0.1.4 基础上进一步优化运行时效果数值计划、网格 / 纹理采样、Avalonia 作用域记录和字体缓存，源码优化及测量结果见 2026-11-10 第二轮报告。",
     "scenarios": [
       "在服务端或控制台用 SKCanvas 绘图并生成 PNG",
       "为 Avalonia 桌面应用评估 CPU、Direct2D 与 Vulkan 后端",
@@ -69,6 +91,12 @@
       "按用途安装 SimdSkia、SimdSkia.Avalonia.Desktop 或 SimdSkia.Avalonia.Android 0.1.4。",
       "桌面按迁移指南配置 UseSimdSkiaDesktop()，Android 配置 UseSimdSkiaAndroid()。",
       "需要显式 CPU 时使用 options.UseCpu()，用实际窗口和图像验证字体、渲染质量与性能。"
+    ],
+    "resources": [
+      {
+        "title": "最新源码优化、性能与内存报告",
+        "url": "https://github.com/donet-org-cn/SimdSkia/blob/main/docs/PERFORMANCE-2026-11-10-ROUND2.md"
+      }
     ]
   },
   "Serein": {
@@ -282,13 +310,13 @@
       "在统一网页中评估浏览器 WASM、后端 CPU 和 Vulkan 的执行表现"
     ],
     "requirements": [
-      ".NET 10 SDK 与 PowerShell 7，按仓库脚本下载并校验 YuNet / SFace 模型",
+      ".NET 10 SDK 与 PowerShell 7，仓库已包含固定 YuNet / SFace 权重，按脚本校验 SHA-256",
       "Vulkan 后端面向 64 位 Windows / Linux，需要兼容的 Vulkan loader 和显卡驱动",
       "官方浏览器 AOT 构建需要 wasm-tools，部署时包含模型与 _framework 资源"
     ],
     "steps": [
-      "克隆源码并进入 SimdFace，执行 pwsh -File ./scripts/Get-Models.ps1 准备模型。",
-      "执行 dotnet restore --locked-mode，再用 dotnet build SimdFace.slnx -c Release --no-restore 构建。",
+      "安装 SimdFace 1.0.0 使用核心库，或克隆源码运行图像解码、CLI 和网页示例。",
+      "源码仓库已附带模型，执行 Get-Models.ps1 校验，再运行 dotnet restore --locked-mode 和 Release 构建。",
       "运行 src/SimdFace.Web 打开网页测试台，或运行 src/SimdFace.Cli 的 detect / compare 命令。",
       "C# 核心接收连续 RGB24 像素，按文档加载 FaceDetector 和 FaceRecognizer，并校准实际比对阈值。"
     ],

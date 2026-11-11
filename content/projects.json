@@ -1,6 +1,6 @@
 {
   "owner": "hnlyf168",
-  "syncedAt": "2026-11-10",
+  "syncedAt": "2026-11-11",
   "projects": [
     {
       "name": "FunAsrNet",
@@ -8,25 +8,28 @@
       "category": "ai",
       "icon": "wave",
       "eyebrow": "让应用听懂世界",
-      "description": "纯 C# 普通话语音识别与合成，连接 VAD 切句、浏览器实时转写和电话音频处理，支持 CPU SIMD 与可选 Vulkan。",
+      "description": "纯 C# 普通话 ASR 与中文 TTS，1.0.1 已发布核心和 Vulkan NuGet 包，覆盖实时转写、175 位发音人与电话音频处理。",
       "tags": [
         "语音识别",
         "中文 TTS",
         "SIMD",
         "Vulkan"
       ],
-      "stars": 65,
+      "stars": 66,
       "fork": false,
       "features": [
-        "普通话 ASR、VAD 切句与 WebSocket 转写",
-        "中文语音合成及浏览器演示",
-        "CPU SIMD 与显式启用的 Vulkan 混合后端"
+        "1.0.1 核心与 Vulkan NuGet 包，CPU SIMD / GPU 内核优化",
+        "普通话 ASR、VAD 切句、WebSocket 预览与中文 TTS",
+        "支持固定 BF16 / FP32 原始权重展开及电话音频处理"
       ],
-      "note": "独立社区实现，非 FunASR 官方 SDK。需要另行准备兼容模型权重；尚未发布 NuGet 包。",
-      "command": "git clone https://github.com/donet-org-cn/FunAsrNet.git",
+      "note": "核心包要求 .NET 10+，模型、词典与音素资产按文档准备。运行范围为已验证的固定 Fun-ASR、FSMN VAD 与中文 VITS 模型。Vulkan 通过库 API 显式启用，并依赖兼容驱动，Web 示例默认 CPU。",
+      "command": "dotnet add package FunAsrNet --version 1.0.1",
       "owner": "donet-org-cn",
       "repositoryId": 1414493628,
-      "nugetPackages": [],
+      "nugetPackages": [
+        "FunAsrNet",
+        "FunAsrNet.Vulkan"
+      ],
       "communityData": true,
       "maintainer": "hnlyf168",
       "featured": true,
@@ -38,25 +41,28 @@
       "category": "ai",
       "icon": "scan",
       "eyebrow": "让代码看见更多",
-      "description": "纯 C# YOLO 检测、分割与姿态估计，提供检测头微调和网页工作流，0.11.3 源码优化模型加载及首次推理。",
+      "description": "纯 C# YOLO 检测、分割与姿态估计，0.11.3 提供 NuGet 推理和训练包，优化 CPU 池化、上采样与 Vulkan 张量传输。",
       "tags": [
         "计算机视觉",
         "YOLO",
         "Vulkan",
         "Metal"
       ],
-      "stars": 33,
+      "stars": 36,
       "fork": false,
       "features": [
-        "支持范围内的 PT / ONNX 模型直接加载",
-        "目标检测、实例分割与姿态估计",
-        "CPU SIMD、Vulkan / Metal 后端及检测头微调"
+        "0.11.3 推理与训练包，支持 RGB24 / BGR24 像素输入",
+        "CPU 最大池化、最近邻上采样及 Vulkan 拼接传输优化",
+        "检测头微调、验证与早停、ONNX 导出和网页标注"
       ],
-      "note": "模型和算子支持以仓库清单为准。Metal 后端尚未实机验证；训练为冻结骨干的检测头微调。 当前源码 0.11.3，正式 Release 0.11.2；按所选版本核对启动优化与发布方式。",
-      "command": "git clone https://github.com/donet-org-cn/SimdYolo.git",
+      "note": "目标框架为 .NET 10，模型和算子按支持清单选择。训练使用冻结骨干 / FPN 的检测头微调。默认 FP32，GPU 需要兼容驱动，通用 ONNX TopK 默认使用 CPU。性能与数值差异见 0.11.3 报告。",
+      "command": "dotnet add package SimdYolo --version 0.11.3",
       "owner": "donet-org-cn",
       "repositoryId": 1418580617,
-      "nugetPackages": [],
+      "nugetPackages": [
+        "SimdYolo",
+        "SimdYolo.Training"
+      ],
       "communityData": true,
       "maintainer": "hnlyf168",
       "featured": true,
@@ -84,11 +90,13 @@
         "照片 1:1 比对、特征 JSON 导出与向量比较",
         "CPU SIMD、Vulkan、浏览器 WASM，以及 CLI / Web 测试台"
       ],
-      "note": "当前官网提供源码接入。README 列出 SimdFace 1.0.0 安装命令，2026-11-10 核对时 NuGet 官方源尚未查到该公开包。运行前需准备固定 YuNet / SFace 权重，特征比较需保持相同模型和提取流程，判定阈值按实际样本校准。",
-      "command": "git clone https://github.com/donet-org-cn/SimdFace.git",
-      "stars": 1,
+      "note": "核心包 1.0.0 接收连续 RGB24 像素，图像解码、CLI 和网页测试台可从源码构建。仓库附带固定 YuNet / SFace 权重，校验脚本可修复缺失或损坏文件。特征比较需使用相同模型与提取流程，并按实际样本校准阈值。",
+      "command": "dotnet add package SimdFace --version 1.0.0",
+      "stars": 10,
       "fork": false,
-      "nugetPackages": []
+      "nugetPackages": [
+        "SimdFace"
+      ]
     },
     {
       "name": "SimdPaddleOCR",
@@ -110,7 +118,7 @@
         "像素内存输入、SimdCodecs 2.0 解码示例及 Vulkan / Metal"
       ],
       "note": "已发布的核心包为 2.0.0。主分支文档已接入 Sdcb.SimdOnnx 公开预览 API 与 SimdCodecs 2.0，选用源码或 NuGet 时应核对对应版本文档。GPU 路径使用 .NET 10 与兼容驱动，核心接收由调用方提供的像素内存。",
-      "stars": 542,
+      "stars": 545,
       "fork": false,
       "nugetPackages": [
         "Sdcb.SimdPaddleOCR"
@@ -164,7 +172,7 @@
         "Avalonia",
         "SIMD"
       ],
-      "stars": 28,
+      "stars": 29,
       "fork": false,
       "features": [
         "0.1.4 正式版，Avalonia 桌面与 Android CPU / SIMD 接入",
@@ -204,7 +212,7 @@
         "SIMD / NativeAOT，支持 16 位输出及可选 HEIF / HEIC 扩展"
       ],
       "note": "从 1.x 升级需按迁移文档改用 ImageCodecs 与 PixelFormat，并释放 IDisposable 图像。格式能力按编码器与解码器区分。HEIF / HEIC 扩展需单独安装并注册，HEVC 专利许可需另行评估。",
-      "stars": 115,
+      "stars": 128,
       "fork": false,
       "nugetPackages": [
         "Sdcb.SimdCodecs"
@@ -374,7 +382,7 @@
         "Docker / 原生部署与用户管理"
       ],
       "note": "模型能力、费用和可用性取决于接入的服务商及配置。代码执行等可选工具需要按文档部署相应运行环境。",
-      "stars": 618,
+      "stars": 620,
       "fork": false,
       "nugetPackages": [],
       "command": "git clone https://github.com/sdcb/chats.git",
@@ -456,7 +464,7 @@
         "泛型数学、RoundingMode 与数值类型间转换"
       ],
       "note": "2.0.0 将 Real 更名为 BigFloat、RealRounding 更名为 RoundingMode。Float128 提供正确舍入语义，DoubleDouble / QuadDouble 提供约 106 / 212 位快速运算，需按各类型精度与误差边界选择。",
-      "stars": 191,
+      "stars": 195,
       "fork": false,
       "nugetPackages": [
         "Sdcb.Arithmetic"

@@ -17,8 +17,14 @@ export function createDataService({projects,members,snapshot={},token='',fetcher
   function fallback(project){const slug=projectSlug(project);return {slug,name:project.title,owner:project.owner,repository:`https://github.com/${project.owner}/${project.name}`,stars:numeric(project.stars),forks:null,issues:null,pushedAt:null,packages:[],stargazers:{users:[],available:false,hasMore:false,page:1},...snapshot.projects?.[slug],source:'snapshot',updatedAt:snapshot.projects?.[slug]?.updatedAt||snapshot.generatedAt||null};}
   async function packageInfo(id,{dependencies=false}={}){
     if(!/^[a-z0-9_.-]+$/i.test(id))throw new Error('Invalid NuGet package ID');
-    const search=await json(`https://azuresearch-ea.nuget.org/query?q=${encodeURIComponent('packageid:'+id)}&prerelease=true&semVerLevel=2.0.0&take=5`);
-    const item=search.data?.find(item=>String(item.id).toLowerCase()===id.toLowerCase());
+    const query=`/query?q=${encodeURIComponent('packageid:'+id)}&prerelease=true&semVerLevel=2.0.0&take=5`;
+    let item;
+    for(const host of ['azuresearch-ea.nuget.org','azuresearch-usnc.nuget.org']){
+      const search=await json(`https://${host}${query}`).catch(()=>null);
+      item=search?.data?.find(candidate=>String(candidate.id).toLowerCase()===id.toLowerCase());
+      if(item)break;
+      if(!search&&host==='azuresearch-usnc.nuget.org')throw new Error('NuGet search is unavailable');
+    }
     if(!item)return {id,available:false};
     const result={id:item.id,available:true,version:item.version,downloads:numeric(item.totalDownloads),url:`https://www.nuget.org/packages/${encodeURIComponent(item.id)}`,prerelease:String(item.version).includes('-'),dependencies:[],updatedAt:now()};
     if(dependencies){
