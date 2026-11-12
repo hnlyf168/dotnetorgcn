@@ -1,6 +1,6 @@
 {
   "owner": "hnlyf168",
-  "syncedAt": "2026-11-11",
+  "syncedAt": "2026-11-12",
   "projects": [
     {
       "name": "FunAsrNet",
@@ -41,7 +41,7 @@
       "category": "ai",
       "icon": "scan",
       "eyebrow": "让代码看见更多",
-      "description": "纯 C# YOLO 检测、分割与姿态估计，0.11.3 提供 NuGet 推理和训练包，优化 CPU 池化、上采样与 Vulkan 张量传输。",
+      "description": "纯 C# YOLO 检测、分割与姿态估计，0.11.4 优化 CPU 线程等待、池化与内存访问，以及 Vulkan 检测头和 Winograd 推理。",
       "tags": [
         "计算机视觉",
         "YOLO",
@@ -51,12 +51,12 @@
       "stars": 36,
       "fork": false,
       "features": [
-        "0.11.3 推理与训练包，支持 RGB24 / BGR24 像素输入",
-        "CPU 最大池化、最近邻上采样及 Vulkan 拼接传输优化",
-        "检测头微调、验证与早停、ONNX 导出和网页标注"
+        "0.11.4 推理与训练包，支持 PT / ONNX / SYTRAIN 和像素输入",
+        "CPU 调度、池化工作区、批次写入与多尺度检测头优化",
+        "Vulkan 共享内存池化、打包 Winograd 权重与提交分配优化"
       ],
-      "note": "目标框架为 .NET 10，模型和算子按支持清单选择。训练使用冻结骨干 / FPN 的检测头微调。默认 FP32，GPU 需要兼容驱动，通用 ONNX TopK 默认使用 CPU。性能与数值差异见 0.11.3 报告。",
-      "command": "dotnet add package SimdYolo --version 0.11.3",
+      "note": "目标框架为 .NET 10，推理默认 FP32，训练为冻结骨干 / FPN 的检测头微调。性能报告列出特定设备的分轮测量及 GPU 工作集代价。通用 ONNX TopK 默认使用 CPU，模型、算子与后端能力按支持清单选择。",
+      "command": "dotnet add package SimdYolo --version 0.11.4",
       "owner": "donet-org-cn",
       "repositoryId": 1418580617,
       "nugetPackages": [
@@ -78,21 +78,21 @@
       "category": "ai",
       "icon": "scan",
       "eyebrow": "用 C# 连接人脸与特征",
-      "description": "面向 .NET 10 的本地人脸检测与 1:1 比对，使用 YuNet、SFace 和 128 维特征，支持 CPU SIMD、Vulkan 与浏览器 WASM。",
+      "description": "纯 C# 人脸检测、1:1 比对与摄像头活体核验，1.1.0 新增随机动作挑战、防翻拍评分和独立的身份与活体结果。",
       "tags": [
         "人脸检测",
         "人脸比对",
-        "SIMD",
-        "WebAssembly"
+        "活体核验",
+        "SIMD"
       ],
       "features": [
-        "YuNet 检测框、置信度与五个关键点，SFace 提取 128 维特征",
-        "照片 1:1 比对、特征 JSON 导出与向量比较",
-        "CPU SIMD、Vulkan、浏览器 WASM，以及 CLI / Web 测试台"
+        "1.1.0 新增 FaceVerificationSession，接收 RGB24 摄像头帧",
+        "随机转头、闭眼或张嘴挑战，融合防翻拍评分与 Face Mesh",
+        "YuNet / SFace、128 维特征、CPU SIMD / Vulkan 与照片 WASM"
       ],
-      "note": "核心包 1.0.0 接收连续 RGB24 像素，图像解码、CLI 和网页测试台可从源码构建。仓库附带固定 YuNet / SFace 权重，校验脚本可修复缺失或损坏文件。特征比较需使用相同模型与提取流程，并按实际样本校准阈值。",
-      "command": "dotnet add package SimdFace --version 1.0.0",
-      "stars": 10,
+      "note": "核心包要求 .NET 10，模型与许可证随仓库提供。摄像头流程在后端执行模型推理，防翻拍与 Face Mesh 使用 CPU，照片检测和比对可选 Vulkan。手机摄像头接入需 HTTPS 或浏览器允许的安全上下文，阈值和实际识别表现需结合业务样本校准。",
+      "command": "dotnet add package SimdFace --version 1.1.0",
+      "stars": 16,
       "fork": false,
       "nugetPackages": [
         "SimdFace"

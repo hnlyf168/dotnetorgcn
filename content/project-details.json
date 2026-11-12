@@ -29,7 +29,7 @@
     ]
   },
   "SimdYolo": {
-    "overview": "SimdYolo 面向 .NET 10 提供纯 C# YOLO 推理和检测头微调，支持目标检测、实例分割、姿态估计及支持范围内的 PT / PTH、ONNX、SYTRAIN 模型。0.11.3 优化 CPU 最大池化边界计算、2 倍最近邻上采样分配，以及 Vulkan 张量拼接批量上传与拷贝，保留模型加载和首次推理优化。统一 C# API 接收 RGB24 / BGR24 像素，网页示例提供人物 / 车辆分离、背景去除、标注和微调。",
+    "overview": "SimdYolo 0.11.4 提供面向 .NET 10 的纯 C# YOLO 推理与检测头微调，覆盖目标检测、实例分割、姿态估计及受支持的 PT / PTH、ONNX、SYTRAIN 模型。本版减少 CPU 作业等待和中间张量，复用池化工作区并直接写入批次与多尺度检测头输出。Vulkan 新增共享内存 5×5 池化与打包 Winograd 权重路径，减少提交临时分配。推理、训练包同步发布，仓库提供网页标注、验证、早停、恢复和 ONNX 导出示例。",
     "scenarios": [
       "在 .NET 图像应用中探索目标检测、分割与姿态估计",
       "研究不依赖 Python 推理运行时的模型加载与执行",
@@ -41,15 +41,19 @@
       "Vulkan / Metal 需要对应平台驱动，按模型与后端核对验证范围"
     ],
     "steps": [
-      "安装 SimdYolo 0.11.3，按文档准备 YOLOv8n 等受支持模型。",
-      "将图像解码为 RGB24 / BGR24，用 YoloDetector.Predict 运行推理，连续帧复用检测器。",
-      "需要微调时安装 SimdYolo.Training 0.11.3，并准备标注、验证集及训练配置。",
-      "运行源码网页时先 git lfs pull，再启动 examples/SimdYolo.Web。"
+      "安装 SimdYolo 0.11.4，按模型清单准备权重及 RGB24 / BGR24 像素输入。",
+      "通过 YoloDetector.Predict 推理并复用检测器，按设备选择 CPU、Vulkan 或支持的 Metal 路径。",
+      "微调时安装 SimdYolo.Training 0.11.4，并准备检测标注、验证集与训练配置。",
+      "按发布说明核对性能范围，需要评估 Winograd 回退时使用 SIMDYOLO_WINOGRAD_PACKED=0。"
     ],
     "resources": [
       {
-        "title": "0.11.3 更新、性能与输出校验",
-        "url": "https://github.com/donet-org-cn/SimdYolo/blob/main/docs/releases/v0.11.3.md"
+        "title": "0.11.4 发布说明、输出校验与安装",
+        "url": "https://github.com/donet-org-cn/SimdYolo/releases/tag/v0.11.4"
+      },
+      {
+        "title": "CPU / Vulkan 分轮性能与内存报告",
+        "url": "https://github.com/donet-org-cn/SimdYolo/blob/v0.11.4/artifacts/cpu-gpu-optimization-2026-11-11.md"
       },
       {
         "title": "推理 API 与模型兼容范围",
@@ -303,35 +307,35 @@
     ]
   },
   "SimdFace": {
-    "overview": "SimdFace 是面向 .NET 10 的本地人脸检测与 1:1 比对项目。YuNet 输出人脸框和五个关键点，SFace 从对齐的人脸提取归一化 128 维特征。项目提供纯 C# CPU SIMD 推理、Vulkan 后端和官方 .NET WASM AOT 浏览器构建，支持在同一网页切换执行方式，也可通过 C#、CLI 或 HTTP API 接入。图像组件通过托管解码器处理 JPEG、PNG、WebP 与 EXIF 方向，网页可导出带模型和流程标识的特征 JSON。",
+    "overview": "SimdFace 面向 .NET 10 提供本地人脸检测、特征提取和 1:1 比对。1.1.0 将摄像头活体核验加入核心库，FaceVerificationSession 按顺序接收 RGB24 帧，检查随机转头和闭眼睁眼或张嘴合嘴，结合 MiniFASNetV2 防翻拍评分及 MediaPipe Face Mesh，分别输出身份匹配和活体结论。YuNet 和 SFace 可选择 CPU SIMD 或 Vulkan，防翻拍和网格推理使用 CPU。照片功能继续支持 CLI、HTTP、网页及浏览器 WASM，特征 JSON 保存模型与提取流程标识。",
     "scenarios": [
-      "在 .NET 应用中检测人脸、标注关键点并提取特征",
-      "用两张单人照片或同流程导出的向量进行 1:1 相似度比较",
-      "在统一网页中评估浏览器 WASM、后端 CPU 和 Vulkan 的执行表现"
+      "在 .NET 应用中做人脸检测、五点定位和 128 维特征提取",
+      "使用随机动作与参考照片构建摄像头身份和活体核验流程",
+      "通过网页测试台、CLI 或 HTTP API 评估照片比对与不同执行后端"
     ],
     "requirements": [
-      ".NET 10 SDK 与 PowerShell 7，仓库已包含固定 YuNet / SFace 权重，按脚本校验 SHA-256",
-      "Vulkan 后端面向 64 位 Windows / Linux，需要兼容的 Vulkan loader 和显卡驱动",
-      "官方浏览器 AOT 构建需要 wasm-tools，部署时包含模型与 _framework 资源"
+      ".NET 10 SDK，模型位于仓库 models/，按脚本核对权重与许可证",
+      "摄像头流程需要 YuNet、SFace、MiniFASNetV2 和 Face Mesh 四份模型",
+      "手机摄像头需允许访问的 HTTPS 环境，Vulkan 需要兼容的 64 位 Windows / Linux 驱动"
     ],
     "steps": [
-      "安装 SimdFace 1.0.0 使用核心库，或克隆源码运行图像解码、CLI 和网页示例。",
-      "源码仓库已附带模型，执行 Get-Models.ps1 校验，再运行 dotnet restore --locked-mode 和 Release 构建。",
-      "运行 src/SimdFace.Web 打开网页测试台，或运行 src/SimdFace.Cli 的 detect / compare 命令。",
-      "C# 核心接收连续 RGB24 像素，按文档加载 FaceDetector 和 FaceRecognizer，并校准实际比对阈值。"
+      "安装 SimdFace 1.1.0，按仓库说明校验 models/ 权重，配置 FaceDetector、FaceRecognizer、FaceAntiSpoof 和 FaceMesh。",
+      "从参考照片提取特征，每次核验创建 FaceVerificationSession，再按采集顺序调用 ProcessFrame。",
+      "读取阶段、动作提示、身份与活体结果，应用负责摄像头采集、提示显示和会话时限。",
+      "运行源码 SimdFace.Web 使用摄像头测试台，局域网手机测试按 Start-CameraLab.ps1 文档配置 HTTPS。"
     ],
     "resources": [
       {
-        "title": "项目说明、模型准备与完整示例",
-        "url": "https://github.com/donet-org-cn/SimdFace#readme"
+        "title": "1.1.0 发布说明与模型集成",
+        "url": "https://github.com/donet-org-cn/SimdFace/releases/tag/v1.1.0"
       },
       {
-        "title": "核心推理项目与 C# 接口",
+        "title": "核心 API 与 C# 活体核验示例",
         "url": "https://github.com/donet-org-cn/SimdFace/tree/main/src/SimdFace"
       },
       {
-        "title": "统一网页与 HTTP API 示例",
-        "url": "https://github.com/donet-org-cn/SimdFace/tree/main/src/SimdFace.Web"
+        "title": "摄像头测试台与接入步骤",
+        "url": "https://github.com/donet-org-cn/SimdFace#readme"
       }
     ]
   }

@@ -44,7 +44,7 @@
   },
   "SimdYolo": {
     "eyebrow": "Give your code a new perspective",
-    "description": "Pure C# YOLO detection, segmentation and pose. Version 0.11.3 provides inference and training NuGet packages with CPU pooling, resizing and Vulkan transfer improvements.",
+    "description": "Pure C# YOLO detection, segmentation and pose. Version 0.11.4 improves CPU worker waiting, pooling and memory access, plus Vulkan detection heads and Winograd inference.",
     "tags": [
       "Computer vision",
       "YOLO",
@@ -52,12 +52,12 @@
       "Metal"
     ],
     "features": [
-      "0.11.3 inference and training packages with RGB24 / BGR24 inputs",
-      "CPU max-pooling, nearest-neighbor resizing and Vulkan concatenation-transfer improvements",
-      "Detection-head fine-tuning, validation, early stopping, ONNX export and web labeling"
+      "0.11.4 inference and training packages with PT / ONNX / SYTRAIN and pixel inputs",
+      "CPU scheduling, pooling workspaces, batch writes and multi-scale detection-head improvements",
+      "Vulkan shared-memory pooling, packed Winograd weights and submission-allocation improvements"
     ],
-    "note": "Targets .NET 10 with supported models and operators. Training fine-tunes detection heads with frozen backbone / FPN. FP32 is the default. GPU execution needs compatible drivers, and generic ONNX TopK defaults to CPU. Consult the 0.11.3 report for measured performance and numerical differences.",
-    "overview": "SimdYolo provides C# YOLO inference and detection-head fine-tuning for .NET 10, covering detection, segmentation and pose with supported PT / PTH, ONNX and SYTRAIN models. Version 0.11.3 improves CPU max-pooling boundaries, allocations in 2x nearest-neighbor resizing, and Vulkan concatenation uploads and copies. It retains model-loading and first-inference improvements. A unified API accepts RGB24 / BGR24 pixels, and the web example supports person / vehicle separation, background removal, labeling and fine-tuning.",
+    "note": "Targets .NET 10 with default FP32 inference and detection-head fine-tuning over a frozen backbone / FPN. Performance reports document individual measurement rounds, devices and GPU-process working-set costs. Generic ONNX TopK defaults to CPU. Select supported models, operators and backends using the compatibility list.",
+    "overview": "SimdYolo 0.11.4 provides C# YOLO inference and detection-head fine-tuning for .NET 10, covering detection, segmentation and pose with supported PT / PTH, ONNX and SYTRAIN models. This release reduces CPU job waiting and intermediate tensors, reuses pooling workspaces and writes batch and multi-scale detection-head results directly into outputs. Vulkan adds shared-memory 5×5 pooling and packed Winograd weights while reducing temporary submission allocations. Inference and training packages ship together, with web labeling, validation, early stopping, checkpoint recovery and ONNX export examples.",
     "scenarios": [
       "Explore detection, segmentation, and pose in .NET image applications",
       "Study model loading and execution without a Python inference runtime",
@@ -69,15 +69,19 @@
       "Platform drivers for Vulkan / Metal and validation appropriate to your model and backend"
     ],
     "steps": [
-      "Install SimdYolo 0.11.3 and prepare a supported model such as YOLOv8n.",
-      "Decode images to RGB24 / BGR24 and run YoloDetector.Predict, reusing the detector for successive frames.",
-      "Install SimdYolo.Training 0.11.3 for fine-tuning and prepare labels, validation data and configuration.",
-      "For the web example, run git lfs pull before launching examples/SimdYolo.Web."
+      "Install SimdYolo 0.11.4 and prepare supported weights and RGB24 / BGR24 pixels.",
+      "Use YoloDetector.Predict and reuse detectors, selecting CPU, Vulkan or a supported Metal backend.",
+      "Install SimdYolo.Training 0.11.4 for fine-tuning and prepare detection labels, validation data and configuration.",
+      "Review measurement conditions in the release notes and use SIMDYOLO_WINOGRAD_PACKED=0 when evaluating the Winograd fallback."
     ],
     "resources": [
       {
-        "title": "Version 0.11.3 changes, performance and output validation",
-        "url": "https://github.com/donet-org-cn/SimdYolo/blob/main/docs/releases/v0.11.3.md"
+        "title": "Version 0.11.4 release notes, output validation and installation",
+        "url": "https://github.com/donet-org-cn/SimdYolo/releases/tag/v0.11.4"
+      },
+      {
+        "title": "CPU / Vulkan performance rounds and memory report",
+        "url": "https://github.com/donet-org-cn/SimdYolo/blob/v0.11.4/artifacts/cpu-gpu-optimization-2026-11-11.md"
       },
       {
         "title": "Inference APIs and supported models",
@@ -503,48 +507,48 @@
   },
   "SimdFace": {
     "eyebrow": "Connect faces and features with C#",
-    "description": "Local .NET 10 face detection and 1:1 verification using YuNet, SFace and 128-dimensional features, with CPU SIMD, Vulkan and browser WASM execution.",
+    "description": "Pure C# face detection, 1:1 verification and camera liveness. Version 1.1.0 adds randomized action challenges, anti-spoof scoring and separate identity and liveness results.",
     "tags": [
       "Face detection",
       "Face verification",
-      "SIMD",
-      "WebAssembly"
+      "Liveness",
+      "SIMD"
     ],
     "features": [
-      "YuNet boxes, confidence and five landmarks, with 128-dimensional SFace features",
-      "1:1 photo verification, feature JSON export and vector comparison",
-      "CPU SIMD, Vulkan and browser WASM, with CLI and web interfaces"
+      "New FaceVerificationSession in 1.1.0 accepts RGB24 camera frames",
+      "Random head-turn, eye or mouth challenges with anti-spoof scores and Face Mesh",
+      "YuNet / SFace, 128-dimensional features, CPU SIMD / Vulkan and photo WASM"
     ],
-    "note": "Core package 1.0.0 accepts contiguous RGB24 pixels. Build image decoding, CLI and web examples from source. The repository includes fixed YuNet / SFace weights, with a verification script to restore missing or damaged files. Compare features from matching models and extraction pipelines, and calibrate thresholds for your samples.",
-    "overview": "SimdFace provides local face detection and 1:1 verification for .NET 10. YuNet locates faces and five landmarks, while SFace extracts normalized 128-dimensional features from aligned faces. The project offers C# CPU SIMD inference, a Vulkan backend and an official .NET WASM AOT browser build. A unified web interface switches execution modes, with C#, CLI and HTTP API integration also available. Managed image decoding handles JPEG, PNG, WebP and EXIF orientation. Exported feature JSON identifies its model and extraction pipeline.",
+    "note": "The core targets .NET 10, with model weights and licenses in the repository. Camera models execute on the backend. Anti-spoof and Face Mesh use CPU, while photo detection and comparison can use Vulkan. Mobile camera access requires HTTPS or a browser-approved secure context. Calibrate thresholds and assess recognition using your application samples.",
+    "overview": "SimdFace provides local face detection, feature extraction and 1:1 verification for .NET 10. Version 1.1.0 adds camera liveness to the core library. FaceVerificationSession consumes ordered RGB24 frames, checks randomized head turns and eye or mouth actions, and combines MiniFASNetV2 anti-spoof scores with MediaPipe Face Mesh, returning separate identity and liveness decisions. YuNet and SFace support CPU SIMD or Vulkan, while anti-spoof and mesh inference use CPU. Photo workflows continue through CLI, HTTP, web and browser WASM, with model and extraction-pipeline identifiers in exported feature JSON.",
     "scenarios": [
-      "Detect faces, annotate landmarks and extract features in .NET applications",
-      "Compare two single-person photos or vectors exported by the same pipeline",
-      "Evaluate browser WASM, backend CPU and Vulkan execution in a unified web interface"
+      "Detect faces, locate five landmarks and extract 128-dimensional features in .NET",
+      "Build camera identity and liveness verification using randomized actions and a reference photo",
+      "Evaluate photo comparison and execution backends through the web lab, CLI or HTTP APIs"
     ],
     "requirements": [
-      ".NET 10 SDK and PowerShell 7, with bundled fixed YuNet / SFace weights verified by the script",
-      "64-bit Windows / Linux with compatible Vulkan loader and drivers for the GPU backend",
-      "wasm-tools for the official browser AOT build, deploying models and _framework resources together"
+      ".NET 10 SDK, with model weights and licenses verified using repository scripts",
+      "YuNet, SFace, MiniFASNetV2 and Face Mesh models for camera verification",
+      "An HTTPS environment approved for mobile camera access, and compatible 64-bit Windows / Linux drivers for Vulkan"
     ],
     "steps": [
-      "Install SimdFace 1.0.0 for core inference, or clone the source for image decoding, CLI and web examples.",
-      "Verify the bundled weights with Get-Models.ps1, run dotnet restore --locked-mode, then build in Release mode.",
-      "Run src/SimdFace.Web for the web interface, or use detect / compare in src/SimdFace.Cli.",
-      "For C# integration, supply contiguous RGB24 pixels to FaceDetector and FaceRecognizer and calibrate verification thresholds."
+      "Install SimdFace 1.1.0, verify models/ and configure FaceDetector, FaceRecognizer, FaceAntiSpoof and FaceMesh.",
+      "Extract reference-photo features, create a FaceVerificationSession for each verification and call ProcessFrame in capture order.",
+      "Read stages, action prompts, identity and liveness decisions, with capture, UI and session time limits managed by your application.",
+      "Run SimdFace.Web for the camera lab and follow Start-CameraLab.ps1 documentation for mobile HTTPS testing."
     ],
     "resources": [
       {
-        "title": "Project documentation, model setup and examples",
-        "url": "https://github.com/donet-org-cn/SimdFace#readme"
+        "title": "Version 1.1.0 release notes and model integration",
+        "url": "https://github.com/donet-org-cn/SimdFace/releases/tag/v1.1.0"
       },
       {
-        "title": "Core inference project and C# APIs",
+        "title": "Core APIs and C# liveness examples",
         "url": "https://github.com/donet-org-cn/SimdFace/tree/main/src/SimdFace"
       },
       {
-        "title": "Unified web interface and HTTP API examples",
-        "url": "https://github.com/donet-org-cn/SimdFace/tree/main/src/SimdFace.Web"
+        "title": "Camera lab and setup instructions",
+        "url": "https://github.com/donet-org-cn/SimdFace#readme"
       }
     ]
   }

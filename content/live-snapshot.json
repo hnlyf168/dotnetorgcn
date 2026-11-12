@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T10:16:40.153Z",
+  "generatedAt": "2026-11-12T03:06:02.597Z",
   "projects": {
     "funasrnet": {
       "slug": "funasrnet",
@@ -247,28 +247,29 @@
       "stars": 36,
       "forks": 7,
       "issues": 0,
-      "pushedAt": "2026-11-11T10:01:46Z",
+      "pushedAt": "2026-11-11T19:40:14Z",
       "packages": [
         {
           "id": "SimdYolo",
-          "version": "0.11.3",
           "available": true,
+          "version": "0.11.4",
           "downloads": 0,
           "url": "https://www.nuget.org/packages/SimdYolo",
           "prerelease": false,
           "dependencies": [],
           "dependenciesAvailable": false,
-          "updatedAt": "2026-11-11T10:16:40.153Z"
+          "updatedAt": "2026-11-12T03:06:02.597Z"
         },
         {
           "id": "SimdYolo.Training",
-          "version": "0.11.3",
           "available": true,
+          "version": "0.11.4",
+          "downloads": 0,
           "url": "https://www.nuget.org/packages/SimdYolo.Training",
           "prerelease": false,
           "dependencies": [],
           "dependenciesAvailable": false,
-          "updatedAt": "2026-11-11T10:16:40.153Z"
+          "updatedAt": "2026-11-12T03:06:02.597Z"
         }
       ],
       "stargazers": {
@@ -473,7 +474,7 @@
         "source": "snapshot"
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-11T10:16:40.153Z",
+      "updatedAt": "2026-11-12T03:06:02.597Z",
       "license": null
     },
     "puredb": {
@@ -1291,22 +1292,22 @@
       "name": "SimdFace",
       "owner": "donet-org-cn",
       "repository": "https://github.com/donet-org-cn/SimdFace",
-      "stars": 10,
-      "forks": 0,
+      "stars": 16,
+      "forks": 2,
       "issues": 0,
-      "pushedAt": "2026-11-10T09:18:41Z",
+      "pushedAt": "2026-11-12T02:03:41Z",
       "license": "MIT",
       "packages": [
         {
           "id": "SimdFace",
-          "version": "1.0.0",
           "available": true,
-          "downloads": 6,
+          "version": "1.1.0",
+          "downloads": 50,
           "url": "https://www.nuget.org/packages/SimdFace",
           "prerelease": false,
           "dependencies": [],
           "dependenciesAvailable": false,
-          "updatedAt": "2026-11-11T10:16:40.153Z"
+          "updatedAt": "2026-11-12T03:06:02.597Z"
         }
       ],
       "stargazers": {
@@ -1316,7 +1317,7 @@
         "page": 1
       },
       "source": "snapshot",
-      "updatedAt": "2026-11-11T10:16:40.153Z"
+      "updatedAt": "2026-11-12T03:06:02.597Z"
     }
   },
   "members": [
