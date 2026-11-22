@@ -29,7 +29,7 @@
     ]
   },
   "SimdYolo": {
-    "overview": "SimdYolo 0.11.4 提供面向 .NET 10 的纯 C# YOLO 推理与检测头微调，覆盖目标检测、实例分割、姿态估计及受支持的 PT / PTH、ONNX、SYTRAIN 模型。本版减少 CPU 作业等待和中间张量，复用池化工作区并直接写入批次与多尺度检测头输出。Vulkan 新增共享内存 5×5 池化与打包 Winograd 权重路径，减少提交临时分配。推理、训练包同步发布，仓库提供网页标注、验证、早停、恢复和 ONNX 导出示例。",
+    "overview": "SimdYolo 0.11.6 提供纯 C# YOLO 推理与检测头微调，覆盖受支持模型的检测、分割与姿态任务。完整图片路径复用预处理和解码缓冲区，CPU 对大张量拼接和逐元素运算分块执行，空闲线程使用事件等待。PT 分割 / 姿态头直接收集入选锚点，Vulkan 按实际布局打包 Winograd 权重并复用工作区，TopK 保持浮点分数与同分顺序。版本同时包含 0.11.5 的 ARM64 NEON、硬件 INT8 点积、Android Vulkan 加载和 PlateNet 字符权重 ONNX 导出能力。",
     "scenarios": [
       "在 .NET 图像应用中探索目标检测、分割与姿态估计",
       "研究不依赖 Python 推理运行时的模型加载与执行",
@@ -41,23 +41,23 @@
       "Vulkan / Metal 需要对应平台驱动，按模型与后端核对验证范围"
     ],
     "steps": [
-      "安装 SimdYolo 0.11.4，按模型清单准备权重及 RGB24 / BGR24 像素输入。",
-      "通过 YoloDetector.Predict 推理并复用检测器，按设备选择 CPU、Vulkan 或支持的 Metal 路径。",
-      "微调时安装 SimdYolo.Training 0.11.4，并准备检测标注、验证集与训练配置。",
-      "按发布说明核对性能范围，需要评估 Winograd 回退时使用 SIMDYOLO_WINOGRAD_PACKED=0。"
+      "安装 SimdYolo 0.11.6，按模型清单准备受支持权重和 RGB24 / BGR24 输入。",
+      "通过 YoloDetector.Predict 运行完整图片推理，复用检测器及会话缓冲区。",
+      "微调使用 SimdYolo.Training 0.11.6，准备检测数据、验证集与训练配置。",
+      "依据硬件与文档选择 CPU / Vulkan / Metal，以及可选 AVX-512、INT8 和 GPU TopK 路径。"
     ],
     "resources": [
       {
-        "title": "0.11.4 发布说明、输出校验与安装",
-        "url": "https://github.com/donet-org-cn/SimdYolo/releases/tag/v0.11.4"
+        "title": "0.11.6 发布说明与安装",
+        "url": "https://github.com/donet-org-cn/SimdYolo/releases/tag/v0.11.6"
       },
       {
-        "title": "CPU / Vulkan 分轮性能与内存报告",
-        "url": "https://github.com/donet-org-cn/SimdYolo/blob/v0.11.4/artifacts/cpu-gpu-optimization-2026-11-11.md"
+        "title": "完整图片与前向推理对照报告",
+        "url": "https://github.com/donet-org-cn/SimdYolo/blob/v0.11.6/artifacts/inference-forward-performance-2026-11-18.md"
       },
       {
-        "title": "推理 API 与模型兼容范围",
-        "url": "https://github.com/donet-org-cn/SimdYolo/blob/main/docs/inference.md"
+        "title": "ARM64、INT8 与车牌模型支持",
+        "url": "https://github.com/donet-org-cn/SimdYolo/blob/main/docs/releases/v0.11.5.md"
       }
     ]
   },
@@ -80,26 +80,31 @@
     ]
   },
   "SimdSkia": {
-    "overview": "SimdSkia 使用 C# 实现 2D 绘图、字体、基础排版和图像编解码，可通过 SKCanvas 生成 PNG，也可接入 Avalonia 并沿用 XAML 与视图模型。0.1.4 正式版增加 Android NuGet 集成。桌面入口在 Windows 优先选择 Direct2D，在 Linux X11 / XWayland 优先选择硬件 Vulkan，并提供 CPU 回退与显式 CPU 选项。macOS 与 Android 使用 CPU 渲染，桌面应用可按目标平台发布 NativeAOT。 最新主分支在 0.1.4 基础上进一步优化运行时效果数值计划、网格 / 纹理采样、Avalonia 作用域记录和字体缓存，源码优化及测量结果见 2026-11-10 第二轮报告。",
+    "overview": "SimdSkia 0.1.12 合并 macOS Metal 窗口呈现、CJK 和 TTC 字体修复，以及 CPU 阴影和路径光栅化优化。Windows 优先使用 Direct2D，Linux 优先使用 Vulkan，macOS 通过 Avalonia 原生宿主的 CAMetalLayer 呈现并支持 GPU 图层、模糊和投影。中文回退按区域选择 SC / TC 字体，保留显式字体优先级。CPU 投影对 alpha 通道做高斯卷积，路径光栅化复用临时列表。项目继续提供 SKCanvas 图片生成、PDF 页面渲染、Android CPU / SIMD 和桌面 NativeAOT。",
     "scenarios": [
       "在服务端或控制台用 SKCanvas 绘图并生成 PNG",
       "为 Avalonia 桌面应用评估 CPU、Direct2D 与 Vulkan 后端",
       "为 Avalonia Android 应用接入 CPU / SIMD 渲染，或将 PDF 页面转成图片"
     ],
     "requirements": [
-      "应用使用 .NET 10，源码构建按 global.json 使用 SDK 10.0.403 或兼容版本",
-      "直接引用的 SimdSkia.* 包统一为 0.1.4，Avalonia 包使用同一已验证版本",
-      "Android 启动项目使用 net10.0-android36.0 与 Avalonia 12.1.5，按文档配置 Activity 主题和字体"
+      ".NET 10，直接引用的 SimdSkia.* 包统一为 0.1.12",
+      "桌面 Avalonia 12.1.0+，Android 12.1.5+，按文档核对宿主与接口兼容",
+      "中文选用含所需字形的静态 TrueType glyf 字体，GPU 需要对应系统驱动"
     ],
     "steps": [
-      "按用途安装 SimdSkia、SimdSkia.Avalonia.Desktop 或 SimdSkia.Avalonia.Android 0.1.4。",
-      "桌面按迁移指南配置 UseSimdSkiaDesktop()，Android 配置 UseSimdSkiaAndroid()。",
-      "需要显式 CPU 时使用 options.UseCpu()，用实际窗口和图像验证字体、渲染质量与性能。"
+      "按用途安装 SimdSkia、SimdSkia.Avalonia.Desktop 或 Android 包 0.1.12。",
+      "桌面配置 UseSimdSkiaDesktop()，Android 配置 UseSimdSkiaAndroid()，统一 Avalonia 包版本。",
+      "为中文配置受支持字体，核对实际页面的回退、缩放和 DPI 表现。",
+      "需要显式 CPU 时使用 options.UseCpu()，结合发布说明验证画质、分配和内存。"
     ],
     "resources": [
       {
-        "title": "最新源码优化、性能与内存报告",
-        "url": "https://github.com/donet-org-cn/SimdSkia/blob/main/docs/PERFORMANCE-2026-11-10-ROUND2.md"
+        "title": "0.1.12 发布说明、字体修复与实测",
+        "url": "https://github.com/donet-org-cn/SimdSkia/releases/tag/v0.1.12"
+      },
+      {
+        "title": "macOS Metal 接入与验证",
+        "url": "https://github.com/donet-org-cn/SimdSkia/blob/v0.1.12/docs/MACOS-METAL-2026-11-20.md"
       }
     ]
   },
@@ -176,7 +181,7 @@
     ]
   },
   "SimdPaddleOCR": {
-    "overview": "SimdPaddleOCR 由 sdcb 维护，实现纯 C# PP-OCRv6 文字检测、方向分类和识别。当前主分支将推理交给独立的 Sdcb.SimdOnnx 引擎，通过公开 API 集成，并提供以 SimdCodecs 2.0 解码图像的示例。核心可直接接收 BGR24、RGB24、BGRA32 或 RGBA32 像素内存，支持显式 stride 和嵌入式模型加载。已发布核心包为 2.0.0，当前源码与包使用方式应分别核对。",
+    "overview": "SimdPaddleOCR 实现纯 C# PP-OCRv6 文字检测、方向分类和识别。当前主分支将 SimdOnnx 以 git submodule 源码形式编译进库，引擎类型全部 internal。新增 PaddleOcrDocumentOrientationClassifier 作为独立整页方向分类入口，在 OCR 前识别 90° / 180° / 270° 页面旋转，并修正融合 CTC 路径 RecognitionScore 的 softmax 概率计算。核心接收 BGR24、RGB24、BGRA32、RGBA32 像素内存，仓库提供 SimdCodecs 2.0 解码示例，正式核心包仍为 2.0.0。",
     "scenarios": [
       "在 .NET 应用中提取图片与文档文字",
       "研究托管 ONNX 与 SIMD 推理实现",
@@ -187,9 +192,9 @@
       "核对像素格式、模型与 GPU 后端支持范围"
     ],
     "steps": [
-      "安装 Sdcb.SimdPaddleOCR 与匹配的 ChineseV6Tiny 等模型包。",
-      "按所选版本的 README 加载模型，使用图像组件生成核心 API 所需的像素内存。",
-      "主分支的 SimdCodecs 2.0 示例使用 ImageCodecs.Decode 与 PixelFormat.Bgr24，运行 OCR 期间保持像素缓冲区有效。"
+      "安装 Sdcb.SimdPaddleOCR 与匹配的识别模型，源码构建时同步 git submodule。",
+      "按当前版本文档解码图片并准备像素内存，保持缓冲区在识别期间有效。",
+      "需要整页转正时，按文档使用 DocumentOrientation 模型和独立方向分类器，再进入 OCR。"
     ]
   },
   "PaddleSharp": {
@@ -209,7 +214,7 @@
     ]
   },
   "chats": {
-    "overview": "Sdcb Chats 是面向多模型服务的前端和 AI 网关，提供对话界面、API 协议接入、存储选择和管理功能。可根据部署需求选择 Docker 或发布包，再配置所需模型服务。 当前文档列出 22+ 模型服务商，支持 Chat Completions、Messages、Responses 与 Gemini 协议、Request Trace 请求追踪，以及 Keycloak SSO 等管理能力。",
+    "overview": "Sdcb Chats 提供多模型对话、AI 网关、代码解释器、Request Trace 和用户管理。1.17.1 是安全补丁版本，更新 .NET 与相关依赖，收紧 MCP 自定义 URL / Headers 的可见权限。图像处理增加 WebP，图像头解析改用 Sdcb.SimdCodecs 2.0.0。部署可选择 Docker 或分平台发布包，并配置模型服务、数据库与存储。",
     "scenarios": [
       "统一体验不同模型服务的对话与多模态能力",
       "研究自托管 AI 前端与 API 网关集成",
@@ -220,8 +225,15 @@
       "自行配置模型服务、存储与可选工具"
     ],
     "steps": [
-      "阅读部署文档，选择适合的数据库与运行方式。",
-      "配置自己的模型服务并验证用户、对话和工具流程。"
+      "从 1.17.1 发布页选择 Docker 镜像或对应平台发布包。",
+      "框架依赖部署按文档升级 ASP.NET Core 运行时，从 1.16 及更早版本升级时核对 1.17.0 数据库迁移脚本。",
+      "配置模型服务、存储和用户权限，并检查 MCP 与多模态工作流。"
+    ],
+    "resources": [
+      {
+        "title": "1.17.1 发布与下载",
+        "url": "https://github.com/sdcb/chats/releases/tag/1.17.1.799"
+      }
     ]
   },
   "OpenVINO.NET": {
@@ -275,7 +287,7 @@
     ]
   },
   "SimdCodecs": {
-    "overview": "SimdCodecs 是 sdcb 维护的 .NET 10 纯托管图像编解码库。2.0.0 正式版以 ImageCodecs 统一解码和编码入口，可指定像素布局、区域、缩放与 EXIF 方向校正，并通过 PixelBuffer 管理像素及元数据。它覆盖 JPEG、PNG、WebP、TIFF、GIF、BMP、ICO、QOI、Netpbm 等格式，提供 JPEG 2000 / JBIG2 解码和可选 HEIF / HEIC 扩展，支持多帧读取、16 位样本、SIMD 与 NativeAOT。",
+    "overview": "SimdCodecs 是 sdcb 维护的 .NET 10 纯托管图像编解码库。2.0.0 正式版以 ImageCodecs 统一解码和编码入口，可指定像素布局、区域、缩放与 EXIF 方向校正，并通过 PixelBuffer 管理像素及元数据。它覆盖 JPEG、PNG、WebP、TIFF、GIF、BMP、ICO、QOI、Netpbm 等格式，提供 JPEG 2000 / JBIG2 解码和可选 HEIF / HEIC 扩展，支持多帧读取、16 位样本、SIMD 与 NativeAOT。 当前主分支还针对 WebAssembly 使用 PackedSimd.Swizzle 优化 PNG、BMP 与像素格式转换的字节重排。",
     "scenarios": [
       "为 .NET 服务构建图像读取、格式转换与缩略图处理流程",
       "向 OCR、计算机视觉或桌面渲染提供 RGB / BGRA / 灰度像素缓冲区",

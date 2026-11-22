@@ -1,6 +1,6 @@
 {
   "owner": "hnlyf168",
-  "syncedAt": "2026-11-12",
+  "syncedAt": "2026-11-22",
   "projects": [
     {
       "name": "FunAsrNet",
@@ -15,7 +15,7 @@
         "SIMD",
         "Vulkan"
       ],
-      "stars": 66,
+      "stars": 68,
       "fork": false,
       "features": [
         "1.0.1 核心与 Vulkan NuGet 包，CPU SIMD / GPU 内核优化",
@@ -41,22 +41,22 @@
       "category": "ai",
       "icon": "scan",
       "eyebrow": "让代码看见更多",
-      "description": "纯 C# YOLO 检测、分割与姿态估计，0.11.4 优化 CPU 线程等待、池化与内存访问，以及 Vulkan 检测头和 Winograd 推理。",
+      "description": "纯 C# YOLO 检测、分割与姿态估计，0.11.6 优化完整图片推理、CPU 线程等待及 Vulkan 缓冲区，支持 ARM64 NEON 与车牌模型导出。",
       "tags": [
         "计算机视觉",
         "YOLO",
         "Vulkan",
         "Metal"
       ],
-      "stars": 36,
+      "stars": 38,
       "fork": false,
       "features": [
-        "0.11.4 推理与训练包，支持 PT / ONNX / SYTRAIN 和像素输入",
-        "CPU 调度、池化工作区、批次写入与多尺度检测头优化",
-        "Vulkan 共享内存池化、打包 Winograd 权重与提交分配优化"
+        "0.11.6 推理与训练包，复用图片预处理和解码缓冲区",
+        "ARM64 NEON、硬件 INT8 点积与车牌识别模型 ONNX 导出",
+        "Vulkan Winograd 工作区复用、稳定同分 TopK 与分割 / 姿态优化"
       ],
-      "note": "目标框架为 .NET 10，推理默认 FP32，训练为冻结骨干 / FPN 的检测头微调。性能报告列出特定设备的分轮测量及 GPU 工作集代价。通用 ONNX TopK 默认使用 CPU，模型、算子与后端能力按支持清单选择。",
-      "command": "dotnet add package SimdYolo --version 0.11.4",
+      "note": "目标框架为 .NET 10，默认 FP32，AVX-512 和通用 GPU TopK 按文档显式启用。训练为冻结骨干 / FPN 的检测头微调。发布报告记录不同模型的延迟、CPU 时间和内存表现，部分 P95 与工作集仍有上升。",
+      "command": "dotnet add package SimdYolo --version 0.11.6",
       "owner": "donet-org-cn",
       "repositoryId": 1418580617,
       "nugetPackages": [
@@ -92,7 +92,7 @@
       ],
       "note": "核心包要求 .NET 10，模型与许可证随仓库提供。摄像头流程在后端执行模型推理，防翻拍与 Face Mesh 使用 CPU，照片检测和比对可选 Vulkan。手机摄像头接入需 HTTPS 或浏览器允许的安全上下文，阈值和实际识别表现需结合业务样本校准。",
       "command": "dotnet add package SimdFace --version 1.1.0",
-      "stars": 16,
+      "stars": 33,
       "fork": false,
       "nugetPackages": [
         "SimdFace"
@@ -106,19 +106,19 @@
       "category": "ai",
       "icon": "text",
       "eyebrow": "纯 C#，读懂图片中的文字",
-      "description": "纯 C# PP-OCRv6 文字检测、方向分类与识别。当前源码接入独立 SimdOnnx 引擎，提供 SimdCodecs 图像解码示例。",
+      "description": "纯 C# PP-OCRv6 文字检测与识别，当前源码内嵌 SimdOnnx 引擎，增加独立页面方向分类并修正识别分数的概率计算。",
       "tags": [
         "OCR",
         "PP-OCRv6",
         "SIMD"
       ],
       "features": [
-        "PP-OCRv6 文字检测、方向分类与识别",
-        "当前主分支通过公开 API 接入 Sdcb.SimdOnnx 引擎",
-        "像素内存输入、SimdCodecs 2.0 解码示例及 Vulkan / Metal"
+        "PP-OCRv6 检测、方向分类与识别，核心接收交错像素内存",
+        "当前主分支以 submodule 源码内嵌 SimdOnnx，引擎类型为 internal",
+        "独立页面方向分类入口、识别分数修复及 SimdCodecs 图像解码"
       ],
-      "note": "已发布的核心包为 2.0.0。主分支文档已接入 Sdcb.SimdOnnx 公开预览 API 与 SimdCodecs 2.0，选用源码或 NuGet 时应核对对应版本文档。GPU 路径使用 .NET 10 与兼容驱动，核心接收由调用方提供的像素内存。",
-      "stars": 545,
+      "note": "已发布核心包为 2.0.0，源码新增能力按对应提交与模型包文档接入。页面方向分类需要 DocumentOrientation 模型。GPU 路径要求 .NET 10 及兼容驱动，模型和像素缓冲区生命周期按 API 文档管理。",
+      "stars": 554,
       "fork": false,
       "nugetPackages": [
         "Sdcb.SimdPaddleOCR"
@@ -166,21 +166,21 @@
       "category": "infra",
       "icon": "layers",
       "eyebrow": "描绘下一帧",
-      "description": "C# 2D 渲染引擎，0.1.4 支持 Avalonia 桌面和 Android CPU 接入，提供 Direct2D、Vulkan、SIMD 与图片生成能力。",
+      "description": "C# 2D 渲染引擎，0.1.12 加入 macOS Metal 呈现、中文 / TTC 字体修复，优化 CPU 阴影与路径分配，支持 Avalonia 桌面和 Android。",
       "tags": [
         "2D 渲染",
         "Avalonia",
         "SIMD"
       ],
-      "stars": 29,
+      "stars": 43,
       "fork": false,
       "features": [
-        "0.1.4 正式版，Avalonia 桌面与 Android CPU / SIMD 接入",
-        "Windows 默认优先 Direct2D，Linux 默认优先 Vulkan，支持 CPU 回退",
-        "SKCanvas 图片生成、PDF 页面渲染与桌面 NativeAOT"
+        "0.1.12 正式版，Windows Direct2D、Linux Vulkan 与 macOS Metal 呈现",
+        "区域化中文回退、TTC 字形发现及 CPU 阴影 / 路径优化",
+        "SKCanvas 绘图、PDF 页面渲染、Android CPU / SIMD 与桌面 NativeAOT"
       ],
-      "note": "桌面已验证 Avalonia 12.1.0–12.1.5，Android 示例使用 12.1.5 与 net10.0-android36.0。macOS 和 Android 使用 CPU 渲染。迁移时需重新编译依赖 SK* 类型的代码，并评估第三方控件、字体与画质兼容范围。",
-      "command": "dotnet add package SimdSkia.Avalonia.Desktop --version 0.1.4",
+      "note": "使用 .NET 10，桌面接受 Avalonia 12.1.0+，Android 接受 12.1.5+，直接引用包需统一版本。macOS Metal 有缩放后帧尺寸与 DPI 的已知验证记录，可用 UseCpu() 回退。中文字体按文档选择静态 TrueType glyf 轮廓，iOS Metal 示例需设备验收。",
+      "command": "dotnet add package SimdSkia.Avalonia.Desktop --version 0.1.12",
       "owner": "donet-org-cn",
       "repositoryId": 1428164442,
       "nugetPackages": [
@@ -212,7 +212,7 @@
         "SIMD / NativeAOT，支持 16 位输出及可选 HEIF / HEIC 扩展"
       ],
       "note": "从 1.x 升级需按迁移文档改用 ImageCodecs 与 PixelFormat，并释放 IDisposable 图像。格式能力按编码器与解码器区分。HEIF / HEIC 扩展需单独安装并注册，HEVC 专利许可需另行评估。",
-      "stars": 128,
+      "stars": 144,
       "fork": false,
       "nugetPackages": [
         "Sdcb.SimdCodecs"
@@ -232,7 +232,7 @@
         "RTSP / RTP",
         "WebSocket"
       ],
-      "stars": 2,
+      "stars": 3,
       "fork": false,
       "features": [
         "RTSP / RTP / MPEG-PS 媒体接入",
@@ -353,7 +353,7 @@
         "多平台 CPU / GPU 原生运行包"
       ],
       "note": "该项目是原生 Paddle Inference 的绑定，需要匹配平台、架构及 CPU/GPU 的运行包，并非无原生依赖的纯 C# 推理引擎。",
-      "stars": 1460,
+      "stars": 1458,
       "fork": false,
       "nugetPackages": [
         "Sdcb.PaddleOCR",
@@ -370,19 +370,19 @@
       "category": "apps",
       "icon": "message",
       "eyebrow": "连接多模型的 AI 工作台",
-      "description": ".NET 大模型前端与 AI 网关，连接 22+ 模型服务商，提供多模态对话、代码解释器、请求追踪与用户权限管理。",
+      "description": "多模型 .NET 前端与 AI 网关，1.17.1 更新运行时与依赖安全补丁、MCP 权限控制和 WebP 图像支持，连接 22+ 服务商。",
       "tags": [
         "AI 网关",
         "多模型",
         "自托管"
       ],
       "features": [
-        "多模型服务商与兼容 API 协议入口",
-        "对话、图像及可选工具工作流",
-        "Docker / 原生部署与用户管理"
+        "1.17.1 安全补丁与 MCP URL / Headers 访问控制",
+        "22+ 模型服务商、多模态及 API 网关协议",
+        "WebP 支持、SimdCodecs 2.0 图像解析与 Request Trace"
       ],
       "note": "模型能力、费用和可用性取决于接入的服务商及配置。代码执行等可选工具需要按文档部署相应运行环境。",
-      "stars": 620,
+      "stars": 621,
       "fork": false,
       "nugetPackages": [],
       "command": "git clone https://github.com/sdcb/chats.git",
@@ -464,7 +464,7 @@
         "泛型数学、RoundingMode 与数值类型间转换"
       ],
       "note": "2.0.0 将 Real 更名为 BigFloat、RealRounding 更名为 RoundingMode。Float128 提供正确舍入语义，DoubleDouble / QuadDouble 提供约 106 / 212 位快速运算，需按各类型精度与误差边界选择。",
-      "stars": 195,
+      "stars": 197,
       "fork": false,
       "nugetPackages": [
         "Sdcb.Arithmetic"

@@ -44,7 +44,7 @@
   },
   "SimdYolo": {
     "eyebrow": "Give your code a new perspective",
-    "description": "Pure C# YOLO detection, segmentation and pose. Version 0.11.4 improves CPU worker waiting, pooling and memory access, plus Vulkan detection heads and Winograd inference.",
+    "description": "Pure C# YOLO detection, segmentation and pose. Version 0.11.6 improves image inference, CPU waiting and Vulkan buffers, with ARM64 NEON and plate-model export.",
     "tags": [
       "Computer vision",
       "YOLO",
@@ -52,12 +52,12 @@
       "Metal"
     ],
     "features": [
-      "0.11.4 inference and training packages with PT / ONNX / SYTRAIN and pixel inputs",
-      "CPU scheduling, pooling workspaces, batch writes and multi-scale detection-head improvements",
-      "Vulkan shared-memory pooling, packed Winograd weights and submission-allocation improvements"
+      "0.11.6 inference and training packages with reusable preprocessing and decoding buffers",
+      "ARM64 NEON, hardware INT8 dot products and plate-recognition ONNX export",
+      "Reused Vulkan Winograd workspaces, stable TopK ties and segmentation / pose improvements"
     ],
-    "note": "Targets .NET 10 with default FP32 inference and detection-head fine-tuning over a frozen backbone / FPN. Performance reports document individual measurement rounds, devices and GPU-process working-set costs. Generic ONNX TopK defaults to CPU. Select supported models, operators and backends using the compatibility list.",
-    "overview": "SimdYolo 0.11.4 provides C# YOLO inference and detection-head fine-tuning for .NET 10, covering detection, segmentation and pose with supported PT / PTH, ONNX and SYTRAIN models. This release reduces CPU job waiting and intermediate tensors, reuses pooling workspaces and writes batch and multi-scale detection-head results directly into outputs. Vulkan adds shared-memory 5×5 pooling and packed Winograd weights while reducing temporary submission allocations. Inference and training packages ship together, with web labeling, validation, early stopping, checkpoint recovery and ONNX export examples.",
+    "note": "Targets .NET 10 with default FP32. Enable AVX-512 and generic GPU TopK explicitly as documented. Training fine-tunes detection heads over a frozen backbone / FPN. Reports record latency, CPU time and memory by model, including increases in some P95 and working-set measurements.",
+    "overview": "SimdYolo 0.11.6 provides C# YOLO inference and detection-head fine-tuning for supported detection, segmentation and pose models. Image inference reuses preprocessing and decoding buffers. CPU execution partitions large concatenations and elementwise operations, and parks idle workers on events. PT segmentation / pose heads gather selected anchors directly. Vulkan packs Winograd weights for actual kernel layouts, reuses workspaces and preserves floating scores and tie order in TopK. The release also includes 0.11.5 ARM64 NEON, hardware INT8 dot products, Android Vulkan loading and PlateNet weight export to ONNX.",
     "scenarios": [
       "Explore detection, segmentation, and pose in .NET image applications",
       "Study model loading and execution without a Python inference runtime",
@@ -69,23 +69,23 @@
       "Platform drivers for Vulkan / Metal and validation appropriate to your model and backend"
     ],
     "steps": [
-      "Install SimdYolo 0.11.4 and prepare supported weights and RGB24 / BGR24 pixels.",
-      "Use YoloDetector.Predict and reuse detectors, selecting CPU, Vulkan or a supported Metal backend.",
-      "Install SimdYolo.Training 0.11.4 for fine-tuning and prepare detection labels, validation data and configuration.",
-      "Review measurement conditions in the release notes and use SIMDYOLO_WINOGRAD_PACKED=0 when evaluating the Winograd fallback."
+      "Install SimdYolo 0.11.6 with supported weights and RGB24 / BGR24 inputs.",
+      "Use YoloDetector.Predict for full-image inference and reuse detectors and session buffers.",
+      "Install SimdYolo.Training 0.11.6 and prepare detection labels, validation data and configuration.",
+      "Select CPU / Vulkan / Metal and optional AVX-512, INT8 and GPU TopK paths using the hardware-specific documentation."
     ],
     "resources": [
       {
-        "title": "Version 0.11.4 release notes, output validation and installation",
-        "url": "https://github.com/donet-org-cn/SimdYolo/releases/tag/v0.11.4"
+        "title": "Version 0.11.6 release notes and installation",
+        "url": "https://github.com/donet-org-cn/SimdYolo/releases/tag/v0.11.6"
       },
       {
-        "title": "CPU / Vulkan performance rounds and memory report",
-        "url": "https://github.com/donet-org-cn/SimdYolo/blob/v0.11.4/artifacts/cpu-gpu-optimization-2026-11-11.md"
+        "title": "Image and forward-inference performance report",
+        "url": "https://github.com/donet-org-cn/SimdYolo/blob/v0.11.6/artifacts/inference-forward-performance-2026-11-18.md"
       },
       {
-        "title": "Inference APIs and supported models",
-        "url": "https://github.com/donet-org-cn/SimdYolo/blob/main/docs/inference.md"
+        "title": "ARM64, INT8 and plate-model support",
+        "url": "https://github.com/donet-org-cn/SimdYolo/blob/main/docs/releases/v0.11.5.md"
       }
     ]
   },
@@ -122,38 +122,43 @@
   },
   "SimdSkia": {
     "eyebrow": "Build the next frame",
-    "description": "A C# 2D renderer. Version 0.1.4 supports Avalonia desktops and Android CPU rendering, with Direct2D, Vulkan, SIMD and image generation.",
+    "description": "A C# 2D renderer. Version 0.1.12 adds macOS Metal presentation, CJK / TTC font fixes and CPU shadow / path-allocation improvements for Avalonia desktops and Android.",
     "tags": [
       "2D rendering",
       "Avalonia",
       "SIMD"
     ],
     "features": [
-      "Stable 0.1.4 with Avalonia desktop and Android CPU / SIMD integration",
-      "Direct2D preferred on Windows and Vulkan on Linux, with CPU fallback",
-      "SKCanvas image generation, PDF page rendering and desktop NativeAOT"
+      "Stable 0.1.12 with Windows Direct2D, Linux Vulkan and macOS Metal presentation",
+      "Regional CJK fallback, TTC glyph discovery and CPU shadow / path improvements",
+      "SKCanvas drawing, PDF pages, Android CPU / SIMD and desktop NativeAOT"
     ],
-    "note": "Desktop validation covers Avalonia 12.1.0–12.1.5. Android examples use 12.1.5 and net10.0-android36.0. macOS and Android use CPU rendering. Recompile code using SK* types and assess third-party controls, fonts and rendering compatibility when migrating.",
-    "overview": "SimdSkia implements 2D drawing, fonts, basic layout and image codecs in C#. Use SKCanvas to generate PNG images or integrate with Avalonia while retaining XAML and view models. Stable 0.1.4 adds Android NuGet integration. The desktop entry point prefers Direct2D on Windows and hardware Vulkan on Linux X11 / XWayland, with CPU fallback and explicit CPU selection. macOS and Android render on the CPU. Desktop applications can publish with their target platform NativeAOT toolchain. Current main-branch work on the 0.1.4 codebase further optimizes runtime-effect execution plans, mesh / texture sampling, Avalonia scope records and font caches. See the November 10 second-round report for source changes and measurements.",
+    "note": "Requires .NET 10. Desktop accepts Avalonia 12.1.0+ and Android 12.1.5+, with directly referenced packages aligned. macOS Metal has documented frame-size / DPI issues after scaling, with UseCpu() available as fallback. Select static TrueType glyf fonts for Chinese using the guide. iOS Metal examples need device validation.",
+    "overview": "SimdSkia 0.1.12 combines macOS Metal window presentation, CJK / TTC font fixes and CPU shadow and rasterization improvements. Windows prefers Direct2D, Linux prefers Vulkan, and macOS presents through CAMetalLayer in the Avalonia native host, with GPU layers, blur and shadows. CJK fallback selects SC / TC fonts by region and prioritizes explicit fonts. CPU shadows convolve alpha channels, while path rasterization reuses temporary lists. SKCanvas image generation, PDF rendering, Android CPU / SIMD and desktop NativeAOT remain available.",
     "scenarios": [
       "Generate PNG images with SKCanvas in services or console apps",
       "Evaluate CPU, Direct2D and Vulkan backends in Avalonia desktop applications",
       "Integrate CPU / SIMD rendering on Avalonia Android or render PDF pages as images"
     ],
     "requirements": [
-      ".NET 10 applications and SDK 10.0.403 or a compatible version specified by global.json for source builds",
-      "Align directly referenced SimdSkia.* packages to 0.1.4 and keep Avalonia packages on one verified version",
-      "Android uses net10.0-android36.0 and Avalonia 12.1.5, with Activity themes and fonts configured as documented"
+      ".NET 10 with directly referenced SimdSkia.* packages aligned to 0.1.12",
+      "Avalonia 12.1.0+ on desktop and 12.1.5+ on Android, checking host and interface compatibility",
+      "Static TrueType glyf fonts with required Chinese glyphs and platform drivers for GPU rendering"
     ],
     "steps": [
-      "Choose SimdSkia, SimdSkia.Avalonia.Desktop or SimdSkia.Avalonia.Android 0.1.4 for your application.",
-      "Follow the migration guide to configure UseSimdSkiaDesktop() or UseSimdSkiaAndroid().",
-      "Use options.UseCpu() for explicit CPU rendering and validate real windows for fonts, output quality and performance."
+      "Choose SimdSkia, SimdSkia.Avalonia.Desktop or Android packages at 0.1.12.",
+      "Configure UseSimdSkiaDesktop() or UseSimdSkiaAndroid() and align Avalonia packages.",
+      "Configure supported Chinese fonts and check fallback, scaling and DPI on real pages.",
+      "Use options.UseCpu() for explicit CPU rendering and assess quality, allocations and memory with the release reports."
     ],
     "resources": [
       {
-        "title": "Latest source optimization, performance and memory report",
-        "url": "https://github.com/donet-org-cn/SimdSkia/blob/main/docs/PERFORMANCE-2026-11-10-ROUND2.md"
+        "title": "Version 0.1.12 release notes, font fixes and measurements",
+        "url": "https://github.com/donet-org-cn/SimdSkia/releases/tag/v0.1.12"
+      },
+      {
+        "title": "macOS Metal setup and validation",
+        "url": "https://github.com/donet-org-cn/SimdSkia/blob/v0.1.12/docs/MACOS-METAL-2026-11-20.md"
       }
     ]
   },
@@ -285,19 +290,19 @@
   "SimdPaddleOCR": {
     "title": "SimdPaddleOCR",
     "eyebrow": "Read the text inside your images",
-    "description": "Pure C# PP-OCRv6 detection, orientation classification and recognition. Current source integrates the independent SimdOnnx engine and SimdCodecs decoding examples.",
+    "description": "Pure C# PP-OCRv6 detection and recognition. Current source embeds SimdOnnx, adds standalone page-orientation classification and fixes recognition-score probability calculation.",
     "tags": [
       "OCR",
       "PP-OCRv6",
       "SIMD"
     ],
     "features": [
-      "PP-OCRv6 text detection, orientation classification and recognition",
-      "Current main branch integrates Sdcb.SimdOnnx through its public API",
-      "Pixel-memory input, SimdCodecs 2.0 decoding examples and Vulkan / Metal"
+      "PP-OCRv6 detection, orientation classification and recognition with interleaved pixel inputs",
+      "Current main branch embeds SimdOnnx submodule source with internal engine types",
+      "Standalone page orientation, recognition-score fixes and SimdCodecs decoding"
     ],
-    "note": "The published core package is 2.0.0. Main-branch documentation integrates the public preview Sdcb.SimdOnnx API and SimdCodecs 2.0. Check documentation matching your source or NuGet version. GPU execution uses .NET 10 and compatible drivers, with caller-provided pixel memory as core input.",
-    "overview": "Maintained by sdcb, SimdPaddleOCR implements PP-OCRv6 detection, orientation classification and recognition in C#. The current main branch integrates the independent Sdcb.SimdOnnx inference engine through public APIs and demonstrates image decoding with SimdCodecs 2.0. The core accepts BGR24, RGB24, BGRA32 or RGBA32 memory, explicit stride and embedded model loading. The published core package is 2.0.0, so consult the documentation for your selected source or package version.",
+    "note": "The published core package is 2.0.0. Follow the matching commits and model documentation for source additions. Page orientation needs the DocumentOrientation model. GPU execution requires .NET 10 and compatible drivers. Manage models and pixel-buffer lifetimes as documented.",
+    "overview": "SimdPaddleOCR implements PP-OCRv6 detection, orientation classification and recognition in C#. Current main embeds SimdOnnx through a git submodule, with all engine types internal. PaddleOcrDocumentOrientationClassifier provides an independent stage for 90° / 180° / 270° page rotation before OCR. The fused CTC path now calculates RecognitionScore as a softmax probability. The core accepts BGR24, RGB24, BGRA32 and RGBA32 memory, with SimdCodecs 2.0 examples. The published core remains version 2.0.0.",
     "scenarios": [
       "Extract text from images and documents in .NET",
       "Study managed ONNX and SIMD inference",
@@ -308,9 +313,9 @@
       "Verify supported formats, models, and GPU backends"
     ],
     "steps": [
-      "Install Sdcb.SimdPaddleOCR and a matching model package such as ChineseV6Tiny.",
-      "Load models using your version README and prepare the pixel memory required by the core API.",
-      "Main-branch SimdCodecs 2.0 examples use ImageCodecs.Decode with PixelFormat.Bgr24. Keep the buffer alive while OCR runs."
+      "Install Sdcb.SimdPaddleOCR and matching models, initializing git submodules for source builds.",
+      "Decode images and prepare pixel memory using your version documentation, keeping buffers alive during inference.",
+      "For page rotation, use the DocumentOrientation model and standalone classifier before OCR."
     ]
   },
   "PaddleSharp": {
@@ -344,19 +349,19 @@
   },
   "chats": {
     "eyebrow": "A workspace for multiple AI models",
-    "description": "A .NET LLM frontend and AI gateway for 22+ providers, with multimodal chat, a code interpreter, request tracing and user access management.",
+    "description": "A .NET LLM frontend and AI gateway. Version 1.17.1 updates runtime and dependency security, MCP access controls and WebP support for 22+ providers.",
     "tags": [
       "AI gateway",
       "Multi-model",
       "Self-hosted"
     ],
     "features": [
-      "Multiple model providers and compatible API protocols",
-      "Conversation, image, and optional tool workflows",
-      "Docker / native deployment and user management"
+      "1.17.1 security patches and MCP URL / Headers access controls",
+      "22+ providers, multimodal chat and AI gateway protocols",
+      "WebP support, SimdCodecs 2.0 image parsing and Request Trace"
     ],
     "note": "Capabilities, pricing, and availability depend on your model providers and configuration. Optional code-execution tools require the documented runtime setup.",
-    "overview": "Sdcb Chats combines a multi-model frontend with an AI gateway. It offers conversation UI, API protocols, storage choices, and management features. Choose Docker or a native package and configure the providers you need. Current documentation lists 22+ providers, Chat Completions, Messages, Responses and Gemini protocols, Request Trace observability and management features including Keycloak SSO.",
+    "overview": "Sdcb Chats offers multi-model conversations, an AI gateway, a code interpreter, Request Trace and user management. Security patch 1.17.1 updates .NET and dependencies and restricts MCP custom URL / Headers visibility. Image processing adds WebP and uses Sdcb.SimdCodecs 2.0.0 for image headers. Choose Docker or platform binaries, then configure model services, databases and storage.",
     "scenarios": [
       "Evaluate conversations and multimodal capabilities across model providers",
       "Explore a self-hosted AI frontend and API gateway",
@@ -367,8 +372,15 @@
       "Your own model-provider, storage, and optional tool configuration"
     ],
     "steps": [
-      "Choose your database and runtime using the deployment documentation.",
-      "Configure providers and validate users, conversations, and tools."
+      "Select Docker images or platform binaries from the 1.17.1 release.",
+      "For framework-dependent deployments, update the ASP.NET Core runtime as documented. Upgrades from 1.16 or earlier should review the 1.17.0 database migration scripts.",
+      "Configure providers, storage and permissions, then check MCP and multimodal workflows."
+    ],
+    "resources": [
+      {
+        "title": "Version 1.17.1 downloads and release notes",
+        "url": "https://github.com/sdcb/chats/releases/tag/1.17.1.799"
+      }
     ]
   },
   "OpenVINO.NET": {
@@ -474,7 +486,7 @@
       "SIMD / NativeAOT, 16-bit output and optional HEIF / HEIC decoding"
     ],
     "note": "Upgrade 1.x callers using the migration guide for ImageCodecs and PixelFormat, and dispose IDisposable images. Format capabilities depend on the encoder and decoder. HEIF / HEIC requires a separately installed and registered extension and assessment of HEVC patent obligations.",
-    "overview": "Maintained by sdcb, SimdCodecs supplies managed .NET 10 image codecs. Stable 2.0.0 unifies encoding and decoding under ImageCodecs, with pixel layout selection, regions, scaling and EXIF orientation handling. PixelBuffer manages pixels and metadata. Formats include JPEG, PNG, WebP, TIFF, GIF, BMP, ICO, QOI and Netpbm, with JPEG 2000 / JBIG2 decoding and an optional HEIF / HEIC extension. It supports frame readers, 16-bit samples, SIMD and NativeAOT.",
+    "overview": "Maintained by sdcb, SimdCodecs supplies managed .NET 10 image codecs. Stable 2.0.0 unifies encoding and decoding under ImageCodecs, with pixel layout selection, regions, scaling and EXIF orientation handling. PixelBuffer manages pixels and metadata. Formats include JPEG, PNG, WebP, TIFF, GIF, BMP, ICO, QOI and Netpbm, with JPEG 2000 / JBIG2 decoding and an optional HEIF / HEIC extension. It supports frame readers, 16-bit samples, SIMD and NativeAOT. Current main-branch work also uses PackedSimd.Swizzle for WebAssembly byte shuffles in PNG, BMP and pixel-format conversions.",
     "scenarios": [
       "Build image-loading, conversion and thumbnail workflows in .NET services",
       "Provide RGB / BGRA / grayscale buffers to OCR, computer vision or desktop rendering",
